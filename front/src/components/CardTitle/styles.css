@@ -1,0 +1,21 @@
+.title-container {
+    background: var(--bg-color);
+    border-bottom: 3px solid var(--border-color);
+    border-left: 1px solid var( --border-color-2);
+    border-radius: 5px;
+    border-right: 1px solid var( --border-color-2);
+    color: var(--text-color-title);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px 0px 15px;
+    padding: 5px 10px 5px 20px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.title-container h3 {
+    font-size: 22px;
+    margin: 0;
+    margin-left: 10px;
+}

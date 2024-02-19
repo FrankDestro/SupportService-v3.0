@@ -1,0 +1,74 @@
+INSERT INTO department (description) VALUES ('Desenvolvimento');
+INSERT INTO department (description) VALUES ('Recursos Humanos');
+INSERT INTO department (description) VALUES ('Financeiro');
+
+INSERT INTO role (authority) VALUES ('ROLE_USER');
+INSERT INTO role (authority) VALUES ('ROLE_ADMIN');
+
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Frank', 'Damaceno', 'frank.damaceno@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Amanda', 'Oliveira', 'Amanda.dliveira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Kleber', 'Gonçalves', 'Kleber.gonçalves@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80', 1, 3, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Maria', 'Silva', 'maria.silva@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Lucas', 'Santos', 'lucas.santos@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Camila', 'Oliveira', 'camila.oliveira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 2);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Rafael', 'Silveira', 'rafael.silveira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 2);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Ana', 'Ferreira', 'ana.ferreira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 2);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Rodrigo', 'Almeida', 'rodrigo.almeida@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 3);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Fernanda', 'Ribeiro', 'fernanda.ribeiro@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 3);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Daniel', 'Carvalho', 'daniel.carvalho@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 3);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Carolina', 'Lima', 'carolina.lima@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 4);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Martiana', 'Maria', 'martiana.maria@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 4);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Robert', 'Garcia', 'robert.garcia@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 4);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('John', 'Smith', 'john.smith@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Jane', 'Doe', 'jane.doe@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Alice', 'Johnson', 'alice.johnson@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Bob', 'Miller', 'bob.miller@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Charlie', 'Davis', 'charlie.davis@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('David', 'Taylor', 'david.taylor@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Eva', 'Wilson', 'eva.wilson@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Frank', 'Brown', 'frank.brown@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Grace', 'Hill', 'grace.hill@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Helen', 'Jones', 'helen.jones@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Ivan', 'Clark', 'ivan.clark@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEy
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Jack', 'Roberts', 'jack.roberts@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Katie', 'Baker', 'katie.baker@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Lucas', 'Fisher', 'lucas.fisher@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_id) VALUES ('Mia', 'Parker', 'mia.parker@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 1);
+
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (5, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (6, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (7, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (8, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (9, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (10, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (11, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (12, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (13, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (14, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (15, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (16, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (17, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (18, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (19, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (20, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (21, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (22, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (22, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (23, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (24, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (25, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (26, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (27, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (28, 1);
+
+INSERT INTO ticket (description, priority, type_Request, registration_Date, status_Ticket, solicitante_id, tecnico_id, completion_Date) VALUES ('Problema com mouse', 'ALTA', 'Problema', '2024-03-20 00:00:00', 0, 2, 1, null)
+
+INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('esta sendo analisado', true, '2024-03-20 00:00:00', 1, 1);
+INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('informado cliente', true, '2024-03-20 13:00:00', 1, 1);
+INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('em reparo', true, '2024-03-20 19:00:00', 1, 1);
+
+INSERT INTO attachment (url, registration_Date, ticket_id, user_id) VALUES ('http://', '2024-03-20 19:00:00', 1, 1);

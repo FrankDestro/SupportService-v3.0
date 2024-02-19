@@ -1,0 +1,80 @@
+.title-notification {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 15px;
+}
+
+.title-notification h3 {
+  color: #0724ca;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.container-notification {
+  width: 500px;
+  height: 490px;
+  padding: 15px 15px 0px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.relative {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background-color: red;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.notification-summary {
+  background-color: #fdfdff;
+  border-top: 1px solid #ada8a8;
+  padding: 10px 10px 10px 15px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.notification-summary h3 {
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.notification-summary p {
+  color: #666;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.ver-todas-notificacoes {
+  padding: 5px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #ada8a8;
+}
+
+.ver-todas-notificacoes p {
+  color: black;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.ver-todas-notificacoes p:hover {
+  color: rgb(6, 54, 185);
+}

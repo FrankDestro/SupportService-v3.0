@@ -1,0 +1,247 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+
+  /* ===== Colors ===== */
+  --bg-color-theme: #f8f8f8;
+  --body-color: #e4e9f7;
+  --sidebar-color: #fff;
+  --primary-color: #1493dc;
+  --primary-color-light: #f6f5ff;
+  --toggle-color: #ddd;
+  --bg-color: #ffffff;
+  --border-color: #1493dc;
+  --border-color-2: #ccc;
+  --bg-color-card: #fff;
+  --border-color-card: #d9d9d9;
+
+  /* Text */
+  --text-color-title: rgb(135, 141, 145);
+  --text-color-subtitile: rgb(9, 128, 184);
+
+  /* ====== Transition ====== */
+  --tran-03: all 0.3s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans";
+}
+
+a,
+a:hover {
+  text-decoration: none;
+  color: unset;
+}
+
+html,
+body {
+  background-color: var(--dsc-color-bg-primary);
+}
+
+main {
+  padding: 0 20px;
+}
+
+.app {
+  display: flex;
+  height: 100%;
+}
+
+.app.collapsed .main {
+  margin-left: 0px;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main.collapsed {
+  margin-left: 0px;
+}
+
+.home-section {
+  position: relative;
+  background: var(--body-color);
+  height: 100vh;
+  left: 250px;
+  width: calc(100% - 250px);
+  transition: all 0.5s ease;
+}
+
+.sidebar.close~.home-section {
+  left: 90px;
+  width: calc(100% - 90px);
+  margin: 0;
+}
+
+.home-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.home-section .home-content .bx-menu,
+.home-section .home-content .text {
+  color: #11101d;
+  font-size: 35px;
+}
+
+.home-section .home-content .bx-menu {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.home-section .home-content .text {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.app-container-content {
+  width: 100%;
+  height: calc(100vh - 65px);
+  margin: 0;
+  padding: 20px 10px 10px 10px;
+  background: var(--bg-color-theme);
+  overflow-y: auto;
+}
+
+.tickets-container {
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+span.status-dot,
+span.priority-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+/* Status colors */
+span.status-andamento {
+  background-color: orange;
+}
+
+span.status-aberto {
+  background-color: green;
+}
+
+span.status-cancelado {
+  background-color: red;
+}
+
+/* Priority colors */
+span.priority-alta {
+  background-color: red;
+}
+
+span.priority-media {
+  background-color: orange;
+}
+
+span.priority-baixa {
+  background-color: green;
+}
+
+/* CONFIGURAÇÃO DE TABELAS PADRÃO */
+.table-base {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.table-base th,
+.table-base td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+.table-base th {
+  background-color: #f2f2f2;
+}
+
+.table-base span {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.table-base .icon-sticky-note {
+  font-size: 18px;
+  color: #000;
+}
+
+.table-base .icon-sticky-note:hover {
+  color: #0c08eb;
+}
+
+.paginationcomponent-container {
+  display: flex;
+}
+
+/* Icone detalhes */
+.icon-sticky-note {
+  transition: box-shadow 0.3s ease-in-out;
+}
+.icon-sticky-note:hover {
+  color: blue;
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.7);
+}
+
+
+/* CARDBASE */
+.base-card {
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  padding: 10px 15px 10px 15px;
+}

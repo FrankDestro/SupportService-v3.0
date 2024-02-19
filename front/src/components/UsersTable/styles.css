@@ -1,0 +1,45 @@
+.table-user-container {
+    position: relative;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 20px 20px;
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-container img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.table-user td {
+    padding: 2px 8px;
+}
+
+
+.table-user th {
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    background-color: #f7fafc;
+    color: #718096;
+    font-size: 0.90rem;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.paginationcomponent-container {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px 50px 20px 0px;
+    z-index: 1;
+}
