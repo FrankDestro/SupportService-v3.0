@@ -1,0 +1,25 @@
+Resolvendo problema de N+1 consultas na Entidade User que possui um relacionamento com Roles e Department.
+Premissa -> fazer uma busca paginada trazendo usuario com os parametros de busca.
+
+	1 - Consulta Tracional SQL NATIVE
+	@Query("SELECT obj FROM User obj " +
+			"WHERE UPPER(obj.firstName) LIKE UPPER(CONCAT('%', :name, '%')) OR " +
+			"UPPER(obj.lastName) LIKE UPPER(CONCAT('%', :name, '%'))")
+	Page<User> searchByName(String name, Pageable pageable);
+
+    2 - Consulta utilizando JOIN FECTH
+	@Query("SELECT obj FROM User obj " +
+			"LEFT JOIN FETCH obj.department " +
+			"LEFT JOIN FETCH obj.roles " +
+			"WHERE UPPER(obj.firstName) LIKE UPPER(CONCAT('%', :name, '%')) OR " +
+			"UPPER(obj.lastName) LIKE UPPER(CONCAT('%', :name, '%'))")
+	Page<User> searchByName(String name, Pageable pageable);
+
+    3- Consulta utilizando @EntityGraph
+	@EntityGraph(attributePaths = {"department", "roles"})
+	@Query("SELECT obj FROM User obj " +
+			"WHERE UPPER(obj.firstName) LIKE UPPER(CONCAT('%', :name, '%')) OR " +
+			"UPPER(obj.lastName) LIKE UPPER(CONCAT('%', :name, '%'))")
+	Page<User> searchByName(String name, Pageable pageable);
+
+	Endereço Swagger -> http://localhost:8080/swagger-ui/index.html

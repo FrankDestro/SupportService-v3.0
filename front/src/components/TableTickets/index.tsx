@@ -1,12 +1,11 @@
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import * as ticketsData from "../TableTickets/ticketsData"; // Atualize o caminho conforme necessário
+import React from "react";
 import BootstrapPagination from "../Pagination";
 import SearchTickets from "../SearchTickets";
+import * as ticketsData from "../TableTickets/ticketsData"; // Atualize o caminho conforme necessário
 
 import "./styles.css";
-import { Modal } from "react-bootstrap";
 
 const HelpdeskTable: React.FC = () => {
   const data = ticketsData.data;
@@ -59,14 +58,6 @@ const HelpdeskTable: React.FC = () => {
       default:
         return "gray";
     }
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedChamadoDetails, setSelectedChamadoDetails] = useState<any>(null); // Substitua 'any' pelo tipo real dos detalhes do chamado
-
-  const handleDetalhesClick = (chamadoDetails: any) => {
-    setSelectedChamadoDetails(chamadoDetails);
-    setIsModalOpen(true);
   };
 
   return (
@@ -131,25 +122,6 @@ const HelpdeskTable: React.FC = () => {
           <BootstrapPagination/>
         </div>
       </div>
-
-    {/* Modal para exibir detalhes do chamado */}
-<Modal show={isModalOpen} onHide={() => setIsModalOpen(false)} dialogClassName="modal-fullscreen">
-  {/* Renderize os detalhes do chamado dentro do modal */}
-  {selectedChamadoDetails && (
-    <>
-      <Modal.Header closeButton>
-        <Modal.Title>Detalhes do Chamado</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {/* Renderize as informações do chamado aqui */}
-        <p>ID: {selectedChamadoDetails.id}</p>
-        <p>Título: {selectedChamadoDetails.title}</p>
-        {/* Adicione mais informações conforme necessário */}
-      </Modal.Body>
-    </>
-  )}
-</Modal>
-      
     </div>
   );
 };

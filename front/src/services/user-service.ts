@@ -5,7 +5,7 @@ export function findAll() {
   return axios.get(`${BASE_URL}/users?size=12`);
 }
 
-export function findPageRequest(page : number, name : string, size = 12) {
+export function findPageRequest(page : number, id : string, name : string , status : string , size = 12, ) {
     const config: AxiosRequestConfig = {
       method: "GET",
       baseURL: BASE_URL,
@@ -13,7 +13,9 @@ export function findPageRequest(page : number, name : string, size = 12) {
       params: {
         page,
         size,
+        id,
         name,
+        status
       },
     };
     return axios(config);

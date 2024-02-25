@@ -4,7 +4,7 @@ import Tickets from "./Page/Tickets";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
-
+import Home from "./Page/Home";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +15,7 @@ const App: React.FC = () => {
           <NavbarMenu />
           <BrowserRouter>
             <Routes>
+              <Route index element={<Home />} />
               <Route path="tickets" element={<Tickets />} />
               <Route path="users" element={<Users />} />
             </Routes>

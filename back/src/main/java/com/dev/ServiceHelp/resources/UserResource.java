@@ -2,6 +2,7 @@ package com.dev.ServiceHelp.resources;
 
 import java.net.URI;
 
+import com.dev.ServiceHelp.enums.StatusUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,54 +22,57 @@ import jakarta.validation.Valid;
 @RequestMapping(value = "/users")
 public class UserResource {
 
-	@Autowired
-	private UserService service;
-	
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping
-	public ResponseEntity<Page<UserDTO>> findAll(
-		@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
-		Page<UserDTO> list = service.findAllPaged(name, pageable);
-		return ResponseEntity.ok().body(list);
-	}
-	
-//	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-	@GetMapping(value = "/logged")
-	public ResponseEntity<UserDTO> findUserLogged() {
-		UserDTO dto = service.findUserLogged();
-		return ResponseEntity.ok().body(dto);
-	}
-	
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-		UserDTO dto = service.findById(id);
-		return ResponseEntity.ok().body(dto);
-	}
-	
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
-		UserDTO newDto = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
-		return ResponseEntity.created(uri).body(newDto);
-	}
+    @Autowired
+    private UserService service;
 
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
-		UserDTO newDto = service.update(id, dto);
-		return ResponseEntity.ok().body(newDto);
-	}
+    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping
+    public ResponseEntity<Page<UserDTO>> findAll(
+            @RequestParam(name = "name", defaultValue = "") String name,
+            @RequestParam(name = "id", defaultValue = "") Long id,
+            @RequestParam(name = "status", required = false) StatusUser status,
+            Pageable pageable) {
+        {
+            Page<UserDTO> list = service.findAllPaged(id, name, status, pageable);
+            return ResponseEntity.ok().body(list);
+        }
+    }
 
-//	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
-	
-	
-	
+    //	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @GetMapping(value = "/logged")
+    public ResponseEntity<UserDTO> findUserLogged() {
+        UserDTO dto = service.findUserLogged();
+        return ResponseEntity.ok().body(dto);
+    }
+
+    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        UserDTO dto = service.findById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping
+    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+        UserDTO newDto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(newDto);
+    }
+
+    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
+        UserDTO newDto = service.update(id, dto);
+        return ResponseEntity.ok().body(newDto);
+    }
+
+    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

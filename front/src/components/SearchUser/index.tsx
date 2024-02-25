@@ -19,14 +19,20 @@ type Props = {
 function SearchForm ( { onSearch }: Props ) {
 
   const [text, setText] = useState("");
+  const [status, setStatus] = useState("");
+
 
   function handleChange(event: any) {
     setText(event.target.value);
   }
 
+  function handleStatusChange(event: any) {
+    setStatus(event.target.value);
+  }
+
   function handleSubmit(event: any) {
     event.preventDefault();
-    onSearch(text);
+    onSearch(text, status);
   }
 
 
@@ -35,7 +41,7 @@ function SearchForm ( { onSearch }: Props ) {
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={12} sm={6}>
           <TextField
-            label="Nome de Usuário"
+            label="Nome de Usuário / Registro"
             variant="outlined"
             value={text}
             onChange={handleChange}
@@ -56,11 +62,11 @@ function SearchForm ( { onSearch }: Props ) {
               label="Status"
               labelId="status-label"
               value={status}
-              // onChange={(e) => setStatus(e.target.value as string)}
+              onChange={handleStatusChange}
             >
               <MenuItem value="">Todos</MenuItem>
-              <MenuItem value="ativo">Ativo</MenuItem>
-              <MenuItem value="inativo">Inativo</MenuItem>
+              <MenuItem value="ACTIVE">Ativo</MenuItem>
+              <MenuItem value="INACTIVE">Inativo</MenuItem>
             </Select>
           </FormControl>
         </Grid>

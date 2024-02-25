@@ -5,11 +5,15 @@ import { UserDTO } from "../../models/users";
 import * as userService from "../../services/user-service";
 import BootstrapPagination from "../Pagination";
 import SearchUser from "../SearchUser";
+import { formatDate } from "../../utils/functions";
+
 import "./styles.css";
 
 type QueryParams = {
   page: number;
+  id: string;
   name: string;
+  status: string;
 };
 
 function UserTable() {
@@ -17,12 +21,19 @@ function UserTable() {
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: 0,
+    id: "",
     name: "",
+    status: "",
   });
 
   useEffect(() => {
     userService
-      .findPageRequest(queryParams.page, queryParams.name)
+      .findPageRequest(
+        queryParams.page,
+        queryParams.id,
+        queryParams.name,
+        queryParams.status
+      )
       .then((response) => {
         const { totalPages, content } = response.data;
         setTotalPages(totalPages);
@@ -30,9 +41,36 @@ function UserTable() {
       });
   }, [queryParams]);
 
-  function handleSearch(searchText: string) {
+  function handleSearch(searchText: string, status: string) {
+    console.log("Search Parameters:", { searchText, status });
+
     setUsers([]);
-    setQueryParams({ ...queryParams, page: 0, name: searchText });
+
+    const isNumber = /^\d+$/.test(searchText);
+
+    let updatedParams = {
+      ...queryParams,
+      page: 0,
+      id: "",
+      name: "",
+      status: "",
+    };
+
+    switch (true) {
+      case isNumber:
+        updatedParams.id = searchText;
+        updatedParams.status = "";
+        break;
+      case status !== "":
+        updatedParams.status = status;
+        updatedParams.name = "";
+        break;
+      default:
+        updatedParams.name = searchText;
+        updatedParams.status = "";
+    }
+
+    setQueryParams(updatedParams);
   }
 
   const handlePageChange = (newPage: number) => {
@@ -77,15 +115,15 @@ function UserTable() {
               <th>Email</th>
               <th>Status</th>
               <th>Role</th>
+              <th>Created By</th>
+              <th>Created Date</th>
               <th>Detalhes</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
-                <td  style={{width : "60px", color: "black"}}>
-                  {user.id}
-                </td>
+                <td style={{ width: "60px", color: "black" }}>{user.id}</td>
                 <td className="avatar-container">
                   <img
                     src={user.imgProfile}
@@ -105,6 +143,10 @@ function UserTable() {
                 {user.roles.map((role) => (
                   <td key={role.id}>{role.authority}</td>
                 ))}
+                <td>{user.createdByUserName}</td>
+
+                <td>{formatDate(user.createdAt)}</td>
+
                 <td>
                   <FontAwesomeIcon
                     icon={faUserEdit}
@@ -124,7 +166,6 @@ function UserTable() {
           onPageChange={handlePageChange}
         />
       </div>
-
     </div>
   );
 }

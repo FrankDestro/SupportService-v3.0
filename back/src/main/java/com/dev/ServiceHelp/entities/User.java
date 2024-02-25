@@ -37,9 +37,7 @@ public class User implements UserDetails {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updaedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by_user_id")
-    private User createdByUser;
+    private String createdByUserName;
 
     @ManyToMany
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

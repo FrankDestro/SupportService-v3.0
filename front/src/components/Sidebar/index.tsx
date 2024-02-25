@@ -39,15 +39,22 @@ const Sidebar: React.FC = () => {
           <ul className="menu-links">
             <div className="sidenav">
               <li className="nav-link">
-                <a href="#" className="">
+                <a href="/">
                   <i className="bx bx-home-alt icon"></i>
+                  <span className="text nav-text">Home</span>
+                </a>
+              </li>
+
+              <li className="nav-link">
+                <a href="#" className="">
+                  <i className="bx bx-calendar icon"></i>
                   <span
                     className={`dropdown-btn ${
                       isActive ? "active" : ""
                     } text nav-text`}
                     onClick={handleDropdownClick}
                   >
-                    Home
+                    Call
                     <i
                       className={`bx ${
                         isActive ? "bx-chevron-up" : "bx-chevron-down"
@@ -65,7 +72,7 @@ const Sidebar: React.FC = () => {
 
             <li className="nav-link">
               <a href="/tickets">
-              <i className="bx bx-notepad icon"></i>
+                <i className="bx bx-notepad icon"></i>
 
                 <span className="text nav-text">Tickets</span>
               </a>

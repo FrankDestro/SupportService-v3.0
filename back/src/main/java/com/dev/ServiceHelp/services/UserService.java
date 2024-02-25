@@ -56,8 +56,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> findAllPaged(String name, Pageable pageable) {
-        Page<User> list = userRepository.searchByName(name, pageable);
+    public Page<UserDTO> findAllPaged(Long id, String name, StatusUser status, Pageable pageable) {
+        Page<User> list = userRepository.searchByName(id, name, status, pageable);
         return list.map(x -> new UserDTO(x));
     }
 
@@ -110,7 +110,7 @@ public class UserService implements UserDetailsService {
         entity.getRoles().clear();
         entity.setImgProfile(dto.getImgProfile());
         entity.setStatusUser(dto.getStatus());
-        entity.setCreatedByUser(new User(authenticated().getId()));
+        entity.setCreatedByUserName(authenticated().getCreatedByUserName());
 
         DepartmentDTO departmentDTO = dto.getDepartment();
         if (departmentDTO != null) {

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.dev.ServiceHelp.enums.StatusUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -26,11 +27,13 @@ User findByEmail(String email);
 			""")
 	List<UserDetailsProjection> searchUserAndRoleByEmail(String email);
 
-	@EntityGraph(attributePaths = {"createdByUser"})
-	Optional<User> findById(Long id);
-
+	@EntityGraph(attributePaths = {"department", "roles"})
 	@Query("SELECT obj FROM User obj " +
-			"WHERE UPPER(obj.firstName) LIKE UPPER(CONCAT('%', :name, '%')) OR " +
-			"UPPER(obj.lastName) LIKE UPPER(CONCAT('%', :name, '%'))")
-	Page<User> searchByName(String name, Pageable pageable);
+			"WHERE (:name IS NULL OR UPPER(CONCAT(obj.firstName, ' ', obj.lastName)) LIKE UPPER(CONCAT('%', :name, '%'))) " +
+			"AND (:id IS NULL OR obj.id = :id)" +
+			"AND (:status IS NULL OR obj.statusUser = :status)"
+	)
+	Page<User> searchByName(Long id, String name, StatusUser status, Pageable pageable);
+
+
 }

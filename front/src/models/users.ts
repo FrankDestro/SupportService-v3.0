@@ -12,5 +12,4 @@ export type UserDTO = {
     createdAt: string,
     roles : RoleDTO[],
     createdByUserName: string,
-    createdByUserEmail: string
 }

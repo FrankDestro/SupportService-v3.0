@@ -34,9 +34,8 @@ public class UserDTO {
     Set<RoleDTO> roles = new HashSet<>();
 
     private String createdByUserName;
-    private String createdByUserEmail;
 
-    public UserDTO(Department department, Long id, String firstName, String lastName, String email, StatusUser status, String imgProfile) {
+    public UserDTO(Department department, Long id, String firstName, String lastName, String email, StatusUser status, String imgProfile, String createdByUserName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,6 +43,7 @@ public class UserDTO {
         this.status = status;
         this.imgProfile = imgProfile;
         this.department = new DepartmentDTO(department);
+        this.createdByUserName = createdByUserName;
     }
 
     public UserDTO(User entity) {
@@ -56,12 +56,7 @@ public class UserDTO {
         createdAt = entity.getCreatedAt();
         entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
         department = new DepartmentDTO(entity.getDepartment());
-
-        if (entity.getCreatedByUser() != null) {
-            this.createdByUserName = entity.getCreatedByUser().getFirstName() + " " + entity.getCreatedByUser().getLastName();
-            this.createdByUserEmail = entity.getCreatedByUser().getEmail();
-        }
-
+        createdByUserName = entity.getCreatedByUserName();
     }
 
 }
