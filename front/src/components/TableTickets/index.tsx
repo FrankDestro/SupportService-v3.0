@@ -78,6 +78,7 @@ const HelpdeskTable: React.FC = () => {
               <th>Tipo</th>
               <th>Data de Abertura</th>
               <th>Prazo Final</th>
+              <th>Responsavel</th>
               <th>SLA</th>
               <th>Detalhes</th>
             </tr>
@@ -110,16 +111,20 @@ const HelpdeskTable: React.FC = () => {
                 <td>{item.type}</td>
                 <td>{item.openingDate}</td>
                 <td>{item.dueDate}</td>
+                <td>{item.responsavel}</td>
                 <td>Dentro do prazo</td>
                 <td>
-                  <FontAwesomeIcon icon={faEdit} className="icon-sticky-note"  onClick={() => handleDetalhesClick(item)}/>
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="icon-sticky-note"
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className="paginationcomponent-tickets-component">
-          <BootstrapPagination/>
+          <BootstrapPagination />
         </div>
       </div>
     </div>

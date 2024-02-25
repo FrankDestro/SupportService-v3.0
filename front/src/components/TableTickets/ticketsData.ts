@@ -9,6 +9,7 @@ export const data = [
       type: 'Hardware',
       openingDate: '2024-01-31',
       dueDate: '2024-02-10',
+      responsavel: 'Técnico1', 
     },
     {
       id: 2,
@@ -20,6 +21,7 @@ export const data = [
       type: 'Software',
       openingDate: '2024-02-01',
       dueDate: '2024-02-15',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 3,
@@ -31,6 +33,7 @@ export const data = [
       type: 'Hardware',
       openingDate: '2024-02-05',
       dueDate: '2024-02-20',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
   
     {
@@ -43,6 +46,7 @@ export const data = [
       type: 'Networking',
       openingDate: '2024-02-10',
       dueDate: '2024-02-25',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 5,
@@ -54,6 +58,7 @@ export const data = [
       type: 'Software',
       openingDate: '2024-02-15',
       dueDate: '2024-03-01',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 6,
@@ -65,6 +70,7 @@ export const data = [
       type: 'Networking',
       openingDate: '2024-02-20',
       dueDate: '2024-03-05',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 7,
@@ -76,6 +82,7 @@ export const data = [
       type: 'Software',
       openingDate: '2024-02-25',
       dueDate: '2024-03-10',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 8,
@@ -87,6 +94,7 @@ export const data = [
       type: 'Hardware',
       openingDate: '2024-03-01',
       dueDate: '2024-03-15',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 9,
@@ -98,6 +106,7 @@ export const data = [
       type: 'Hardware',
       openingDate: '2024-03-05',
       dueDate: '2024-03-20',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 10,
@@ -109,6 +118,7 @@ export const data = [
       type: 'Software',
       openingDate: '2024-03-10',
       dueDate: '2024-03-25',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 11,
@@ -120,6 +130,7 @@ export const data = [
       type: 'Software',
       openingDate: '2024-03-15',
       dueDate: '2024-03-30',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 12,
@@ -131,6 +142,7 @@ export const data = [
       type: 'Networking',
       openingDate: '2024-03-20',
       dueDate: '2024-04-05',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 13,
@@ -142,6 +154,7 @@ export const data = [
       type: 'Hardware',
       openingDate: '2024-03-25',
       dueDate: '2024-04-10',
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 14,
@@ -152,7 +165,8 @@ export const data = [
       priority: "Alta",
       type: "Rede",
       openingDate: "2024-03-26",
-      dueDate: "2024-04-12"
+      dueDate: "2024-04-12",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 15,
@@ -163,7 +177,8 @@ export const data = [
       priority: "Baixa",
       type: "Software",
       openingDate: "2024-03-27",
-      dueDate: "2024-04-14"
+      dueDate: "2024-04-14",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 16,
@@ -174,7 +189,8 @@ export const data = [
       priority: "Média",
       type: "Hardware",
       openingDate: "2024-03-28",
-      dueDate: "2024-04-16"
+      dueDate: "2024-04-16",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 17,
@@ -185,7 +201,8 @@ export const data = [
       priority: "Baixa",
       type: "Software",
       openingDate: "2024-03-29",
-      dueDate: "2024-04-18"
+      dueDate: "2024-04-18",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 18,
@@ -196,7 +213,8 @@ export const data = [
       priority: "Alta",
       type: "Software",
       openingDate: "2024-03-30",
-      dueDate: "2024-04-20"
+      dueDate: "2024-04-20",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 19,
@@ -207,7 +225,8 @@ export const data = [
       priority: "Média",
       type: "Software",
       openingDate: "2024-03-31",
-      dueDate: "2024-04-22"
+      dueDate: "2024-04-22",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 20,
@@ -218,7 +237,8 @@ export const data = [
       priority: "Baixa",
       type: "Hardware",
       openingDate: "2024-04-01",
-      dueDate: "2024-04-24"
+      dueDate: "2024-04-24",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 21,
@@ -229,7 +249,8 @@ export const data = [
       priority: "Média",
       type: "Software",
       openingDate: "2024-04-02",
-      dueDate: "2024-04-26"
+      dueDate: "2024-04-26",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },
     {
       id: 22,
@@ -240,7 +261,8 @@ export const data = [
       priority: "Alta",
       type: "Rede",
       openingDate: "2024-04-03",
-      dueDate: "2024-04-28"
+      dueDate: "2024-04-28",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     },{
       id: 23,
       title: "Chamado 23",
@@ -250,6 +272,7 @@ export const data = [
       priority: "Baixa",
       type: "Hardware",
       openingDate: "2024-04-04",
-      dueDate: "2024-04-30"
+      dueDate: "2024-04-30",
+      responsavel: 'Técnico1', // Adicionei o campo "responsavel" com o nome do técnico
     }
   ];

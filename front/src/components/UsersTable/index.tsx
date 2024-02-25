@@ -75,6 +75,10 @@ function UserTable() {
 
   const handlePageChange = (newPage: number) => {
     setQueryParams({ ...queryParams, page: newPage });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+  });
   };
 
   const getStatusBadgeStyle = (status: string): React.CSSProperties => {
