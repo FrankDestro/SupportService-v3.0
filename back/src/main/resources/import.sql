@@ -6,7 +6,7 @@ INSERT INTO role (authority) VALUES ('ROLE_USER');
 INSERT INTO role (authority) VALUES ('ROLE_ADMIN');
 
 INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Frank', 'Damaceno', 'frank.damaceno@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Amanda', 'Oliveira', 'Amanda.dliveira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank');
+INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Amanda', 'Oliveira', 'Amanda.oliveira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank');
 INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Kleber', 'Gonçalves', 'Kleber.gonçalves@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80', 1, 3, 'Frank');
 INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Maria', 'Silva', 'maria.silva@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank');
 INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name) VALUES ('Lucas', 'Santos', 'lucas.santos@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 'Frank');
@@ -65,10 +65,10 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (27, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (28, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (29, 1);
 
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Problema com mouse', 'mouse não esta clicando', 'ALTA', 'Problema', 'Hardware', '2024-03-20 00:00:00','2024-03-20 00:00:00' ,0, 2, 1, null)
-
+INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Problema com mouse', 'mouse não esta clicando', 'ALTA', 'Problema', 'Hardware', '2024-03-20 00:00:00','2024-03-20 00:00:00' ,0, 2, null, null)
 INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('esta sendo analisado', true, '2024-03-20 00:00:00', 1, 1);
 INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('informado cliente', true, '2024-03-20 13:00:00', 1, 1);
 INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('em reparo', true, '2024-03-20 19:00:00', 1, 1);
-
 INSERT INTO attachment (url, registration_Date, ticket_id, user_id) VALUES ('http://', '2024-03-20 19:00:00', 1, 1);
+
+INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('CRM não loga', 'ao tentar logar no CRM o mesmo apresenta mensagem ''Access denied', 'ALTA', 'Problema', 'Software', '2024-03-20 00:00:00','2024-03-20 00:00:00' ,0, 2, null, null)

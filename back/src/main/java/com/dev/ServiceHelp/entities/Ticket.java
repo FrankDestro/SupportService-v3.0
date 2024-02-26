@@ -51,5 +51,4 @@ public class Ticket {
 
     @OneToMany(mappedBy = "ticket")
     private Set<Attachment> attachment = new HashSet<>();
-
 }

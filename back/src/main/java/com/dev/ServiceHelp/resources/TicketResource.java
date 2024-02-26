@@ -19,8 +19,6 @@ public class TicketResource {
     @Autowired
     private TicketService ticketService;
 
-
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<TicketDTO> findTicketById(@PathVariable Long id) {
         TicketDTO dto = ticketService.findTicketById(id);
@@ -32,5 +30,11 @@ public class TicketResource {
         dto = ticketService.createNewTicket(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TicketDTO> update(@PathVariable Long id, @Valid @RequestBody TicketDTO dto) {
+        dto = ticketService.UpdateTicket(id, dto);
+        return ResponseEntity.ok().body(dto);
     }
 }

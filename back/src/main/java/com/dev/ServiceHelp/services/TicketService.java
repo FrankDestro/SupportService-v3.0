@@ -1,23 +1,26 @@
 package com.dev.ServiceHelp.services;
 
-import com.dev.ServiceHelp.dto.*;
-import com.dev.ServiceHelp.entities.Department;
-import com.dev.ServiceHelp.entities.Role;
+import com.dev.ServiceHelp.dto.AnnotationDTO;
+import com.dev.ServiceHelp.dto.AttachmentDTO;
+import com.dev.ServiceHelp.dto.TicketDTO;
+import com.dev.ServiceHelp.entities.Annotation;
+import com.dev.ServiceHelp.entities.Attachment;
 import com.dev.ServiceHelp.entities.Ticket;
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.enums.StatusTicket;
+import com.dev.ServiceHelp.repository.AnnotationRepository;
 import com.dev.ServiceHelp.repository.TicketRepository;
 import com.dev.ServiceHelp.repository.UserRepository;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.config.AnnotationRepositoryConfigurationSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TicketService {
@@ -27,6 +30,12 @@ public class TicketService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AnnotationRepository annotationRepository;
 
     @Transactional(readOnly = true)
     public TicketDTO findTicketById(Long id) {
@@ -73,5 +82,57 @@ public class TicketService {
         entity.setDueDate(dueDate);
         entity.setStatusTicket(StatusTicket.OPEN);
         entity.setCompletionDate(null);
+    }
+
+    @Transactional
+    public TicketDTO UpdateTicket(Long id, TicketDTO dto) {
+        try {
+            Ticket entity = ticketRepository.getReferenceById(id);
+            EntityFromDTO(dto, entity);
+            entity = ticketRepository.save(entity);
+            return new TicketDTO(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
+
+    private void EntityFromDTO(TicketDTO dto, Ticket entity) {
+
+        entity.setStatusTicket(dto.getStatusTicket());
+
+        if(entity.getStatusTicket().equals(StatusTicket.FINISHED)) {
+            entity.setCompletionDate(Instant.now());
+        } else {
+            entity.setCompletionDate(null);
+        }
+
+        User technician = userService.authenticated();
+        entity.setTechnician(technician);
+
+        Set<AnnotationDTO> annotationDTOs = dto.getAnnotations();
+        Set<AttachmentDTO> attachmentDTOs = dto.getAttachments();
+
+        entity.getAnnotations().clear();
+        for (AnnotationDTO annotationDTO : annotationDTOs) {
+            Annotation annotation = new Annotation();
+            Ticket tk = ticketRepository.getReferenceById(annotationDTO.getTicketId());
+            User us = userRepository.getReferenceById(annotationDTO.getUserId());
+            annotation.setDescription(dto.getDescription());
+            annotation.setRegistrationDate(Instant.now());
+            annotation.setUser(us);
+            annotation.setTicket(tk);
+            annotationRepository.save(annotation);
+            entity.getAnnotations().add(annotation);
+        }
+
+        entity.getAttachment().clear();
+        if (attachmentDTOs != null) {
+            for (AttachmentDTO attachmentDTO : attachmentDTOs) {
+                Attachment attachment = new Attachment();
+                attachment.setTicket(entity);
+                entity.getAttachment().add(attachment);
+            }
+        }
+
     }
 }
