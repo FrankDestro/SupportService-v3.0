@@ -26,9 +26,6 @@ public class TicketService {
     private TicketRepository ticketRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
 
     @Transactional(readOnly = true)
@@ -53,12 +50,8 @@ public class TicketService {
         entity.setTypeRequest(dto.getTypeRequest());
         entity.setCategoryProblem(dto.getCategoryProblem());
         entity.setRegistrationDate(Instant.now());
-
-        User solicitante = userService.authenticated();
-        entity.setSolicitante(solicitante);
-
-        User tecnico = userRepository.findById(dto.getTecnicoId()).orElse(null);
-        entity.setTecnico(tecnico);
+        User requester = userService.authenticated();
+        entity.setRequester(requester);
 
         Instant registrationDate = entity.getRegistrationDate();
         Instant dueDate;

@@ -50,11 +50,11 @@ public class User implements UserDetails {
     @JoinColumn(name = "id_department")
     private Department department;
 
-    @OneToMany(mappedBy = "solicitante")
-    private Set<Ticket> ticketsSolicitados = new HashSet<>();
+    @OneToMany(mappedBy = "requester")
+    private Set<Ticket> ticketsRequested = new HashSet<>();
 
-    @OneToMany(mappedBy = "tecnico")
-    private Set<Ticket> ticketsAtendidos = new HashSet<>();
+    @OneToMany(mappedBy = "technician")
+    private Set<Ticket> ticketServed = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Attachment> attachments = new HashSet<>();

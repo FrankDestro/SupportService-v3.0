@@ -39,12 +39,12 @@ public class Ticket {
     private Instant completionDate;
 
     @ManyToOne
-    @JoinColumn(name = "solicitante_id")
-    private User solicitante;
+    @JoinColumn(name = "requester_id")
+    private User requester;
 
     @ManyToOne
-    @JoinColumn(name = "tecnico_id" ,nullable = true)
-    private User tecnico;
+    @JoinColumn(name = "technician_id" , nullable = true)
+    private User technician;
 
     @OneToMany(mappedBy = "ticket")
     private Set<Annotation> annotations = new HashSet<>();

@@ -65,8 +65,7 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (27, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (28, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (29, 1);
 
---INSERT INTO ticket (description, priority, type_Request, registration_Date, status_Ticket, solicitante_id, tecnico_id, completion_Date) VALUES ('Problema com mouse', 'ALTA', 'Problema', '2024-03-20 00:00:00', 0, 2, 1, null)
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, solicitante_id, tecnico_id, completion_Date) VALUES ('Problema com mouse', 'mouse não esta clicando', 'ALTA', 'Problema', 'Hardware', '2024-03-20 00:00:00','2024-03-20 00:00:00' ,0, 2, 1, null)
+INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Problema com mouse', 'mouse não esta clicando', 'ALTA', 'Problema', 'Hardware', '2024-03-20 00:00:00','2024-03-20 00:00:00' ,0, 2, 1, null)
 
 INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('esta sendo analisado', true, '2024-03-20 00:00:00', 1, 1);
 INSERT INTO annotation (description, annotation_public,registration_Date, ticket_id, user_id) VALUES ('informado cliente', true, '2024-03-20 13:00:00', 1, 1);

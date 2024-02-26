@@ -25,8 +25,8 @@ public class TicketDTO {
     private Instant registrationDate;
     private Instant dueDate;
     private StatusTicket statusTicket;
-    private Long solicitanteId;
-    private Long tecnicoId;
+    private Long requesterId;
+    private Long technicianId;
     private Instant completionDate;
 
     private Set<AnnotationDTO> annotations = new HashSet<AnnotationDTO>();
@@ -43,8 +43,8 @@ public class TicketDTO {
         registrationDate = entity.getRegistrationDate();
         dueDate = entity.getDueDate();
         statusTicket = entity.getStatusTicket();
-        tecnicoId = entity.getTecnico().getId();
-        solicitanteId = entity.getSolicitante().getId();
+        technicianId = entity.getTechnician() != null ? entity.getTechnician().getId() : null;
+        requesterId = entity.getRequester().getId();
         entity.getAnnotations().forEach(annotations -> this.annotations.add(new AnnotationDTO(annotations)));
         entity.getAttachment().forEach(attachments -> this.attachments.add(new AttachmentDTO(attachments)));
     }
