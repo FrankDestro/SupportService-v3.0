@@ -18,6 +18,7 @@
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.8",
+    "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.7",
     "@types/react-router-dom": "5.3.3",
     "@types/styled-components": "^5.1.34",
