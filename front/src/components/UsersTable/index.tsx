@@ -79,6 +79,7 @@ function UserTable() {
       top: 0,
       behavior: 'smooth'
   });
+
   };
 
   const getStatusBadgeStyle = (status: string): React.CSSProperties => {

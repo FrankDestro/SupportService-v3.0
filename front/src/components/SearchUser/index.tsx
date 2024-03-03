@@ -24,10 +24,16 @@ function SearchForm ( { onSearch }: Props ) {
 
   function handleChange(event: any) {
     setText(event.target.value);
+    if(text != "") {
+      setStatus("");
+    }
   }
 
   function handleStatusChange(event: any) {
     setStatus(event.target.value);
+    if (status === "ACTIVE" || status === "INACTIVE") {
+      setText("");
+    }
   }
 
   function handleSubmit(event: any) {

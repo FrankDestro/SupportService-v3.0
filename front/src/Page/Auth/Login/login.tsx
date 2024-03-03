@@ -1,18 +1,11 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Button,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-// import LockIcon from "@mui/icons-material/Lock";
-
-import LockIcon from "../../assets/lock.png";
-
 import "./styles.css";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, Grid, InputAdornment, TextField, Typography} from "@mui/material";
+import { useState } from "react";
+import LockIcon from "../../../assets/lock.png";
 import { Link } from "react-router-dom";
+import { CredentialsDTO } from "../../../models/auth";
+import * as authService from '../../../services/auth-service';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,9 +14,32 @@ function Login() {
     setShowPassword(!showPassword);
   };
 
+  const [formData, setformData] = useState<CredentialsDTO> ({
+    username : '',
+    password : ''
+  })
+
+  function handleInputChange(event : any) {
+    const value = event.target.value;
+    const name = event.target.name;
+    setformData({...formData, [name] : value})
+  }
+
+  function handleSubmit (event : any) {
+    event.preventDefault();
+    authService.LoginRequest(formData)
+    .then(response => {
+      authService.saveAccessToken(response.data.access_token)
+      console.log(response.data);
+    }).catch(error => {
+      console.log("Erro no login", error)
+    })
+  }
+
   return (
     <div className="login-container">
       <div className="login-card">
+
         <div className="container-title-login">
           <div className="container-iconLock">
             <img src={LockIcon} alt="lockIcon"></img>
@@ -34,7 +50,7 @@ function Login() {
         </div>
 
         <div className="form-container">
-          <form>
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12}>
                 <Typography variant="h4" align="center" gutterBottom>
@@ -46,6 +62,9 @@ function Login() {
                   label="Nome de Usuário"
                   variant="outlined"
                   fullWidth
+                  name="username"
+                  value = {formData.username}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -54,6 +73,9 @@ function Login() {
                   label="Senha"
                   variant="outlined"
                   fullWidth
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -78,7 +100,7 @@ function Login() {
               </Grid>
             </Grid>
           </form>
-          <Link to="" className="esqueceu-senha">Esqueceu a senha?</Link>
+          <Link to="recovery" className="esqueceu-senha">Esqueceu a senha?</Link>
         </div>
       </div>
     </div>
