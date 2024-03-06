@@ -37,6 +37,8 @@ public class User implements UserDetails {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updaedAt;
 
+    private Integer failedLoginAttempts;
+
     private String createdByUserName;
 
     @ManyToMany
@@ -94,8 +96,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
-        return false;
+        return failedLoginAttempts < 3;
     }
 
     @Override

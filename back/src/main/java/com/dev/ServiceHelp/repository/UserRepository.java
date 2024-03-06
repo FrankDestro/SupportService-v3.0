@@ -16,7 +16,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-User findByEmail(String email);
+	User findByEmail(String email);
 	
 	@Query(nativeQuery = true, value = """
 			SELECT tb_user.email AS username, tb_user.password, role.id As roleId, role.authority, tb_user.status_user As status

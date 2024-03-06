@@ -2,6 +2,7 @@ package com.dev.ServiceHelp.resources.exception;
 
 import java.time.Instant;
 
+import com.dev.ServiceHelp.dto.CustomErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -54,7 +55,6 @@ public class ResourceExceptionHandler {
 		for (FieldError f : e.getBindingResult().getFieldErrors()) {
 			err.addError(f.getField(), f.getDefaultMessage());
 		}
-		
 		return ResponseEntity.status(status).body(err);
 	}
 }
