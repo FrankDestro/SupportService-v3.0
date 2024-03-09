@@ -104,7 +104,7 @@ function UserTable() {
   };
 
   return (
-    <div className="users-container">
+    <div className="users-container base-card">
       <div className="base-card ">
         <SearchUser onSearch={handleSearch} />
       </div>

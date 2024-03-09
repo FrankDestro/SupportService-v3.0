@@ -5,7 +5,8 @@
 .tickets-container {
   display: flex;
   flex-direction: column;
-  padding: 10px 20px 10px 20px;
+  padding: 5px 5px 5px 5px;
+  background-color: white;
 }
 
 table {
@@ -22,7 +23,7 @@ td {
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
 }
 
 td {

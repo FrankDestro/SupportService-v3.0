@@ -61,7 +61,7 @@ const HelpdeskTable: React.FC = () => {
   };
 
   return (
-    <div className="tickets-container">
+    <div className="tickets-container base-card">
       <div className="base-card">
         <SearchTickets />
       </div>

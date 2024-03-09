@@ -1,13 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Auth from "./Page/Auth";
-import Home from "./Page/Home";
+import Login from "./Page/Auth/Login/login";
+import Recovery from "./Page/Auth/Recovery";
+import DashboardPage from "./Page/DashboardPage";
 import Tickets from "./Page/Tickets";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
-import Login from "./Page/Auth/Login/login";
-import Recovery from "./Page/Auth/Recovery";
 
 const App: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ const App: React.FC = () => {
                   <div className="app-container">
                     <NavbarMenu />
                     <Routes>
-                      <Route index element={<Home />} />
+                      <Route path="dashboard" element={<DashboardPage />} />
                       <Route path="tickets" element={<Tickets />} />
                       <Route path="users" element={<Users />} />
                     </Routes>

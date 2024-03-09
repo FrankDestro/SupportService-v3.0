@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.dev.ServiceHelp.services.exceptions.DatabaseException;
+import com.dev.ServiceHelp.services.exceptions.PasswordException;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,6 +56,18 @@ public class ResourceExceptionHandler {
 		for (FieldError f : e.getBindingResult().getFieldErrors()) {
 			err.addError(f.getField(), f.getDefaultMessage());
 		}
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(PasswordException.class)
+	public ResponseEntity<StandardError> database(PasswordException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Password exception");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 }

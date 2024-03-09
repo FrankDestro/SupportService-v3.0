@@ -85,9 +85,9 @@ const Sidebar: React.FC = () => {
               </a>
             </li>
             <li className="nav-link">
-              <a href="#">
+              <a href="/dashboard">
                 <i className="bx bx-bar-chart-alt-2 icon"></i>
-                <span className="text nav-text">Reports</span>
+                <span className="text nav-text">Dashboard</span>
               </a>
             </li>
             <li className="nav-link">

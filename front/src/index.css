@@ -7,7 +7,7 @@
 :root {
 
   /* ===== Colors ===== */
-  --bg-color-theme: #f8f8f8;
+  --bg-color-theme: #d6d6d64f;
   --body-color: #e4e9f7;
   --sidebar-color: #fff;
   --primary-color: #1493dc;
@@ -234,7 +234,6 @@ span.priority-baixa {
   color: blue;
   box-shadow: 0 0 10px rgba(0, 0, 255, 0.7);
 }
-
 
 /* CARDBASE */
 .base-card {

@@ -90,18 +90,16 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return failedLoginAttempts < 3;
+        return failedLoginAttempts < 5;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
         return false;
     }
 
