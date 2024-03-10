@@ -10,7 +10,7 @@ export const data = [
 ];
 
 export const options = {
-  title: "Popularidade por Área de Atuação",
+  title: "Estatística de chamados por Área de Atuação",
   sliceVisibilityThreshold: 0.2, // 20%
 };
 

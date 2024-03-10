@@ -71,15 +71,19 @@
   height: 400px;
 }
 
-.content-bar-chart-tickets {
+.content-chart-summary-tickets {
+  width: 20%;
+  height: 400px;
+}
+
+.content-line-chart-tickets {
   width: 100%;
   height: 400px;
 }
 
-.container-charts2 {
-  display: flex;
+.content-bar-chart-tickets {
   width: 100%;
-  gap: 20px;
+  height: 400px;
 }
 
 .content-pie-chart-donuts-tickets {

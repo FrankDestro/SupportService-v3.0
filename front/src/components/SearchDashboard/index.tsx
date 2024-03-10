@@ -9,14 +9,14 @@ import {
 } from "@mui/material";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { useState } from "react";
-import { InsertDriveFile, PictureInPictureSharp } from "@mui/icons-material";
+import { InsertDriveFile } from "@mui/icons-material";
 
 import "./styles.css";
 
 function SearchDashboard() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [solverArea, setSolverArea] = useState("");
+  const [solverArea] = useState("");
 
   const handleFilter = () => {
     console.log("Filtrar por:", startDate, endDate, solverArea);
@@ -96,8 +96,7 @@ function SearchDashboard() {
         </Grid>
       </Grid>
 
-      <div className="container-button-search"
-      >
+      <div className="container-button-search">
         <div>
           <Grid item xs={12} md={2}>
             <Button variant="contained" color="primary" onClick={handleFilter}>
@@ -111,22 +110,20 @@ function SearchDashboard() {
             variant="contained"
             style={{ backgroundColor: "#D32F2F", color: "#FFFFFF" }}
             onClick={handleDownloadPDF}
-            startIcon={<PictureAsPdfIcon 
-            />}
+            startIcon={<PictureAsPdfIcon />}
           >
             Exportar para pdf
           </Button>
 
           <Button
-        variant="contained"
-        style={{ backgroundColor: "#4CAF50", color: "#FFFFFF" }} 
-        onClick={handleDownloadExcel}
-        startIcon={<InsertDriveFile />}
-      >
-        Exportar para Excel
-      </Button>
+            variant="contained"
+            style={{ backgroundColor: "#4CAF50", color: "#FFFFFF" }}
+            onClick={handleDownloadExcel}
+            startIcon={<InsertDriveFile />}
+          >
+            Exportar para Excel
+          </Button>
         </div>
-        
       </div>
     </div>
   );

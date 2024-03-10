@@ -1,19 +1,18 @@
-import { Chart } from "react-google-charts";
+import Chart from "react-google-charts";
 
 const data = [
-  ["Data", "SLA"],
-  ["2022-03-01", 90],
-  ["2022-03-02", 85],
-  ["2022-03-03", 92],
-  // Adicione mais datas e valores conforme necessário
+  ["Hora", "SLA", { role: 'style' }],
+  ["00:00", 90, ''],
+  ["01:00", 85, ''],
+  ["02:00", 10, 'red'], 
 ];
 
 const options = {
   title: "Desempenho de SLA ao Longo do Tempo",
-  curveType: "function", // Adiciona suavização à linha
+  curveType: "function",
   legend: { position: "bottom" },
   hAxis: {
-    title: "Data",
+    title: "Hora",
   },
   vAxis: {
     title: "SLA (%)",

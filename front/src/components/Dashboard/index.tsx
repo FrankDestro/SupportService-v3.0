@@ -1,5 +1,7 @@
+import CardPriority from "../CardPriority";
 import SearchDashboard from "../SearchDashboard";
 import Piechart3d from "./3d-pie-chart";
+import SlaPerformanceChart from "./LineChart";
 import SummaryCard from "./SummaryCard";
 import Barchart from "./barchart";
 import PieChartByArea from "./pie-chart-by-area";
@@ -30,6 +32,15 @@ function Dashboard() {
 
         <div className="container-all-charts">
           <div className="container-charts">
+            <div className="content-chart-summary-tickets">
+              <CardPriority />
+            </div>
+            <div className="content-line-chart-tickets">
+              <SlaPerformanceChart />
+            </div>
+          </div>
+
+          <div className="container-charts">
             <div className="content-pie-chart-tickets">
               <Piechart3d />
             </div>
@@ -38,7 +49,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="container-charts2">
+          <div className="container-charts">
             <div className="content-pie-chart-donuts-tickets">
               <PieChartDonuts />
             </div>
@@ -46,9 +57,6 @@ function Dashboard() {
               <PieChartByArea />
             </div>
           </div>
-
-
-          
         </div>
       </div>
     </div>
