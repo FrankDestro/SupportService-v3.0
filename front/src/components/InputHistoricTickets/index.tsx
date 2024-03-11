@@ -8,12 +8,10 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import "./styles.css";
-import BasicModal from "../ModalAnexo";
 
 function InputHistoricTickets() {
   return (
     <div className="historic-container">
-
       <div className="row">
         <div className="col-8" style={{ padding: "5px", height: "315px" }}>
           <Grid container spacing={2} alignItems="center">
@@ -23,8 +21,8 @@ function InputHistoricTickets() {
                 style={{
                   width: "100%",
                   border: "1px solid gray",
-                  height: "200px",
-                  padding: "10px 10px 10px 10px", // Adicione o espaçamento interno desejado aqui
+                  height: "180px",
+                  padding: "10px 10px 10px 10px",
                 }}
               />
             </Grid>
@@ -52,62 +50,7 @@ function InputHistoricTickets() {
           </Grid>
         </div>
 
-        <div
-          className="col-4"
-          style={{ padding: "5px 5px 5px 5px" }}
-        >
-          <div className="historic-title-atualizacacao">
-            <h3>Atualização Ticket</h3>
-          </div>
-
-          <div className="teste" style={{ padding: "5px 5px 5px 5px" }}>
-            <h3>Status do ticket: </h3>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel id="status-label">Status</InputLabel>
-                  <Select label="Status" labelId="status-label">
-                    <MenuItem value="ACTIVE">Aberto</MenuItem>
-                    <MenuItem value="INACTIVE">Fechado</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </div>
-
-          <div className="teste" style={{ padding: "5px 5px 5px 5px" }}>
-            <h3>Area Solucionadora </h3>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={10}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel id="status-label">Areas</InputLabel>
-                  <Select label="Status" labelId="status-label">
-                    <MenuItem value="ACTIVE">TI</MenuItem>
-                    <MenuItem value="INACTIVE">Networking</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </div>
-
-          <div className="teste" style={{ padding: "5px 5px 5px 5px" }}>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} sm={2}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  type="submit"
-                >
-                  Salvar
-                </Button>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-              <BasicModal/>
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

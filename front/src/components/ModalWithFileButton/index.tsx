@@ -1,9 +1,10 @@
-import React, { useState, ChangeEvent } from 'react';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+import React, { useState, ChangeEvent } from "react";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 
-// Componente para selecionar e exibir o nome do arquivo
+import "./styles.css";
+
 interface FileInputProps {
   onChange: (file: File) => void;
 }
@@ -17,11 +18,12 @@ const FileInput: React.FC<FileInputProps> = ({ onChange }) => {
   };
 
   return (
-    <input type="file" onChange={handleFileChange} />
+    <div style={{ borderRadius: "10px" }}>
+      <input type="file" onChange={handleFileChange} />
+    </div>
   );
 };
 
-// Componente principal
 const ModalWithFileButton: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -41,8 +43,7 @@ const ModalWithFileButton: React.FC = () => {
 
   const handleFileUpload = () => {
     if (selectedFile) {
-      // Aqui você pode implementar a lógica de upload do arquivo
-      console.log('Arquivo selecionado:', selectedFile);
+      console.log("Arquivo selecionado:", selectedFile);
       handleClose();
     }
   };
@@ -50,10 +51,10 @@ const ModalWithFileButton: React.FC = () => {
   return (
     <div>
       <Button variant="contained" onClick={handleOpen}>
-       Incluir arquivo
+        Incluir arquivo
       </Button>
       <Modal open={open} onClose={handleClose}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, backgroundColor: 'white', padding: "10px" }}>
+        <div className="container-model-anexo">
           <Typography variant="h6" component="div" sx={{ mb: 2 }}>
             Anexar Arquivo
           </Typography>

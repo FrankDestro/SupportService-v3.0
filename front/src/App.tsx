@@ -9,6 +9,7 @@ import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
 import Home from "./Page/Home";
+import TicketDetails from "./Page/TicketDetails";
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                       <Route path="dashboard" element={<DashboardPage />} />
                       <Route path="tickets" element={<Tickets />} />
                       <Route path="users" element={<Users />} />
+                      <Route path="ticketdetails" element={<TicketDetails />} />
                     </Routes>
                   </div>
                 </section>

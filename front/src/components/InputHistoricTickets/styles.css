@@ -1,28 +1,5 @@
 .historic-container {
-    height: 315px;
+    height: 280px;
     margin: 0px 10px 0px 10px;
     
-}
-
-.historic-title-atualizacacao {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.486);
-    padding: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.teste {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 10px;
-    gap: 10px;
-}
-
-.teste h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    width: 200px;
 }

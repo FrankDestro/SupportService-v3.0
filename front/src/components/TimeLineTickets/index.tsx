@@ -3,6 +3,7 @@ import "./styles.css";
 function TimeLineTickets() {
   return (
     <>
+    <div><h3 style={{fontWeight: "700"}}>Andamento :</h3></div>
       <div className="container-timeline">
         <div className="timeline">
           <div className="vertical-line"></div>
