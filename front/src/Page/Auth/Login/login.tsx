@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import { useState } from "react";
 import LockIcon from "../../../assets/lock.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CredentialsDTO } from "../../../models/auth";
 import * as authService from '../../../services/auth-service';
 
@@ -13,6 +13,8 @@ function Login() {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const navigate = useNavigate();
 
   const [formData, setformData] = useState<CredentialsDTO> ({
     username : '',
@@ -29,8 +31,8 @@ function Login() {
     event.preventDefault();
     authService.LoginRequest(formData)
     .then(response => {
-      authService.saveAccessToken(response.data.access_token)
-      console.log(response.data);
+      authService.saveAccessToken(response.data.access_token);
+      navigate("/");
     }).catch(error => {
       console.log("Erro no login", error)
     })

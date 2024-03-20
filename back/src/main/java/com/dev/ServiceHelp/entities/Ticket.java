@@ -5,11 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Data

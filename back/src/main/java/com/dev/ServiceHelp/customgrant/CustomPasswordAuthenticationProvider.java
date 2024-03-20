@@ -70,7 +70,6 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 		RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 		username = customPasswordAuthenticationToken.getUsername();
 		password = customPasswordAuthenticationToken.getPassword();
-
 		UserDetails user = null;
 
 		try {
@@ -169,8 +168,7 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 
 	private void incrementFailedLoginAttempts(UserDetails user) {
 		User us = userRepository.findByEmail(user.getUsername());
-		System.out.println("qtdade failed login attempts " + us.getFailedLoginAttempts());
-		
+
 		if (us.getFailedLoginAttempts() < 5) {
 			us.setFailedLoginAttempts(us.getFailedLoginAttempts() + 1);
 			userRepository.save(us);

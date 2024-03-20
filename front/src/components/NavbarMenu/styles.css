@@ -9,3 +9,13 @@
   width: 40px;
   margin-right: 10px;
 }
+
+.container-perfil-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-perfil-menu h3{
+  margin-right: 10px;
+}

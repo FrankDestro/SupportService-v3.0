@@ -3,22 +3,26 @@ package com.dev.ServiceHelp.services;
 import com.dev.ServiceHelp.dto.AnnotationDTO;
 import com.dev.ServiceHelp.dto.AttachmentDTO;
 import com.dev.ServiceHelp.dto.TicketDTO;
+import com.dev.ServiceHelp.dto.UserDTO;
 import com.dev.ServiceHelp.entities.Annotation;
 import com.dev.ServiceHelp.entities.Attachment;
 import com.dev.ServiceHelp.entities.Ticket;
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.enums.StatusTicket;
+import com.dev.ServiceHelp.enums.StatusUser;
 import com.dev.ServiceHelp.repository.AnnotationRepository;
 import com.dev.ServiceHelp.repository.TicketRepository;
 import com.dev.ServiceHelp.repository.UserRepository;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.config.AnnotationRepositoryConfigurationSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
@@ -36,6 +40,28 @@ public class TicketService {
 
     @Autowired
     private AnnotationRepository annotationRepository;
+
+
+    @Transactional(readOnly = true)
+    public Page<TicketDTO> searchTicketsByParams(Long id, String registrationDate, StatusTicket status, Pageable pageable) {
+        Page<Ticket> list = ticketRepository.searchTicketsByParams(id, registrationDate, status, pageable);
+        return list.map(x -> new TicketDTO(x));
+    }
+
+
+
+
+
+
+
+
+
+
+//    @Transactional(readOnly = true)
+//    public Page<TicketDTO> findAllPaged(Pageable pageable) {
+//        Page<Ticket> list = ticketRepository.findAll(pageable);
+//        return list.map(x -> new TicketDTO(x));
+//    }
 
     @Transactional(readOnly = true)
     public TicketDTO findTicketById(Long id) {
@@ -100,7 +126,7 @@ public class TicketService {
 
         entity.setStatusTicket(dto.getStatusTicket());
 
-        if(entity.getStatusTicket().equals(StatusTicket.FINISHED)) {
+        if (entity.getStatusTicket().equals(StatusTicket.FINISHED)) {
             entity.setCompletionDate(Instant.now());
         } else {
             entity.setCompletionDate(null);

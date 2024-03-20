@@ -10,8 +10,16 @@ import {
 } from "@mui/material";
 import BasicModal from "../ModalAnexo";
 import "./styles.css";
+import { TicketDTO } from "../../models/Ticket";
+import { calculateRemainingTime, formatDate } from "../../utils/functions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
-function TicketsDetailsData() {
+type Props = {
+  ticket: TicketDTO;
+};
+
+function TicketsDetailsData({ ticket }: Props) {
   return (
     <div className="container-ticket-details-data">
       <div className="historic-container">
@@ -23,15 +31,14 @@ function TicketsDetailsData() {
               height: "344px",
               display: "flex",
               justifyContent: "center",
-              // style={{  border: "1px solid gray"}}
             }}
           >
-            
+
             <div className="container text-center container-grid">
-            <div className="historic-title-atualizacacao" style={{textAlign: "initial"}}>
+              <div className="historic-title-atualizacacao" style={{ textAlign: "initial" }}>
                 <h3>Detalhes do chamado</h3>
               </div>
-              <div className="row" >
+              <div className="row" style={{ textAlign: "left", paddingLeft: "20px" }}>
                 <div className="col" style={{ color: "gray", padding: "10px" }}>
                   <h5>Numero Ticket :</h5>
                   <h5>Assunto :</h5>
@@ -42,18 +49,18 @@ function TicketsDetailsData() {
                   <h5>Responsável</h5>
                   <h5>Departamento</h5>
                 </div>
-                <div className="col " style={{  fontWeight: "700", padding: "10px"}}>
-                  <h5>7064</h5>
-                  <h5>Problema mouse</h5>
+                <div className="col " style={{ fontWeight: "700", padding: "10px" }}>
+                  <h5>{ticket.id}</h5>
+                  <h5>{ticket.subject}</h5>
                   <h5>Administração</h5>
-                  <h5>Juan Carlos Goncalves</h5>
-                  <h5>(12) 7685947857</h5>
-                  <h5>juan@gmail.com</h5>
-                  <h5>Franklyn Damaceno</h5>
-                  <h5>TI</h5>
+                  <h5>{ticket.request.firstName + " " + ticket.request.lastName}</h5>
+                  <h5>{ticket.request.contactNumber}</h5>
+                  <h5>{ticket.request.email}</h5>
+                  <h5>{ticket.technician.firstName + " " + ticket.technician.lastName}</h5>
+                  <h5>Area solucionadora</h5>
                 </div>
 
-                <div className="col" style={{ color: "gray",padding: "10px" }}>
+                <div className="col" style={{ color: "gray", padding: "10px" }}>
                   <h5>Dat. Abertura :</h5>
                   <h5>Dat. Final</h5>
                   <h5>Dat. Encerramento :</h5>
@@ -64,26 +71,33 @@ function TicketsDetailsData() {
                   <h5>Status ticket</h5>
                 </div>
                 <div className="col" style={{ fontWeight: "700", padding: "10px" }}>
-                  <h5>10/04/2024 14:20</h5>
-                  <h5>12/04/2024 15:00</h5>
-                  <h5>null</h5>
-                  <h5>02:50h</h5>
-                  <h5>HARDWARE</h5>
-                  <h5>Problema</h5>
-                  <h5>BAIXA</h5>
-                  <h5>ANDAMENTO</h5>
+                  <h5>{formatDate(ticket.registrationDate)}</h5>
+                  <h5>{formatDate(ticket.dueDate)}</h5>
+                  <h5>{formatDate(ticket.completionDate)}</h5>
+
+                  <h5> 
+                  {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" ? (
+                    calculateRemainingTime(ticket.dueDate)
+                  ) : (
+                    ticket.statusTicket === "CANCELED" ? (
+                      <span style={{ color: 'red' }}>CANCELED <FontAwesomeIcon icon={faTimesCircle} /></span>
+                    ) : (
+                      <span style={{ color: 'green' }}>FINISHED <FontAwesomeIcon icon={faCheckCircle} /></span>
+                    )
+                  )}
+                  </h5>
+
+                  <h5>{ticket.categoryProblem}</h5>
+                  <h5>{ticket.typeRequest}</h5>
+                  <h5>{ticket.priority}</h5>
+                  <h5>{ticket.statusTicket}</h5>
                 </div>
               </div>
-              <div className="historic-title-atualizacacao" style={{textAlign: "initial"}}>
+              <div className="historic-title-atualizacacao" style={{ textAlign: "initial" }}>
                 <h3>Descrição</h3>
               </div>
-              <div style={{overflow: "auto", height: "100%", overflowY: "auto"}}>
-                Desde ontem à tarde, tenho enfrentado dificuldades com o
-                funcionamento do meu mouse. O comportamento anormal inclui
-                movimentos irregulares do cursor na tela, dificuldades em clicar
-                e, ocasionalmente, cliques duplos indesejados. Isso está
-                impactando negativamente a minha produtividade durante o uso do
-                computador.
+              <div style={{ overflow: "auto", height: "100%", overflowY: "auto" }}>
+                {ticket.description}
               </div>
             </div>
           </div>

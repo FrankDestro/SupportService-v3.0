@@ -1,4 +1,4 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
@@ -16,7 +16,7 @@ type Props = {
   onSearch: Function;
 };
 
-function SearchForm ( { onSearch }: Props ) {
+function SearchForm({ onSearch }: Props) {
 
   const [text, setText] = useState("");
   const [status, setStatus] = useState("");
@@ -24,7 +24,7 @@ function SearchForm ( { onSearch }: Props ) {
 
   function handleChange(event: any) {
     setText(event.target.value);
-    if(text != "") {
+    if (text != "") {
       setStatus("");
     }
   }
@@ -84,6 +84,10 @@ function SearchForm ( { onSearch }: Props ) {
             fullWidth
             type="submit"
           >
+            <FontAwesomeIcon
+              icon={faFilter}
+              style={{ marginRight: "8px" }}
+            />
             Filtrar
           </Button>
         </Grid>

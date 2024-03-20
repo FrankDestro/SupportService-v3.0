@@ -25,7 +25,7 @@ public class UserResource {
     @Autowired
     private UserService service;
 
-    //	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAll(
             @RequestParam(name = "name", defaultValue = "") String name,
@@ -38,7 +38,7 @@ public class UserResource {
         }
     }
 
-    //	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/logged")
     public ResponseEntity<UserDTO> findUserLogged() {
         UserDTO dto = service.findUserLogged();

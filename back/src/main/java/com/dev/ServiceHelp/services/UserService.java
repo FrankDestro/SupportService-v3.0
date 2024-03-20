@@ -110,6 +110,7 @@ public class UserService implements UserDetailsService {
         entity.getRoles().clear();
         entity.setImgProfile(dto.getImgProfile());
         entity.setStatusUser(dto.getStatus());
+        entity.setContactNumber(dto.getContactNumber());
         entity.setCreatedByUserName(authenticated().getCreatedByUserName());
 
         DepartmentDTO departmentDTO = dto.getDepartment();
@@ -134,6 +135,8 @@ public class UserService implements UserDetailsService {
         }
 
         User user = new User();
+        user.setFirstName(result.get(0).getName());
+        user.setLastName(result.get(0).getLast());
         user.setEmail(username);
         user.setPassword(result.get(0).getPassword());
         user.setStatusUser(StatusUser.values()[result.get(0).getStatus().intValue()]);

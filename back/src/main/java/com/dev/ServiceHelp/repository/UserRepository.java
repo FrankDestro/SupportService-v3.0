@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
 	
 	@Query(nativeQuery = true, value = """
-			SELECT tb_user.email AS username, tb_user.password, role.id As roleId, role.authority, tb_user.status_user As status
+			SELECT tb_user.first_name AS name, tb_user.last_name AS last, tb_user.email AS username, tb_user.password, role.id As roleId, role.authority, tb_user.status_user As status
 			FROM tb_user
 			INNER JOIN tb_user_role ON tb_user.id = tb_user_role.user_id
 			INNER JOIN role ON role.id = tb_user_role.role_id
@@ -34,6 +34,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			"AND (:status IS NULL OR obj.statusUser = :status)"
 	)
 	Page<User> searchByName(Long id, String name, StatusUser status, Pageable pageable);
-
 
 }

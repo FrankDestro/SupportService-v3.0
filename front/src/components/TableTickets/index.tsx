@@ -1,18 +1,71 @@
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faEdit, faMagnifyingGlass, faTimesCircle, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { TicketDTO } from "../../models/Ticket";
+import * as ticketService from "../../services/ticket-service";
+import { calculateRemainingTime, formatDate } from "../../utils/functions";
 import BootstrapPagination from "../Pagination";
 import SearchTickets from "../SearchTickets";
-import * as ticketsData from "../TableTickets/ticketsData"; // Atualize o caminho conforme necessário
-
+import chronometer from "../../assets/chronometer.png"
+import details from "../../assets/details.png"
 import "./styles.css";
+import { Tooltip } from "@mui/material";
 
-const HelpdeskTable: React.FC = () => {
-  const data = ticketsData.data;
+type QueryParams = {
+  page: number;
+  id: string;
+  registrationDate: string;
+  status: string;
+};
 
-  const getStatusBadgeStyle = (status: string): React.CSSProperties => {
-    switch (status.toLowerCase()) {
-      case "andamento":
+function HelpdeskTable() {
+
+  const [tickets, setTickets] = useState<TicketDTO[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    page: 0,
+    id: "",
+    registrationDate: "",
+    status: "",
+  });
+
+  useEffect(() => {
+    ticketService
+      .allTicketsRequest(
+        queryParams.page,
+        queryParams.id,
+        queryParams.registrationDate,
+        queryParams.status
+      )
+      .then((response) => {
+        const { totalPages, content } = response.data;
+        setTickets(content)
+        setTotalPages(totalPages);
+      });
+  }, [queryParams]);
+
+
+  function handleSearch(id: string, registrationDate: string, status: string) {
+    setTickets([]);
+    setQueryParams({ ...queryParams, page: 0, id: id, registrationDate: registrationDate, status: status });
+  }
+
+  const handlePageChange = (newPage: number) => {
+    setQueryParams({ ...queryParams, page: newPage });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+
+  const getStatusBadgeStyle = (statusTicket: string): React.CSSProperties => {
+
+    console.log(statusTicket)
+
+    switch (statusTicket.toLowerCase()) {
+      case "OPEN":
         return {
           backgroundColor: "#4A90E2",
           color: "white",
@@ -20,7 +73,7 @@ const HelpdeskTable: React.FC = () => {
           borderRadius: "4px",
           fontSize: "12px",
         };
-      case "aberto":
+      case "IN_PROGRESS":
         return {
           backgroundColor: "#8DD600",
           color: "white",
@@ -28,7 +81,15 @@ const HelpdeskTable: React.FC = () => {
           borderRadius: "4px",
           fontSize: "12px",
         };
-      case "cancelado":
+      case "FROZEN":
+        return {
+          backgroundColor: "yellow",
+          color: "white",
+          padding: "4px 8px",
+          borderRadius: "4px",
+          fontSize: "12px",
+        };
+      case "CANCELED":
         return {
           backgroundColor: "red",
           color: "white",
@@ -63,7 +124,7 @@ const HelpdeskTable: React.FC = () => {
   return (
     <div className="tickets-container base-card">
       <div className="base-card">
-        <SearchTickets />
+        <SearchTickets onSearch={handleSearch} />
       </div>
       <div className="table-tickets-container">
         <table className="table-base w-full table-tickets">
@@ -71,7 +132,6 @@ const HelpdeskTable: React.FC = () => {
             <tr>
               <th>ID</th>
               <th>Título</th>
-              <th>Descrição</th>
               <th>Solicitante</th>
               <th>Status</th>
               <th>Criticidade</th>
@@ -79,20 +139,19 @@ const HelpdeskTable: React.FC = () => {
               <th>Data de Abertura</th>
               <th>Prazo Final</th>
               <th>Responsavel</th>
-              <th>SLA</th>
+              <th>Tempo Restante</th>
               <th>Detalhes</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.title}</td>
-                <td>{item.description}</td>
-                <td>{item.requester}</td>
+            {tickets.map((ticket) => (
+              <tr key={ticket.id}>
+                <td>{ticket.id}</td>
+                <td>{ticket.subject}</td>
+                <td>{ticket.request.firstName}</td>
                 <td>
-                  <span style={getStatusBadgeStyle(item.status)}>
-                    {item.status}
+                  <span style={getStatusBadgeStyle(ticket.statusTicket)}>
+                    {ticket.statusTicket}
                   </span>
                 </td>
                 <td className="td-priority">
@@ -102,29 +161,55 @@ const HelpdeskTable: React.FC = () => {
                       width: "12px",
                       height: "12px",
                       borderRadius: "20%",
-                      backgroundColor: getPriorityColor(item.priority),
+                      backgroundColor: getPriorityColor(ticket.priority),
                       marginRight: "10px",
                     }}
                   ></span>
-                  {item.priority}
+                  {ticket.priority}
                 </td>
-                <td>{item.type}</td>
-                <td>{item.openingDate}</td>
-                <td>{item.dueDate}</td>
-                <td>{item.responsavel}</td>
-                <td>Dentro do prazo</td>
+                <td>{ticket.categoryProblem}</td>
+                <td>{formatDate(ticket.registrationDate)}</td>
+                <td>{formatDate(ticket.dueDate)}</td>
+                <td>{ticket.technician.firstName ? ticket.technician.firstName : 'Sem atendimento'}</td>
+
+                <td style={{ display: "flex" , height: "43px"}}>
+                  <div style={{ marginRight: "10px" }}>
+                    {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" && (
+                      <img src={chronometer} alt="chronometer" style={{ width: "20px" }} />
+                    )}
+                  </div>
+
+                  {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" ? (
+                    calculateRemainingTime(ticket.dueDate)
+                  ) : (
+                    ticket.statusTicket === "CANCELED" ? (
+                      <span style={{ color: 'red' }}>CANCELED <FontAwesomeIcon icon={faTimesCircle} /></span>
+                    ) : (
+                      <span style={{ color: 'green' }}>FINISHED <FontAwesomeIcon icon={faCheckCircle} /></span>
+                    )
+                  )}
+                </td>
+
                 <td>
+                  <Link to={`/ticketdetails/${ticket.id}`}>
+                  <Tooltip title="Ver detalhes">
                   <FontAwesomeIcon
-                    icon={faEdit}
+                    icon={faMagnifyingGlass}
                     className="icon-sticky-note"
-                  />
+                  />     
+                  </Tooltip>
+                  </Link>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="paginationcomponent-tickets-component">
-          <BootstrapPagination />
+        <div className="paginationcomponent-container">
+          <BootstrapPagination
+            currentPage={queryParams.page}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
     </div>

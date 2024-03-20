@@ -5,7 +5,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 
 public class CustomUserAuthorities {
-	
+
+	private String name;
 	private String username;
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -21,5 +22,4 @@ public class CustomUserAuthorities {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
-	
 }

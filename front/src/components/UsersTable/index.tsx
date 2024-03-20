@@ -8,6 +8,9 @@ import SearchUser from "../SearchUser";
 import { formatDate } from "../../utils/functions";
 
 import "./styles.css";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import UserDetailsUpdate from "../UserDetailsUpdate";
 
 type QueryParams = {
   page: number;
@@ -78,7 +81,7 @@ function UserTable() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-  });
+    });
 
   };
 
@@ -152,12 +155,17 @@ function UserTable() {
 
                 <td>{formatDate(user.createdAt)}</td>
 
-                <td>
+                {/* <td>
                   <FontAwesomeIcon
                     icon={faUserEdit}
                     className="icon-sticky-note"
-                  />
+                  />                  
+                </td> */}
+
+                <td>
+                  <UserDetailsUpdate />
                 </td>
+
               </tr>
             ))}
           </tbody>

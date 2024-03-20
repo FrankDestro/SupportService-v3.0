@@ -30,6 +30,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    private String contactNumber;
     private StatusUser statusUser;
     private String imgProfile;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")

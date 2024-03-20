@@ -27,6 +27,7 @@ public class UserDTO {
     @Email(message = "Favor entrar um email válido")
     private String email;
     private StatusUser status;
+    private String contactNumber;
     private DepartmentDTO department;
     @JsonIgnoreProperties
     private String imgProfile;
@@ -35,13 +36,15 @@ public class UserDTO {
 
     private String createdByUserName;
 
-    public UserDTO(Department department, Long id, String firstName, String lastName, String email, StatusUser status, String imgProfile, String createdByUserName) {
+    public UserDTO(Department department, Long id, String firstName, String lastName, String email,
+                   StatusUser status, String imgProfile, String createdByUserName, String contactNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.status = status;
         this.imgProfile = imgProfile;
+        this.contactNumber = contactNumber;
         this.department = new DepartmentDTO(department);
         this.createdByUserName = createdByUserName;
     }
@@ -54,6 +57,7 @@ public class UserDTO {
         status = entity.getStatusUser();
         imgProfile = entity.getImgProfile();
         createdAt = entity.getCreatedAt();
+        contactNumber = entity.getContactNumber();
         entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
         department = new DepartmentDTO(entity.getDepartment());
         createdByUserName = entity.getCreatedByUserName();

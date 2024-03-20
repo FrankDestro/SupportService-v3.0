@@ -3,17 +3,17 @@ import Perfil from "../perfil";
 import "./styles.css";
 
 function NavbarMenu() {
+
   return (
     <>
       <Navbar expand="lg" className="custom-navbar">
         <div className="container-fluid">
-          {/* <img src={LogoMain} alt="logoMain"></img> */}
           <Navbar.Brand href="#">
             <span
               style={{
                 color: "var(--ss-color-font-Quaternáry)",
                 fontWeight: "bold",
-                marginLeft : '30px',
+                marginLeft: '30px',
               }}
             >
               Support
@@ -31,8 +31,11 @@ function NavbarMenu() {
           <Navbar.Toggle aria-controls="navbarNav">
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>
+
           <Navbar.Collapse id="navbarNav">
-            <Nav className="ml-auto">
+            <Nav className="ml-auto container-perfil-menu">
+              <h3 style={{ fontWeight: "700" }}>Olá,</h3>
+              <h3></h3>
               <Perfil />
             </Nav>
           </Navbar.Collapse>

@@ -1,6 +1,6 @@
 package com.dev.ServiceHelp.enums;
 
-public enum StatusTicket {
+public enum  StatusTicket {
 
-    OPEN, IN_PROGRESS, STOPPED, FROZEN, CANCELED, FINISHED
+    OPEN, IN_PROGRESS, FROZEN, CANCELED, FINISHED
 }

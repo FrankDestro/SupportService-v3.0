@@ -4,12 +4,12 @@ import Auth from "./Page/Auth";
 import Login from "./Page/Auth/Login/login";
 import Recovery from "./Page/Auth/Recovery";
 import DashboardPage from "./Page/DashboardPage";
+import Home from "./Page/Home";
+import TicketDetails from "./Page/TicketDetails";
 import Tickets from "./Page/Tickets";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
-import Home from "./Page/Home";
-import TicketDetails from "./Page/TicketDetails";
 
 const App: React.FC = () => {
   return (
@@ -33,7 +33,7 @@ const App: React.FC = () => {
                       <Route path="dashboard" element={<DashboardPage />} />
                       <Route path="tickets" element={<Tickets />} />
                       <Route path="users" element={<Users />} />
-                      <Route path="ticketdetails" element={<TicketDetails />} />
+                      <Route path="ticketdetails/:ticketId" element={<TicketDetails />} />
                     </Routes>
                   </div>
                 </section>
