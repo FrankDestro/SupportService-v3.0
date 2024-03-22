@@ -34,5 +34,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			"AND (:status IS NULL OR obj.statusUser = :status)"
 	)
 	Page<User> searchByName(Long id, String name, StatusUser status, Pageable pageable);
-
 }

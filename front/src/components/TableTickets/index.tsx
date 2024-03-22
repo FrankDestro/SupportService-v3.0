@@ -1,16 +1,15 @@
-import { faCheckCircle, faEdit, faMagnifyingGlass, faTimesCircle, faUserEdit } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faMagnifyingGlass, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import chronometer from "../../assets/chronometer.png";
 import { TicketDTO } from "../../models/Ticket";
 import * as ticketService from "../../services/ticket-service";
 import { calculateRemainingTime, formatDate } from "../../utils/functions";
 import BootstrapPagination from "../Pagination";
 import SearchTickets from "../SearchTickets";
-import chronometer from "../../assets/chronometer.png"
-import details from "../../assets/details.png"
 import "./styles.css";
-import { Tooltip } from "@mui/material";
 
 type QueryParams = {
   page: number;

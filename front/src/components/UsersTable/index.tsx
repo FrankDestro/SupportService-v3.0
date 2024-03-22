@@ -1,16 +1,13 @@
-import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { UserDTO } from "../../models/users";
 import * as userService from "../../services/user-service";
+import { formatDate } from "../../utils/functions";
 import BootstrapPagination from "../Pagination";
 import SearchUser from "../SearchUser";
-import { formatDate } from "../../utils/functions";
-
+import UserDetailsData from "../UserDetailsData";
 import "./styles.css";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import UserDetailsUpdate from "../UserDetailsUpdate";
+import { Link, useParams } from "react-router-dom";
+import UserDetails from "../../Page/UserDetails";
 
 type QueryParams = {
   page: number;
@@ -20,6 +17,7 @@ type QueryParams = {
 };
 
 function UserTable() {
+
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
@@ -152,20 +150,12 @@ function UserTable() {
                   <td key={role.id}>{role.authority}</td>
                 ))}
                 <td>{user.createdByUserName}</td>
-
                 <td>{formatDate(user.createdAt)}</td>
-
-                {/* <td>
-                  <FontAwesomeIcon
-                    icon={faUserEdit}
-                    className="icon-sticky-note"
-                  />                  
-                </td> */}
-
                 <td>
-                  <UserDetailsUpdate />
+                  <Link to={`/userdetails/${user.id}`}>
+                    <UserDetails/>
+                  </Link>
                 </td>
-
               </tr>
             ))}
           </tbody>

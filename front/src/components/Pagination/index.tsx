@@ -11,7 +11,7 @@ function BootstrapPagination({ currentPage, totalPages, onPageChange }: Bootstra
       pageNumbers.push(
         <li key={i} className={`page-item ${i === currentPage ? 'active' : ''}`}>
           <a className="page-link" href="#" onClick={() => onPageChange(i)}>
-            {i + 1} {/* Adicione 1 para ajustar o deslocamento */}
+            {i + 1} 
           </a>
         </li>
       );

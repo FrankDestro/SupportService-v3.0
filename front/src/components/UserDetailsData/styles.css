@@ -1,0 +1,51 @@
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-model-userdetails {
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: var(--bg-color);
+    width: 700px;
+    max-width: 100%;
+    height: 790px;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.modal-content {
+    height: 100%;
+}
+
+.container-perfil {
+    display: flex;
+    align-items: center;
+}
+
+.container-perfil img {
+   border-radius: 50%;
+   width: 90px;
+   height: 90px;
+}
+
+.container-perfil h3 {
+   font-size: 18px;
+   font-weight: 700;
+   margin-left: 10px;
+ }
+
+.container-title-information {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.445);
+    padding: 5px;
+}
+
+.container-title-information h3 {
+    font-size: 16px;
+}
+
+
+
+

@@ -7,7 +7,8 @@ export type UserDTO = {
     lastName: string,
     email: string,
     status: string,
-    department : DepartmentDTO[];
+    contactNumber: string,
+    department : DepartmentDTO;
     imgProfile: string,
     createdAt: string,
     roles : RoleDTO[],

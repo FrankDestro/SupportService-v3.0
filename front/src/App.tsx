@@ -10,6 +10,7 @@ import Tickets from "./Page/Tickets";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
+import Userdetails from "./Page/UserDetails";
 
 const App: React.FC = () => {
   return (
@@ -29,10 +30,11 @@ const App: React.FC = () => {
                   <div className="app-container">
                     <NavbarMenu />
                     <Routes>
-                    <Route path="/" element={<Home />} />
+                      <Route path="/" element={<Home />} />
                       <Route path="dashboard" element={<DashboardPage />} />
                       <Route path="tickets" element={<Tickets />} />
                       <Route path="users" element={<Users />} />
+                      <Route path="usersdetails/:userId" element={<Userdetails />} />
                       <Route path="ticketdetails/:ticketId" element={<TicketDetails />} />
                     </Routes>
                   </div>
