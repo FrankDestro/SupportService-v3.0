@@ -1,0 +1,17 @@
+.button-container {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    display: flex!important;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+    padding: 10px 15px 10px 15px;
+    border-left: 1px solid var(--border-color-2);
+    border-radius: 5px;
+    border-right: 1px solid var(--border-color-2);
+}
+
+.button-container img {
+   margin-right: 10px;
+}
+

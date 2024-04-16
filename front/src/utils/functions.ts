@@ -17,8 +17,6 @@ export const formatDate = (date: Date | string) => {
 };
 
 
-
-
 export function calculateRemainingTime(dueDate: string): string {
     // Converte a string de data fornecida para um objeto Date
     const dueDateObj = parseISO(dueDate);

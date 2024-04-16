@@ -1,142 +1,76 @@
-import { faCalendar, faClose, faContactCard, faMailReply, faPlaneDeparture, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UpdateIcon from '@mui/icons-material/Edit';
-import { Button, Tooltip } from "@mui/material";
-import editar from "../../assets/editar.png";
-import './styles.css';
+import { Link } from "react-router-dom";
+import editIcon from "../../assets/edit.svg";
+import unlock from "../../assets/unlock.svg";
 import { UserDTO } from "../../models/users";
+import Button from "../Button";
+import './styles.css';
 
 type Props = {
-    user : UserDTO
+    user: UserDTO
 }
 
-function UserDetailsData({ user } :  Props) {
-
+function UserDetailsData({ user }: Props) {
+ 
     return (
         <div>
-            <Tooltip title="Editar">
-                <Button data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <img src={editar} alt="editar" style={{ width: "25px" }}></img>
-                </Button>
-            </Tooltip>
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div className="modal-dialog container-model-userdetails">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <FontAwesomeIcon
-                                icon={faUser}
-                                style={{ marginRight: "8px", color: "blue" }}
-                                fontSize={20}
-                            />
-                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Detalhes de usuário</h1>
-                            <button style={{ marginLeft: "auto" }} data-bs-dismiss="modal" >
-                                <FontAwesomeIcon icon={faClose} fontSize={20} />
-                            </button>
-                        </div>
-
-
-                        <div className="modal-body">
-                            <div className="container text-center">
-                                <div className="row" style={{ marginBottom: "30px" }}>
-                                    <div className="col-12 container-perfil">
-                                        <div>
-                                            <img src={user.imgProfile} alt="foto"></img>
-                                        </div>
-                                        <div>
-                                            <h3>{user.firstName} {user.lastName}</h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-white overflow-hidden shadow rounded-lg border">
-                                    <div className="px-4 py-2 sm:px-2">
-                                        <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                            Informações do Usuário
-                                        </h3>
-                                        <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                                            This is some information about the user.
-                                        </p>
-                                    </div>
-                                    <div className="border-t border-gray-200 px-4 py-3 sm:p-0" style={{ display: "flex", justifyContent: "center" }}>
-                                        <dl className="sm:divide-y sm:divide-gray-200">
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} />
-                                                    Nome completo
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.firstName} {user.lastName}
-                                                </dd>
-                                            </div>
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" >
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faMailReply} style={{ marginRight: "10px" }} />
-                                                    Email
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.email}
-                                                </dd>
-                                            </div>
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faContactCard} style={{ marginRight: "10px" }} />
-                                                    Contato
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.contactNumber}
-                                                </dd>
-                                            </div>
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faPlaneDeparture} style={{ marginRight: "10px" }} />
-                                                    Departamento
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.department.description}
-                                                </dd>
-                                            </div>
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faCalendar} style={{ marginRight: "10px" }} />
-                                                    Data de criação
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    11/01/2024
-                                                </dd>
-                                            </div>
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faMailReply} style={{ marginRight: "10px" }} />
-                                                    Criado por
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.createdByUserName}
-                                                </dd>
-                                            </div>
-
-                                            <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                <dt className="text-sm font-medium text-gray-500" style={{ textAlign: "left" }}>
-                                                    <FontAwesomeIcon icon={faMailReply} style={{ marginRight: "10px" }} />
-                                                    Roles
-                                                </dt>
-                                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                                    {user.roles.map((role) => (
-                                                        <h3>{role.authority}</h3>
-                                                    ))}
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                </div>
+            <div className="container rounded bg-white mt-5 mb-5 container-userdetails base-card">
+                <div className="row">
+                    <div className="col-md-3 border-right">
+                        <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <img className="rounded-circle mt-5" width="150px" src={user.imgProfile} /><span className="font-weight-bold">{user.firstName + " " + user.lastName}</span>
+                            <span className="text-black-50">{user.email}</span><span> </span></div>
+                    </div>
+                    <div className="col-md-5 border-right">
+                        <div className="p-3 py-5">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4 className="text-right">Informações de Usuário</h4>
+                            </div>
+                            <div className="row mt-2">
+                                <div className="col-md-6"><label className="labels">Nome :</label><h3>{user.firstName}</h3></div>
+                                <div className="col-md-6"><label className="labels">Sobrenome : </label><h3>{user.lastName}</h3></div>
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col-md-12"><label className="labels">Numero de Contato : </label><h3>{user.contactNumber}</h3></div>
+                                <div className="col-md-12"><label className="labels">Email :</label><h3>{user.email}</h3></div>
+                                <div className="col-md-12"><label className="labels">Departamento :</label><h3>{user.department.description}</h3></div>
+                                <div className="col-md-12"><label className="labels">Data criação :</label><h3>{user.createdAt}</h3></div>
+                                <div className="col-md-12"><label className="labels">Criado por : </label><h3>{user.createdByUserName}</h3></div>
+                            </div>
+                            <div className="mt-5 text-center">
+                                <Button text="Editar" icon={editIcon} background="var(--button-bg-blue)" />
                             </div>
                         </div>
-
-                        <div className="modal-footer">
-                            <Tooltip title="Editar">
-                                <Button variant="contained" startIcon={<UpdateIcon />}>
-                                    Editar
-                                </Button>
-                            </Tooltip>
+                    </div>
+                    <div className="col-md-4">
+                        <div className="p-3 py-5">
+                            <div className="d-flex justify-content-between align-items-center experience">
+                                <span></span>
+                                <Link to="/users">
+                                    <Button text="Voltar" icon={editIcon} background="var(--button-bg-blue)" />
+                                </Link>
+                            </div>
+                            <div className="col-md-3"><label className="labels">Status :</label> <h3 className={user.status === 'ACTIVE' ? 'container-status-active' : 'container-status-noactive'}>
+                                {user.status}
+                            </h3>
+                            </div>
+                            <div className="col-md-12"><label className="labels">Tipo de Permisão :</label>
+                                {user.roles.map((role) => (
+                                    <div key={role.authority}>
+                                        {role.authority.split('_')[1].charAt(0).toUpperCase() + role.authority.split('_')[1].slice(1).toLowerCase()}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="col-md-6"><label className="labels">Bloqueio:</label>
+                                {user.failedLoginAttempts === 5
+                                    ?
+                                    <div>
+                                        <p>Usuário bloqueado</p>
+                                        <Button text="Desbloquear" icon={unlock} background="var(--button-bg-red)" />
+                                    </div>
+                                    :
+                                    <h3>Usuário Desbloqueado</h3>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

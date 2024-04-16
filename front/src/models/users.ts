@@ -12,5 +12,6 @@ export type UserDTO = {
     imgProfile: string,
     createdAt: string,
     roles : RoleDTO[],
+    failedLoginAttempts : number;
     createdByUserName: string,
 }

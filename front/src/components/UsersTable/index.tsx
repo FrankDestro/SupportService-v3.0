@@ -1,13 +1,13 @@
+import { Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import eyeDetails from "../../assets/eye.png";
 import { UserDTO } from "../../models/users";
 import * as userService from "../../services/user-service";
-import { formatDate } from "../../utils/functions";
 import BootstrapPagination from "../Pagination";
 import SearchUser from "../SearchUser";
-import UserDetailsData from "../UserDetailsData";
 import "./styles.css";
-import { Link, useParams } from "react-router-dom";
-import UserDetails from "../../Page/UserDetails";
+
 
 type QueryParams = {
   page: number;
@@ -122,7 +122,7 @@ function UserTable() {
               <th>Status</th>
               <th>Role</th>
               <th>Created By</th>
-              <th>Created Date</th>
+              <th>Bloqueio</th>
               <th>Detalhes</th>
             </tr>
           </thead>
@@ -147,14 +147,22 @@ function UserTable() {
                   </span>
                 </td>
                 {user.roles.map((role) => (
-                  <td key={role.id}>{role.authority}</td>
+                  <td key={role.id}>{role.authority.split('_')[1].charAt(0).toUpperCase() + role.authority.split('_')[1].slice(1).toLowerCase()}</td>
                 ))}
                 <td>{user.createdByUserName}</td>
-                <td>{formatDate(user.createdAt)}</td>
                 <td>
-                  <Link to={`/userdetails/${user.id}`}>
-                    <UserDetails/>
-                  </Link>
+                  {user.failedLoginAttempts < 5
+                    ? <h3>Desbloqueado</h3> : <h3 style={{ color: "red", fontWeight: "700" }}>Bloqueado</h3>
+                  }
+                </td>
+                <td>
+                  <div className="container-button-details">
+                    <Tooltip title="Detalhes">
+                      <Link to={`/users/${user.id}`}>
+                        <img src={eyeDetails} alt="" />
+                      </Link>
+                    </Tooltip>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -170,6 +178,8 @@ function UserTable() {
         />
       </div>
     </div>
+
+
   );
 }
 

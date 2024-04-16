@@ -32,6 +32,7 @@ public class UserDTO {
     @JsonIgnoreProperties
     private String imgProfile;
     private Instant createdAt;
+    private Integer failedLoginAttempts;
     Set<RoleDTO> roles = new HashSet<>();
 
     private String createdByUserName;
@@ -61,6 +62,6 @@ public class UserDTO {
         entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
         department = new DepartmentDTO(entity.getDepartment());
         createdByUserName = entity.getCreatedByUserName();
+        failedLoginAttempts = entity.getFailedLoginAttempts();
     }
-
 }

@@ -18,7 +18,8 @@
   --border-color-2: #ccc;
   --bg-color-card: #fff;
   --border-color-card: #d9d9d9;
-
+  --button-bg-red: linear-gradient(to bottom, #ff4d4d, #f11212);
+  --button-bg-blue: linear-gradient(to bottom, #0cb2f3, #2b2bf7fd);
   /* Text */
   --text-color-title: rgb(135, 141, 145);
   --text-color-subtitile: rgb(9, 128, 184);
@@ -246,6 +247,23 @@ span.priority-baixa {
   border-left: 1px solid var( --border-color-2);
   border-radius: 5px;
   border-right: 1px solid var( --border-color-2);
+}
+
+/* Estilização UserDetails and Update */
+.container-userdetails h3 {
+  margin-bottom: 10px;
+}
+
+.container-userdetails h4 {
+  font-weight: 700;
+  font-size: 18px;
+  border-bottom: 1px solid gray;
+  padding: 5px;
+}
+
+.labels {
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
 

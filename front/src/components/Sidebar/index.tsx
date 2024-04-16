@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./styles.css"; // Importe seu arquivo CSS
+import "./styles.css";
 
 import Support from "../../assets/iconsupport.gif";
 

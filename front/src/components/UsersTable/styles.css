@@ -43,3 +43,14 @@
     padding: 20px 50px 20px 0px;
     z-index: 1;
 }
+
+.container-button-details { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container-button-details img{
+    width: 35px;
+    height: 20px;
+}
