@@ -12,6 +12,8 @@ import { useState } from "react";
 import { InsertDriveFile } from "@mui/icons-material";
 
 import "./styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 function SearchDashboard() {
   const [startDate, setStartDate] = useState("");
@@ -100,6 +102,10 @@ function SearchDashboard() {
         <div>
           <Grid item xs={12} md={2}>
             <Button variant="contained" color="primary" onClick={handleFilter}>
+              <FontAwesomeIcon
+                icon={faFilter}
+                style={{ marginRight: "8px" }}
+              />
               Filtrar
             </Button>
           </Grid>

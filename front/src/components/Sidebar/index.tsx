@@ -4,6 +4,7 @@ import "./styles.css";
 import Support from "../../assets/iconsupport.gif";
 
 const Sidebar: React.FC = () => {
+  
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
   const [isActive, setIsActive] = useState(false);
 

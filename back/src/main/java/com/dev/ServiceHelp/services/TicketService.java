@@ -1,9 +1,6 @@
 package com.dev.ServiceHelp.services;
 
-import com.dev.ServiceHelp.dto.AnnotationDTO;
-import com.dev.ServiceHelp.dto.AttachmentDTO;
-import com.dev.ServiceHelp.dto.TicketDTO;
-import com.dev.ServiceHelp.dto.UserDTO;
+import com.dev.ServiceHelp.dto.*;
 import com.dev.ServiceHelp.entities.Annotation;
 import com.dev.ServiceHelp.entities.Attachment;
 import com.dev.ServiceHelp.entities.Ticket;
@@ -43,19 +40,10 @@ public class TicketService {
 
 
     @Transactional(readOnly = true)
-    public Page<TicketDTO> searchTicketsByParams(Long id, String registrationDate, StatusTicket status, Pageable pageable) {
+    public Page<TicketSimpleDTO> searchTicketsByParams(Long id, String registrationDate, StatusTicket status, Pageable pageable) {
         Page<Ticket> list = ticketRepository.searchTicketsByParams(id, registrationDate, status, pageable);
-        return list.map(x -> new TicketDTO(x));
+        return list.map(x -> new TicketSimpleDTO(x));
     }
-
-
-
-
-
-
-
-
-
 
 //    @Transactional(readOnly = true)
 //    public Page<TicketDTO> findAllPaged(Pageable pageable) {

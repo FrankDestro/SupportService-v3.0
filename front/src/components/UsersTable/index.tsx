@@ -8,7 +8,6 @@ import BootstrapPagination from "../Pagination";
 import SearchUser from "../SearchUser";
 import "./styles.css";
 
-
 type QueryParams = {
   page: number;
   id: string;

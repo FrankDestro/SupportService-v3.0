@@ -1,6 +1,7 @@
 package com.dev.ServiceHelp.resources;
 
 import com.dev.ServiceHelp.dto.TicketDTO;
+import com.dev.ServiceHelp.dto.TicketSimpleDTO;
 import com.dev.ServiceHelp.dto.UserDTO;
 import com.dev.ServiceHelp.enums.StatusTicket;
 import com.dev.ServiceHelp.enums.StatusUser;
@@ -23,32 +24,16 @@ public class TicketResource {
     private TicketService ticketService;
 
     @GetMapping
-    public ResponseEntity<Page<TicketDTO>> searchTicketsByParams(
+    public ResponseEntity<Page<TicketSimpleDTO>> searchTicketsByParams(
             @RequestParam(name = "id", defaultValue = "") Long id,
             @RequestParam(name = "registrationDate", defaultValue = "") String registrationDate,
             @RequestParam(name = "status", defaultValue = "") StatusTicket status,
             Pageable pageable) {
         {
-            Page<TicketDTO> list = ticketService.searchTicketsByParams(id, registrationDate, status, pageable);
+            Page<TicketSimpleDTO> list = ticketService.searchTicketsByParams(id, registrationDate, status, pageable);
             return ResponseEntity.ok().body(list);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<TicketDTO> findTicketById(@PathVariable Long id) {

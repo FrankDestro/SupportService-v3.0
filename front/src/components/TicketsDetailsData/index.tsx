@@ -1,5 +1,7 @@
 import "./styles.css";
 
+import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   FormControl,
@@ -8,15 +10,13 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import { TicketSimpleDTO } from "../../models/Ticket";
+import { calculateRemainingTime, formatDate } from "../../utils/functions";
 import BasicModal from "../ModalAnexo";
 import "./styles.css";
-import { TicketDTO } from "../../models/Ticket";
-import { calculateRemainingTime, formatDate } from "../../utils/functions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
-  ticket: TicketDTO;
+  ticket: TicketSimpleDTO;
 };
 
 function TicketsDetailsData({ ticket }: Props) {

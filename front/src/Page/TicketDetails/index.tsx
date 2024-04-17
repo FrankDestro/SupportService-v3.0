@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import InputHistoricTickets from "../../components/InputHistoricTickets";
 import TicketsDetailsData from "../../components/TicketsDetailsData";
 import TimeLineTickets from "../../components/TimeLineTickets";
-import { TicketDTO } from "../../models/Ticket";
+import { TicketDTO, TicketSimpleDTO } from "../../models/Ticket";
 import { useParams } from "react-router-dom";
 import * as ticketService from "../../services/ticket-service"
 
 
 function TicketDetails() {
 
-  const [ticket, setTicket] = useState<TicketDTO>();
+  const [ticket, setTicket] = useState<TicketSimpleDTO>();
 
   const params = useParams();
 

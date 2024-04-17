@@ -19,3 +19,5 @@ export type TicketDTO = {
     annotations : AnnotationsDTO[],
     attachments : AttachmentsDTO[]
 }
+
+export type TicketSimpleDTO = Omit<TicketDTO, 'annotations' | 'attachments'>;
