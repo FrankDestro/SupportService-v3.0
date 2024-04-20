@@ -20,17 +20,19 @@ Com uma interface intuitiva e fácil de usar, o Support Service permite que os u
 
 # Tecnologias utilizadas
 ## Back end
-- Java
+- Java 17
 - Spring Boot versão 3.0
 - JPA / Hibernate
 - Maven
 - OAuth 2.0
 - Swagger
 ## Front end
-- HTML5 / CSS3 / JS / TypeScript
+- HTML5 / CSS3 / Javascript / TypeScript
 - ReactJS 18.0
 - Google Charts
-- 
+- Vite
+- Tailwind CSS
+- Bootstrap 5.3
 ## Implantação Homologação 
 - Backend (API) - Docker 24.0
 - FrontEnd : ....
@@ -39,34 +41,36 @@ Com uma interface intuitiva e fácil de usar, o Support Service permite que os u
 # Como executar o projeto
 
 ## Back end
-Pré-requisitos: Java 11
+Pré-requisitos: Java 11 - Desenvolvido na IDE intellij
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/FrankDestro/SupportService-v3.0/tree/main
 
 # entrar na pasta do projeto back end
-cd backend
+cd SupportService\back
 
-# executar o projeto
-./mvnw spring-boot:run
+# Abrir pelo Intellij ou IDE de preferência.
 ```
 
 ## Front end web
-Pré-requisitos: npm / yarn
+Pré-requisitos: npm / yarn - desenvolvido com React JS 18.0
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/FrankDestro/SupportService-v3.0/tree/main
 
 # entrar na pasta do projeto front end web
-cd front-web
+cd front
 
 # instalar dependências
 yarn install
 
+# abrir projeto no Visual Code 
+code . 
+
 # executar o projeto
-yarn start
+yarn dev 
 ```
 
 # Autor
