@@ -9,14 +9,24 @@ O Support Service é um sistema abrangente de gerenciamento de chamados projetad
 
 Com uma interface intuitiva e fácil de usar, o Support Service permite que os usuários registrem e acompanhem facilmente o progresso de seus tickets. Os clientes podem criar novos tickets, descrever o problema com detalhes e até mesmo anexar arquivos relevantes para uma melhor compreensão.
 
-## Layout web
-![Web 1](https://github.com/acenelio/assets/raw/main/sds1/web1.png)
+## Layout web Login
+![Login](https://github.com/FrankDestro/Imagens-Readme/blob/main/login.png)
 
-![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
+## Layout - Tickets
+![tickets](https://github.com/FrankDestro/Imagens-Readme/blob/main/tickets.png)
+
+## Layout - TicketsDetails
+![ticketsDetails](https://github.com/FrankDestro/Imagens-Readme/blob/main/detailstickets.png)
+
+## Layout - Users
+![users](https://github.com/FrankDestro/Imagens-Readme/blob/main/users.png)
+
+## Layout - Dashboard
+![dashboard](https://github.com/FrankDestro/Imagens-Readme/blob/main/dashboard.png)
 
 ## Modelo conceitual
 
-![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
+![Modelo Conceitual](https://github.com/FrankDestro/Imagens-Readme/blob/main/modeloconceitualk.png)
 
 # Tecnologias utilizadas
 ## Back end
