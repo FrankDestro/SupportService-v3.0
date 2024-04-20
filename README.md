@@ -1,5 +1,5 @@
 # Support Service
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/FrankDestro/SupportService-v3.0?tab=MIT-1-ov-file) 
 
 # About Project / Sobre o projeto
 
