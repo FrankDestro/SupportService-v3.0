@@ -162,7 +162,7 @@ span.priority-dot {
 
 /* Status colors */
 span.status-andamento {
-  background-color: orange;
+  background-color: rgb(236, 166, 36);
 }
 
 span.status-aberto {

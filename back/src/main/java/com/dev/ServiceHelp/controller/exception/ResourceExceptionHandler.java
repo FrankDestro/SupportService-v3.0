@@ -1,8 +1,7 @@
-package com.dev.ServiceHelp.resources.exception;
+package com.dev.ServiceHelp.controller.exception;
 
 import java.time.Instant;
 
-import com.dev.ServiceHelp.dto.CustomErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dev.ServiceHelp.dto.UserInsertDTO;
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.UserRepository;
-import com.dev.ServiceHelp.resources.exception.FieldMessage;
+import com.dev.ServiceHelp.controller.exception.FieldMessage;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package com.dev.ServiceHelp.resources;
+package com.dev.ServiceHelp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

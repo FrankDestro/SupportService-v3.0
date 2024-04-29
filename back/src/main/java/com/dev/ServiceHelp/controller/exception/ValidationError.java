@@ -1,4 +1,4 @@
-package com.dev.ServiceHelp.resources.exception;
+package com.dev.ServiceHelp.controller.exception;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.dev.ServiceHelp.resources;
+package com.dev.ServiceHelp.controller;
 
 import java.net.URI;
 

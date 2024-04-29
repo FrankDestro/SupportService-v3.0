@@ -1,7 +1,7 @@
 import { faCheckCircle, faMagnifyingGlass, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import chronometer from "../../assets/chronometer.png";
 import { TicketDTO } from "../../models/Ticket";
@@ -58,55 +58,6 @@ function HelpdeskTable() {
     });
   };
 
-
-  const getStatusBadgeStyle = (statusTicket: string): React.CSSProperties => {
-
-    console.log(statusTicket)
-
-    switch (statusTicket.toLowerCase()) {
-      case "OPEN":
-        return {
-          backgroundColor: "#4A90E2",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-        };
-      case "IN_PROGRESS":
-        return {
-          backgroundColor: "#8DD600",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-        };
-      case "FROZEN":
-        return {
-          backgroundColor: "yellow",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-        };
-      case "CANCELED":
-        return {
-          backgroundColor: "red",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-        };
-      default:
-        return {
-          backgroundColor: "gray",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-          fontSize: "12px",
-        };
-    }
-  };
-
   const getPriorityColor = (priority: string): string => {
     switch (priority.toLowerCase()) {
       case "alta":
@@ -117,6 +68,21 @@ function HelpdeskTable() {
         return "green";
       default:
         return "gray";
+    }
+  };
+
+  const getStatusColor = (statusTicket: string): string => {
+    switch (statusTicket.toLowerCase()) {
+      case "open":
+        return "#1DD700";
+      case "in_progress":
+        return "#1493dc";
+      case "frozen":
+        return "rgb(236, 166, 36)";
+        case "canceled":
+          return "#FF0000";
+      default:
+        return "black";
     }
   };
 
@@ -149,7 +115,15 @@ function HelpdeskTable() {
                 <td>{ticket.subject}</td>
                 <td>{ticket.request.firstName}</td>
                 <td>
-                  <span style={getStatusBadgeStyle(ticket.statusTicket)}>
+                  <span
+                    style={{
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "4px",
+                      fontSize: "12px",
+                      background: getStatusColor(ticket.statusTicket)
+                    }}
+                  >
                     {ticket.statusTicket}
                   </span>
                 </td>
@@ -171,7 +145,7 @@ function HelpdeskTable() {
                 <td>{formatDate(ticket.dueDate)}</td>
                 <td>{ticket.technician.firstName ? ticket.technician.firstName : 'Sem atendimento'}</td>
 
-                <td style={{ display: "flex" , height: "43px"}}>
+                <td style={{ display: "flex", height: "43px" }}>
                   <div style={{ marginRight: "10px" }}>
                     {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" && (
                       <img src={chronometer} alt="chronometer" style={{ width: "20px" }} />
@@ -191,12 +165,12 @@ function HelpdeskTable() {
 
                 <td>
                   <Link to={`/ticketdetails/${ticket.id}`}>
-                  <Tooltip title="Ver detalhes">
-                  <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    className="icon-sticky-note"
-                  />     
-                  </Tooltip>
+                    <Tooltip title="Ver detalhes">
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlass}
+                        className="icon-sticky-note"
+                      />
+                    </Tooltip>
                   </Link>
                 </td>
               </tr>

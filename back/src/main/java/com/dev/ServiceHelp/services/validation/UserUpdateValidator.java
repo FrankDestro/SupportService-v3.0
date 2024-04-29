@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.dev.ServiceHelp.dto.UserUpdateDTO;
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.UserRepository;
-import com.dev.ServiceHelp.resources.exception.FieldMessage;
+import com.dev.ServiceHelp.controller.exception.FieldMessage;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;

@@ -241,3 +241,7 @@ header .image-text .profession {
   font-size: 28px;
   margin-left: 70px;
 }
+
+.container-arrow-close-menu {
+  background-color: rgb(16, 187, 240)!important;
+}

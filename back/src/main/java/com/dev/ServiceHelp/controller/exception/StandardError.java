@@ -1,4 +1,4 @@
-package com.dev.ServiceHelp.resources.exception;
+package com.dev.ServiceHelp.controller.exception;
 
 import java.io.Serializable;
 import java.time.Instant;

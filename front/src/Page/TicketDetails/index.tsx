@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import InputHistoricTickets from "../../components/InputHistoricTickets";
 import TicketsDetailsData from "../../components/TicketsDetailsData";
 import TimeLineTickets from "../../components/TimeLineTickets";
-import { TicketDTO, TicketSimpleDTO } from "../../models/Ticket";
-import { useParams } from "react-router-dom";
-import * as ticketService from "../../services/ticket-service"
+import { TicketSimpleDTO } from "../../models/Ticket";
+import * as ticketService from "../../services/ticket-service";
+import { Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong, faUnlock } from "@fortawesome/free-solid-svg-icons";
 
 
 function TicketDetails() {
@@ -15,18 +18,34 @@ function TicketDetails() {
 
   useEffect(() => {
     ticketService.ticketById(Number(params.ticketId))
-    .then((response) => {
-      console.log(response.data);
-      setTicket(response.data);
-    }).catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        console.log(response.data);
+        setTicket(response.data);
+      }).catch((error) => {
+        console.log(error)
+      })
   }, [])
 
   return (
     <div className="app-container-content">
       <div className="base-card" style={{ marginBottom: "10px" }}>
-        {ticket && <TicketsDetailsData ticket={ticket}/>}
+        <Link to="/tickets">
+          <div className="col-md-1">
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              type="submit"
+            >
+              <FontAwesomeIcon
+                icon={faArrowLeftLong}
+                style={{ marginRight: "8px" }}
+              />
+              Voltar
+            </Button>
+          </div>
+        </Link>
+        {ticket && <TicketsDetailsData ticket={ticket} />}
       </div>
       <div className="base-card" style={{ marginBottom: "10px" }}>
         <TimeLineTickets />

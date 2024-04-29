@@ -30,32 +30,6 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-/* Status colors */
-span.status-andamento {
-  background-color: orange;
-}
-
-span.status-aberto {
-  background-color: green;
-}
-
-span.status-cancelado {
-  background-color: red;
-}
-
-/* Priority colors */
-span.priority-alta {
-  background-color: red;
-}
-
-span.priority-media {
-  background-color: orange;
-}
-
-span.priority-baixa {
-  background-color: green;
-}
-
 .paginationcomponent-container {
   display: flex;
   justify-content: flex-end;

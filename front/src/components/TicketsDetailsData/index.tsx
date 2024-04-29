@@ -75,16 +75,16 @@ function TicketsDetailsData({ ticket }: Props) {
                   <h5>{formatDate(ticket.dueDate)}</h5>
                   <h5>{formatDate(ticket.completionDate)}</h5>
 
-                  <h5> 
-                  {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" ? (
-                    calculateRemainingTime(ticket.dueDate)
-                  ) : (
-                    ticket.statusTicket === "CANCELED" ? (
-                      <span style={{ color: 'red' }}>CANCELED <FontAwesomeIcon icon={faTimesCircle} /></span>
+                  <h5>
+                    {ticket.statusTicket !== "CANCELED" && ticket.statusTicket !== "FINISHED" ? (
+                      calculateRemainingTime(ticket.dueDate)
                     ) : (
-                      <span style={{ color: 'green' }}>FINISHED <FontAwesomeIcon icon={faCheckCircle} /></span>
-                    )
-                  )}
+                      ticket.statusTicket === "CANCELED" ? (
+                        <span style={{ color: 'red' }}>CANCELED <FontAwesomeIcon icon={faTimesCircle} /></span>
+                      ) : (
+                        <span style={{ color: 'green' }}>FINISHED <FontAwesomeIcon icon={faCheckCircle} /></span>
+                      )
+                    )}
                   </h5>
 
                   <h5>{ticket.categoryProblem}</h5>

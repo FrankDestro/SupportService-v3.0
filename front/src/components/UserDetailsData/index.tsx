@@ -2,15 +2,29 @@ import { Link } from "react-router-dom";
 import editIcon from "../../assets/edit.svg";
 import unlock from "../../assets/unlock.svg";
 import { UserDTO } from "../../models/users";
-import Button from "../Button";
+// import Button from "../Button";
 import './styles.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong, faArrowRotateBackward, faEdit, faFilter, faUnlock } from "@fortawesome/free-solid-svg-icons";
+
+import {
+    Button,
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+} from "@mui/material";
 
 type Props = {
     user: UserDTO
 }
 
 function UserDetailsData({ user }: Props) {
- 
+
     return (
         <div>
             <div className="container rounded bg-white mt-5 mb-5 container-userdetails base-card">
@@ -36,8 +50,21 @@ function UserDetailsData({ user }: Props) {
                                 <div className="col-md-12"><label className="labels">Data criação :</label><h3>{user.createdAt}</h3></div>
                                 <div className="col-md-12"><label className="labels">Criado por : </label><h3>{user.createdByUserName}</h3></div>
                             </div>
-                            <div className="mt-5 text-center">
-                                <Button text="Editar" icon={editIcon} background="var(--button-bg-blue)" />
+                            <div className="mt-2 text-center col-md-4">
+                                <Link to="/users">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        type="submit"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faEdit}
+                                            style={{ marginRight: "8px" }}
+                                        />
+                                        Editar
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -46,7 +73,18 @@ function UserDetailsData({ user }: Props) {
                             <div className="d-flex justify-content-between align-items-center experience">
                                 <span></span>
                                 <Link to="/users">
-                                    <Button text="Voltar" icon={editIcon} background="var(--button-bg-blue)" />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        type="submit"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faArrowLeftLong}
+                                            style={{ marginRight: "8px" }}
+                                        />
+                                        Voltar
+                                    </Button>
                                 </Link>
                             </div>
                             <div className="col-md-3"><label className="labels">Status :</label> <h3 className={user.status === 'ACTIVE' ? 'container-status-active' : 'container-status-noactive'}>
@@ -60,15 +98,48 @@ function UserDetailsData({ user }: Props) {
                                     </div>
                                 ))}
                             </div>
-                            <div className="col-md-6"><label className="labels">Bloqueio:</label>
+                            <div className="col-md-5"><label className="labels">Bloqueio:</label>
                                 {user.failedLoginAttempts === 5
                                     ?
                                     <div>
                                         <p>Usuário bloqueado</p>
-                                        <Button text="Desbloquear" icon={unlock} background="var(--button-bg-red)" />
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            fullWidth
+                                            type="submit"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faUnlock}
+                                                style={{ marginRight: "8px" }}
+                                            />
+                                            Desbloquear
+                                        </Button>
                                     </div>
                                     :
                                     <h3>Usuário Desbloqueado</h3>
+                                }
+
+                                {user.status === 'ACTIVE'
+                                    ?
+                                    <div>  
+
+                                    </div>
+                                    :
+                                    <div style={{ marginTop: "10px" }}>
+                                        <Button
+                                            variant="contained"
+                                            color="success"
+                                            fullWidth
+                                            type="submit"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faUnlock}
+                                                style={{ marginRight: "8px" }}
+                                            />
+                                            Ativar usuário
+                                        </Button>
+                                    </div>
                                 }
                             </div>
                         </div>

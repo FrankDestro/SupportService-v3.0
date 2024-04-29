@@ -20,7 +20,6 @@ public class DepartmentDTO {
 
     private Long id;
     private String description;
-    
 
     public DepartmentDTO(Department entity) {
          id = entity.getId();

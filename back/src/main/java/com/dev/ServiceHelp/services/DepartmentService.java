@@ -20,5 +20,4 @@ public class DepartmentService {
                 () -> new ResourceNotFoundException("Resource not found"));
         return new DepartmentDTO(department);
     }
-
 }

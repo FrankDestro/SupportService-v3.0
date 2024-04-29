@@ -1,10 +1,11 @@
+import { faArrowDown, faArrowLeft, faArrowLeftLong, faArrowUp, faBarChart, faCalendar, faHome, faPhone, faTicket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import Support from "../../assets/iconsupport.gif";
 import "./styles.css";
 
-import Support from "../../assets/iconsupport.gif";
-
 const Sidebar: React.FC = () => {
-  
+
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -32,7 +33,7 @@ const Sidebar: React.FC = () => {
             <span className="profession">Apps</span>
           </div>
         </div>
-        <i className="bx bx-chevron-right toggle" onClick={toggleSidebar}></i>
+        <div className="bx toggle container-arrow-close-menu"  onClick={toggleSidebar}> <FontAwesomeIcon icon={faArrowLeftLong} fontSize={14}/></div>
       </header>
 
       <div className={`menu-bar ${isSidebarClosed ? "closed" : ""}`}>
@@ -41,26 +42,25 @@ const Sidebar: React.FC = () => {
             <div className="sidenav">
               <li className="nav-link">
                 <a href="/">
-                  <i className="bx bx-home-alt icon"></i>
+                  <div className="bx icon"><FontAwesomeIcon icon={faHome} /></div>
                   <span className="text nav-text">Home</span>
                 </a>
               </li>
 
               <li className="nav-link">
                 <a href="#" className="">
-                  <i className="bx bx-calendar icon"></i>
+                  <div className="bx icon"><FontAwesomeIcon icon={faPhone} /> </div>
                   <span
-                    className={`dropdown-btn ${
-                      isActive ? "active" : ""
-                    } text nav-text`}
+                    className={`dropdown-btn ${isActive ? "active" : ""
+                      } text nav-text`}
                     onClick={handleDropdownClick}
                   >
                     Call
-                    <i
-                      className={`bx ${
-                        isActive ? "bx-chevron-up" : "bx-chevron-down"
-                      } arrow-icon`}
-                    ></i>
+                    {isActive ? (
+                      <div className="bx icon"><FontAwesomeIcon icon={faArrowUp} fontSize={14} /> </div>
+                    ) : (
+                      <div className="bx icon"> <FontAwesomeIcon icon={faArrowDown}  fontSize={14} /></div>
+                    )}
                   </span>
                 </a>
               </li>
@@ -73,27 +73,26 @@ const Sidebar: React.FC = () => {
 
             <li className="nav-link">
               <a href="/tickets">
-                <i className="bx bx-notepad icon"></i>
-
+                <div className="bx icon"><FontAwesomeIcon icon={faTicket} /></div>
                 <span className="text nav-text">Tickets</span>
               </a>
             </li>
 
             <li className="nav-link">
               <a href="/users">
-                <i className="bx bx-user icon"></i>
+                <div className="bx icon"><FontAwesomeIcon icon={faUser} /></div>
                 <span className="text nav-text">Users</span>
               </a>
             </li>
             <li className="nav-link">
               <a href="/dashboard">
-                <i className="bx bx-bar-chart-alt-2 icon"></i>
+                <div className="bx icon"><FontAwesomeIcon icon={faBarChart} /></div>
                 <span className="text nav-text">Dashboard</span>
               </a>
             </li>
             <li className="nav-link">
               <a href="#">
-                <i className="bx bx-calendar icon"></i>
+                <div className="bx icon"><FontAwesomeIcon icon={faCalendar} /></div>
                 <span className="text nav-text">Calendar</span>
               </a>
             </li>

@@ -1,4 +1,4 @@
-package com.dev.ServiceHelp.resources;
+package com.dev.ServiceHelp.controller;
 
 import com.dev.ServiceHelp.dto.DepartmentDTO;
 import com.dev.ServiceHelp.services.DepartmentService;
