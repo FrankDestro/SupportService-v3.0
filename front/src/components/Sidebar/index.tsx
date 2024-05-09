@@ -1,4 +1,4 @@
-import { faArrowDown, faArrowLeft, faArrowLeftLong, faArrowUp, faBarChart, faCalendar, faHome, faPhone, faTicket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowLeftLong, faArrowUp, faBarChart, faCalendar, faHome, faPhone, faTicket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Support from "../../assets/iconsupport.gif";

@@ -19,7 +19,7 @@ type Props = {
   ticket: TicketSimpleDTO;
 };
 
-function TicketsDetailsData({ ticket }: Props) {
+function  TicketsDetailsData({ ticket }: Props) {
   return (
     <div className="container-ticket-details-data">
       <div className="historic-container">

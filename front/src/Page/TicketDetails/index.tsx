@@ -1,3 +1,6 @@
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import InputHistoricTickets from "../../components/InputHistoricTickets";
@@ -5,9 +8,6 @@ import TicketsDetailsData from "../../components/TicketsDetailsData";
 import TimeLineTickets from "../../components/TimeLineTickets";
 import { TicketSimpleDTO } from "../../models/Ticket";
 import * as ticketService from "../../services/ticket-service";
-import { Button } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong, faUnlock } from "@fortawesome/free-solid-svg-icons";
 
 
 function TicketDetails() {
