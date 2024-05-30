@@ -121,7 +121,7 @@ html {
   height: calc(100vh - 65px);
   margin: 0;
   padding: 20px 10px 10px 10px;
-  background: var(--bg-color-theme);
+  background-color: var(--bg-color-theme);
   overflow-y: auto;
 }
 
@@ -225,6 +225,7 @@ span.priority-baixa {
 
 .paginationcomponent-container {
   display: flex;
+  justify-content: end;
 }
 
 /* Icone detalhes */

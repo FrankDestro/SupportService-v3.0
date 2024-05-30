@@ -1,7 +1,10 @@
+import Tickets from "../Tickets";
 
 function Home() {
   return (
-    <div></div>
+    <>
+    <Tickets/>
+    </>
   );
 }
 

@@ -4,13 +4,13 @@ import Auth from "./Page/Auth";
 import Login from "./Page/Auth/Login/login";
 import Recovery from "./Page/Auth/Recovery";
 import DashboardPage from "./Page/DashboardPage";
-import Home from "./Page/Home";
-import TicketDetails from "./Page/TicketDetails";
 import Tickets from "./Page/Tickets";
+import Userdetails from "./Page/UserDetails";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import Sidebar from "./components/Sidebar";
-import Userdetails from "./Page/UserDetails";
+import Home from "./Page/Home";
+
 
 const App: React.FC = () => {
   return (
@@ -22,20 +22,20 @@ const App: React.FC = () => {
             <Route path="recovery" element={<Recovery />} />
           </Route>
           <Route
-            path="/*"
-            element={
+            path="/*" element={
               <>
                 <Sidebar />
                 <section className="home-section">
                   <div className="app-container">
                     <NavbarMenu />
                     <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="dashboard" element={<DashboardPage />} />
-                      <Route path="tickets" element={<Tickets />} />
-                      <Route path="users" element={<Users />} />
+                      <Route path="/" element={<Home />}>
+                        <Route index element={<Home />} />
+                      </Route>
+                      <Route path="/tickets" element={<Tickets />} />
+                      <Route path="/dashboard" element={<DashboardPage />} />
+                      <Route path="/users" element={<Users />} />
                       <Route path="users/:userId" element={<Userdetails />} />
-                      <Route path="ticketdetails/:ticketId" element={<TicketDetails />} />
                     </Routes>
                   </div>
                 </section>

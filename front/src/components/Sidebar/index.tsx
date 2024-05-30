@@ -1,7 +1,8 @@
-import { faArrowDown, faArrowLeftLong, faArrowUp, faBarChart, faCalendar, faHome, faPhone, faTicket, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faAdjust, faArrowCircleRight, faArrowLeftLong, faArrowRight, faBarChart, faCalendar, faHomeAlt, faTicket, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Support from "../../assets/iconsupport.gif";
+
 import "./styles.css";
 
 const Sidebar: React.FC = () => {
@@ -12,10 +13,6 @@ const Sidebar: React.FC = () => {
   const toggleSidebar = () => {
     setIsSidebarClosed(!isSidebarClosed);
     setIsActive(false);
-  };
-
-  const handleDropdownClick = () => {
-    setIsActive(!isActive);
   };
 
   return (
@@ -33,37 +30,21 @@ const Sidebar: React.FC = () => {
             <span className="profession">Apps</span>
           </div>
         </div>
-        <div className="bx toggle container-arrow-close-menu"  onClick={toggleSidebar}> <FontAwesomeIcon icon={faArrowLeftLong} fontSize={14}/></div>
+        <div className="bx toggle container-arrow-close-menu" onClick={toggleSidebar}> <FontAwesomeIcon icon={faArrowRight} fontSize={14} /></div>
       </header>
 
       <div className={`menu-bar ${isSidebarClosed ? "closed" : ""}`}>
         <div className="menu">
           <ul className="menu-links">
+
             <div className="sidenav">
               <li className="nav-link">
-                <a href="/">
-                  <div className="bx icon"><FontAwesomeIcon icon={faHome} /></div>
+                <a href="/home">
+                  <div className="bx icon"><FontAwesomeIcon icon={faHomeAlt} /></div>
                   <span className="text nav-text">Home</span>
                 </a>
               </li>
 
-              <li className="nav-link">
-                <a href="#" className="">
-                  <div className="bx icon"><FontAwesomeIcon icon={faPhone} /> </div>
-                  <span
-                    className={`dropdown-btn ${isActive ? "active" : ""
-                      } text nav-text`}
-                    onClick={handleDropdownClick}
-                  >
-                    Call
-                    {isActive ? (
-                      <div className="bx icon"><FontAwesomeIcon icon={faArrowUp} fontSize={14} /> </div>
-                    ) : (
-                      <div className="bx icon"> <FontAwesomeIcon icon={faArrowDown}  fontSize={14} /></div>
-                    )}
-                  </span>
-                </a>
-              </li>
               <div className={`dropdown-container ${isActive ? "active" : ""}`}>
                 <a href="#">Add Clients</a>
                 <a href="#">Report</a>

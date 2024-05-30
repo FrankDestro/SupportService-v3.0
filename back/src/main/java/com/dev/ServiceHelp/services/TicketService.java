@@ -45,12 +45,6 @@ public class TicketService {
         return list.map(x -> new TicketSimpleDTO(x));
     }
 
-//    @Transactional(readOnly = true)
-//    public Page<TicketDTO> findAllPaged(Pageable pageable) {
-//        Page<Ticket> list = ticketRepository.findAll(pageable);
-//        return list.map(x -> new TicketDTO(x));
-//    }
-
     @Transactional(readOnly = true)
     public TicketDTO findTicketById(Long id) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow(

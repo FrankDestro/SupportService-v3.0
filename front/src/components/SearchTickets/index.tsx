@@ -1,3 +1,5 @@
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   FormControl,
@@ -8,8 +10,6 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { faFilter, faFilterCircleDollar, faFilterCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 type Props = {
@@ -45,8 +45,6 @@ function SearchForm({ onSearch }: Props) {
 
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} alignItems="center">
-
-
         <Grid item xs={12} sm={4}>
           <TextField
             label="Número do Ticket"
@@ -56,7 +54,6 @@ function SearchForm({ onSearch }: Props) {
             value={numero}
           />
         </Grid>
-
 
         <Grid item xs={12} sm={4}>
           <TextField
@@ -90,7 +87,6 @@ function SearchForm({ onSearch }: Props) {
             </Select>
           </FormControl>
         </Grid>
-
 
         <Grid item xs={12} sm={1}>
           <Button

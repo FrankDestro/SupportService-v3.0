@@ -1,13 +1,12 @@
-import { faTicket } from "@fortawesome/free-solid-svg-icons";
-import CarTitle from "../../components/CardTitle";
-import HelpdeskTable from "../../components/TableTickets";
+import Abas from "../../components/TableTicketsTab";
 
 function Tickets() {
   return (
-    <div className="app-container-content">
-      <CarTitle text="Tickets" icon={faTicket} />
-      <HelpdeskTable />
-    </div>
+    <>
+      <div className="app-container-content">
+        <Abas />
+      </div>
+    </>
   );
 }
 
