@@ -29,7 +29,7 @@ const App: React.FC = () => {
                   <div className="app-container">
                     <NavbarMenu />
                     <Routes>
-                      <Route path="/" element={<Home />}>
+                      <Route path="/home" element={<Home />}>
                         <Route index element={<Home />} />
                       </Route>
                       <Route path="/tickets" element={<Tickets />} />
