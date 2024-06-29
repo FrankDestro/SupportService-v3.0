@@ -1,5 +1,5 @@
 import { Nav, Navbar } from "react-bootstrap";
-import Perfil from "../Perfil";
+import Perfil from "../perfil";
 import "./styles.css";
 
 function NavbarMenu() {
