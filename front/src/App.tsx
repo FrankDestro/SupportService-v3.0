@@ -4,12 +4,12 @@ import Auth from "./Page/Auth";
 import Login from "./Page/Auth/Login/login";
 import Recovery from "./Page/Auth/Recovery";
 import DashboardPage from "./Page/DashboardPage";
+import Home from "./Page/Home";
 import Tickets from "./Page/Tickets";
 import Userdetails from "./Page/UserDetails";
 import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
-import Sidebar from "./components/Sidebar";
-import Home from "./Page/Home";
+import SidebarModern from "./components/SidebarModern";
 
 
 const App: React.FC = () => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
           <Route
             path="/*" element={
               <>
-                <Sidebar />
+                <SidebarModern />
                 <section className="home-section">
                   <div className="app-container">
                     <NavbarMenu />

@@ -1,8 +1,8 @@
+import { faEnvelope, faEye } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import { faEnvelope, faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./styles.css";
 
@@ -63,6 +63,9 @@ function Notifications() {
                   className="ml-3 text-blue-500 w-5 h-5"
                 />
                 <h3>Notificações</h3>
+                <div> 
+                <h3>Marcar todas como lidas</h3>
+                </div>
               </div>
 
               {notificationsData.map((notification, index) => (
