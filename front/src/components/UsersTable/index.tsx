@@ -16,7 +16,6 @@ type QueryParams = {
 };
 
 function UserTable() {
-
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
@@ -77,9 +76,8 @@ function UserTable() {
     setQueryParams({ ...queryParams, page: newPage });
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
-
   };
 
   const getStatusBadgeStyle = (status: string): React.CSSProperties => {
@@ -146,13 +144,20 @@ function UserTable() {
                   </span>
                 </td>
                 {user.roles.map((role) => (
-                  <td key={role.id}>{role.authority.split('_')[1].charAt(0).toUpperCase() + role.authority.split('_')[1].slice(1).toLowerCase()}</td>
+                  <td key={role.id}>
+                    {role.authority.split("_")[1].charAt(0).toUpperCase() +
+                      role.authority.split("_")[1].slice(1).toLowerCase()}
+                  </td>
                 ))}
                 <td>{user.createdByUserName}</td>
                 <td>
-                  {user.failedLoginAttempts < 5
-                    ? <h3>Desbloqueado</h3> : <h3 style={{ color: "red", fontWeight: "700" }}>Bloqueado</h3>
-                  }
+                  {user.failedLoginAttempts < 5 ? (
+                    <h3>Desbloqueado</h3>
+                  ) : (
+                    <h3 style={{ color: "red", fontWeight: "700" }}>
+                      Bloqueado
+                    </h3>
+                  )}
                 </td>
                 <td>
                   <div className="container-button-details">
@@ -177,8 +182,6 @@ function UserTable() {
         />
       </div>
     </div>
-
-
   );
 }
 
