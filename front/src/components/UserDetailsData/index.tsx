@@ -1,23 +1,11 @@
-import { Link } from "react-router-dom";
-import editIcon from "../../assets/edit.svg";
-import unlock from "../../assets/unlock.svg";
-import { UserDTO } from "../../models/users";
+import {Link} from "react-router-dom";
+import {UserDTO} from "../../models/users";
 // import Button from "../Button";
 import './styles.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong, faArrowRotateBackward, faEdit, faFilter, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowLeftLong, faEdit, faUnlock} from "@fortawesome/free-solid-svg-icons";
 
-import {
-    Button,
-    FormControl,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-} from "@mui/material";
+import {Button,} from "@mui/material";
 
 type Props = {
     user: UserDTO

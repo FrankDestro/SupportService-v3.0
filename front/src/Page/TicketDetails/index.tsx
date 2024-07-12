@@ -15,10 +15,10 @@ function TicketDetails({ ticket }: Props) {
       <div className="base-card" style={{ marginBottom: "10px" }}>
         <Link to="/tickets">
         </Link>
-        {ticket && <TicketsDetailsData ticket={ticket} />}
+      {ticket && <TicketsDetailsData ticket={ticket} />}
       </div><div className="base-card" style={{ marginBottom: "10px" }}>
-        <div className="container-timeline">
-        <TimeLineTickets/>
+                <div className="container-timeline">
+ <TimeLineTickets/>
         </div>
        
       </div><div className="base-card">

@@ -7,7 +7,7 @@ function DashboardPage() {
     <div>
       <div className="app-container-content">
         <CarTitle text="Dashboard" icon={faDashboard} />
-        <Dashboard />
+                 <Dashboard />
       </div>
     </div>
   );

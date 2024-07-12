@@ -1,0 +1,43 @@
+
+/*Container-geral*/
+.container-ticket-details {
+    /*border: 1px solid #ff4d4d;*/
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    height: calc(100vh - 64px);
+    background: rgba(136, 136, 136, 0.24);
+}
+
+/* INICIO Container-left*/
+.container-ticket-details-left {
+    width: 100%;
+    height: 100%;
+}
+
+.container-content-timeline {
+    display: flex;
+    width: 100%;
+    height: 700px;
+}
+
+.container-content-addprogress {
+    display: flex;
+    width: 100%;
+    height: 160px;
+}
+/* FIM Container-left*/
+
+
+/* INICIO Container-right*/
+.container-ticket-details-right {
+    margin-left: 10px;
+    width: 700px;
+}
+
+/* FIM Container-right*/
+.container-content-summary {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}

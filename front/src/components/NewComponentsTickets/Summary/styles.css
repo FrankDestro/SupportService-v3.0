@@ -1,0 +1,19 @@
+.ticket-details-summary li {
+    margin-bottom: 12px;
+}
+
+.ticket-details-summary li span {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.title-summary {
+    border-bottom: 2px solid #0c08eb;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.title-summary li {
+    margin : 0;
+}
