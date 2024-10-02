@@ -9,19 +9,18 @@ type Props = {
 };
 
 function TicketDetails({ ticket }: Props) {
-  
   return (
     <>
       <div className="base-card" style={{ marginBottom: "10px" }}>
-        <Link to="/tickets">
-        </Link>
-      {ticket && <TicketsDetailsData ticket={ticket} />}
-      </div><div className="base-card" style={{ marginBottom: "10px" }}>
-                <div className="container-timeline">
- <TimeLineTickets/>
+        <Link to="/tickets"></Link>
+        {ticket && <TicketsDetailsData ticket={ticket} />}
+      </div>
+      <div className="base-card" style={{ marginBottom: "10px" }}>
+        <div className="container-timeline">
+          <TimeLineTickets />
         </div>
-       
-      </div><div className="base-card">
+      </div>
+      <div className="base-card">
         <InputHistoricTickets />
       </div>
     </>

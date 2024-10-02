@@ -1,7 +1,6 @@
 import Tabs from "../Tabs.tsx";
 import TabContent from '../TabContent.tsx';
 
-
 function TimeLine() {
     return (
         <div>
