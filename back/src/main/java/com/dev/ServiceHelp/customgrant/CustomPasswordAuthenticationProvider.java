@@ -4,6 +4,7 @@ import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.UserRepository;
 import com.dev.ServiceHelp.services.exceptions.PasswordException;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,7 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 @Component
 public class CustomPasswordAuthenticationProvider implements AuthenticationProvider {
@@ -97,6 +99,8 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 		if (!user.isEnabled()) {
 			throw new OAuth2AuthenticationException("blocked user");
 		}
+
+		resetFailedLoginAttempts(us);
 		
 		authorizedScopes = user.getAuthorities().stream().map(scope -> scope.getAuthority())
 				.filter(scope -> registeredClient.getScopes().contains(scope)).collect(Collectors.toSet());
@@ -172,11 +176,21 @@ public class CustomPasswordAuthenticationProvider implements AuthenticationProvi
 		if (us.getFailedLoginAttempts() < 5) {
 			us.setFailedLoginAttempts(us.getFailedLoginAttempts() + 1);
 			userRepository.save(us);
-						
+			if(us.getFailedLoginAttempts() == 5) {
+				us.setBlocked(true);
+				userRepository.save(us);
+			}
+
 		} else {
 			throw new OAuth2AuthenticationException("Your user has been blocked due to too many attempts, please contact a system administrator");
-
 		}
 	}
 
+	private void resetFailedLoginAttempts(User user) {
+		if (user.getFailedLoginAttempts() > 0) {
+			user.setFailedLoginAttempts(0);
+			user.setBlocked(false);
+			userRepository.save(user);
+		}
+	}
 }

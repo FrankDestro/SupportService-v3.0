@@ -1,7 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Notifications from "../Notification";
-
 import "./styles.css";
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
@@ -86,7 +85,7 @@ export default function Perfil() {
                   <button
                     type="submit"
                     className={classNames(
-                      active ? "bg-blue-500 text-white" : "text-black", // Alteração aqui
+                      active ? "bg-blue-500 text-white" : "text-black",
                       "block w-full px-4 py-2 text-left text-sm"
                     )}
                   >

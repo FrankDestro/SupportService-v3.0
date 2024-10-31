@@ -11,7 +11,6 @@ import Users from "./Page/Users";
 import NavbarMenu from "./components/NavbarMenu";
 import SidebarModern from "./components/SidebarModern";
 
-
 const App: React.FC = () => {
   return (
     <>

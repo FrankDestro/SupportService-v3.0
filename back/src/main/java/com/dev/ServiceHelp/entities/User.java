@@ -36,11 +36,13 @@ public class User implements UserDetails {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant updaedAt;
-
+    private Instant updateAt;
     private Integer failedLoginAttempts;
-
     private String createdByUserName;
+    private Boolean blocked;
+
+    @ManyToOne
+    private SolvingArea solvingArea;
 
     @ManyToMany
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

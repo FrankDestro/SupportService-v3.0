@@ -1,146 +1,138 @@
 package com.dev.ServiceHelp.services;
 
-import com.dev.ServiceHelp.dto.*;
-import com.dev.ServiceHelp.entities.Annotation;
-import com.dev.ServiceHelp.entities.Attachment;
-import com.dev.ServiceHelp.entities.Ticket;
-import com.dev.ServiceHelp.entities.User;
+import com.dev.ServiceHelp.dto.TicketDTO;
+import com.dev.ServiceHelp.dto.TicketHistoryDTO;
+import com.dev.ServiceHelp.dto.TicketSimpleDTO;
+import com.dev.ServiceHelp.entities.*;
 import com.dev.ServiceHelp.enums.StatusTicket;
-import com.dev.ServiceHelp.enums.StatusUser;
-import com.dev.ServiceHelp.repository.AnnotationRepository;
-import com.dev.ServiceHelp.repository.TicketRepository;
-import com.dev.ServiceHelp.repository.UserRepository;
+import com.dev.ServiceHelp.mappers.*;
+import com.dev.ServiceHelp.repository.*;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dev.ServiceHelp.utils.ResourceUtil;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+@RequiredArgsConstructor
 @Service
 public class TicketService {
 
-    @Autowired
-    private TicketRepository ticketRepository;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    private final TicketMapper ticketMapper;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final TicketRepository ticketRepository;
+    private final TypeRequestRepository typeRequestRepository;
+    private final CategoryTicketRepository categoryTicketRepository;
+    private final SolvingAreaRepository solvingAreaRepository;
+    private final SLARepository slaRepository;
+    private final TicketHistoryRepository ticketHistoryRepository;
+    private final AttachmentRepository attachmentRepository;
+    private final ResourceUtil resourceUtil;
 
-    @Autowired
-    private AnnotationRepository annotationRepository;
+    @Transactional
+    public TicketSimpleDTO createTicket(TicketSimpleDTO ticketSimpleDTO) {
+
+        Ticket ticket = ticketMapper.toTicketEntity(ticketSimpleDTO);
+
+        TypeRequest typeRequest = ResourceUtil.getOrThrow(
+                typeRequestRepository.findById(ticketSimpleDTO.getTypeRequest().id()),
+                "TypeRequest with ID " + ticketSimpleDTO.getTypeRequest().id() + " not found");
+
+        SLA sla = ResourceUtil.getOrThrow(
+                slaRepository.findById(ticketSimpleDTO.getSla().getId()),
+                "SLA with ID " + ticketSimpleDTO.getSla().getId() + " not found");
+
+        SolvingArea solvingArea = ResourceUtil.getOrThrow(
+                solvingAreaRepository.findById(ticketSimpleDTO.getSolvingArea().getId()),
+                "SolvingArea with ID " + ticketSimpleDTO.getSolvingArea().getId() + " not found");
+
+        CategoryTicket categoryTicket = ResourceUtil.getOrThrow(
+                categoryTicketRepository.findById(ticketSimpleDTO.getCategoryTicket().id()),
+                "CategoryTicket with ID " + ticketSimpleDTO.getCategoryTicket().id() + " not found");
 
 
-    @Transactional(readOnly = true)
-    public Page<TicketSimpleDTO> searchTicketsByParams(Long id, String registrationDate, StatusTicket status, Pageable pageable) {
-        Page<Ticket> list = ticketRepository.searchTicketsByParams(id, registrationDate, status, pageable);
-        return list.map(x -> new TicketSimpleDTO(x));
+        ticket.setTypeRequest(typeRequest);
+        ticket.setSla(sla);
+        ticket.setSolvingArea(solvingArea);
+        ticket.setCategoryTicket(categoryTicket);
+        ticket.setRequester(userService.authenticated());
+        ticket.setRegistrationDate(Instant.now());
+        ticket.setDueDate(resourceUtil.calculateDueDate(ticket.getRegistrationDate(), sla.getResponseTime()));
+        ticket = ticketRepository.save(ticket);
+
+        return ticketMapper.toTicketSimpleDTO(ticket);
+    }
+
+    @Transactional
+    public TicketSimpleDTO assignTicketToTechnician(TicketSimpleDTO ticketSimpleDTO) {
+        Ticket ticket = ResourceUtil.getOrThrow(
+                ticketRepository.findById(ticketSimpleDTO.getId()),
+                "Ticket with ID " + ticketSimpleDTO.getId() + " not found");
+        ticket.setTechnician(userService.authenticated());
+        ticket.setStatusTicket(StatusTicket.IN_PROGRESS);
+        return ticketMapper.toTicketSimpleDTO(ticket);
+    }
+
+    @Transactional
+    public TicketSimpleDTO resolveTicket(TicketSimpleDTO ticketSimpleDTO) {
+        Ticket ticket = ResourceUtil.getOrThrow(
+                ticketRepository.findById(ticketSimpleDTO.getId()),
+                "Ticket with ID " + ticketSimpleDTO.getId() + " not found");
+
+        ticket.setResolver(userService.authenticated());
+
+        if (!ticketSimpleDTO.getStatusTicket().equals(StatusTicket.CANCELED) && !ticketSimpleDTO.getStatusTicket().equals(StatusTicket.FINISHED)) {
+            throw new RuntimeException();
+        }
+        ticket.setStatusTicket(ticketSimpleDTO.getStatusTicket());
+        ticket.setCompletionDate(Instant.now());
+        return ticketMapper.toTicketSimpleDTO(ticket);
+    }
+
+    @Transactional
+    public TicketSimpleDTO pauseTicket(TicketSimpleDTO ticketSimpleDTO) {
+        Ticket ticket = ResourceUtil.getOrThrow(
+                ticketRepository.findById(ticketSimpleDTO.getId()),
+                "Ticket with ID " + ticketSimpleDTO.getId() + " not found");
+        ticket.setStatusTicket(StatusTicket.FROZEN);
+        return ticketMapper.toTicketSimpleDTO(ticket);
     }
 
     @Transactional(readOnly = true)
-    public TicketDTO findTicketById(Long id) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow(
+    public Page<TicketSimpleDTO> getTicketsByCriteria(Long id, String registrationDate, StatusTicket status, Long area, Long category, Long type, Pageable pageable) {
+
+        SolvingArea solvingArea = area != null ? solvingAreaRepository.findById(area).orElse(null) : null;
+        CategoryTicket categoryTicket = category != null ? categoryTicketRepository.findById(category).orElse(null) : null;
+        TypeRequest typeRequest = type != null ? typeRequestRepository.findById(type).orElse(null) : null;
+
+        Page<Ticket> ticketResults = ticketRepository.searchTicketsByParams(id, registrationDate, status, solvingArea, categoryTicket, typeRequest, pageable);
+
+        return ticketResults.map(ticket -> ticketMapper.toTicketSimpleDTO(ticket));
+    }
+
+    @Transactional(readOnly = true)
+    public TicketDTO getTicketById(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(
                 () -> new ResourceNotFoundException("ticket not found"));
-        return new TicketDTO(ticket);
-    }
 
-    @Transactional
-    public TicketDTO createNewTicket(TicketDTO dto) {
-        Ticket entity = new Ticket();
-        initializeEntityFromDTO(dto, entity);
-        entity = ticketRepository.save(entity);
-        return new TicketDTO(entity);
-    }
+        Set<TicketHistory> ticketHistoriesResult = ticketHistoryRepository.findByTicketId(ticket.getId());
+        ticket.setTicketHistories(ticketHistoriesResult);
+        Set<Attachment> attachmentsResult = attachmentRepository.findByTicketId(ticket.getId());
+        ticket.setAttachments(attachmentsResult);
 
-    private void initializeEntityFromDTO(TicketDTO dto, Ticket entity) {
-        entity.setSubject(dto.getSubject());
-        entity.setDescription(dto.getDescription());
-        entity.setPriority(dto.getPriority());
-        entity.setTypeRequest(dto.getTypeRequest());
-        entity.setCategoryProblem(dto.getCategoryProblem());
-        entity.setRegistrationDate(Instant.now());
-        User requester = userService.authenticated();
-        entity.setRequester(requester);
 
-        Instant registrationDate = entity.getRegistrationDate();
-        Instant dueDate;
 
-        switch (dto.getPriority().toLowerCase()) {
-            case "baixa":
-                dueDate = registrationDate.plus(8, ChronoUnit.HOURS);
-                break;
-            case "media":
-                dueDate = registrationDate.plus(4, ChronoUnit.HOURS);
-                break;
-            case "alta":
-                dueDate = registrationDate.plus(1, ChronoUnit.HOURS);
-                break;
-            default:
-                dueDate = registrationDate;
-        }
-
-        entity.setDueDate(dueDate);
-        entity.setStatusTicket(StatusTicket.OPEN);
-        entity.setCompletionDate(null);
-    }
-
-    @Transactional
-    public TicketDTO UpdateTicket(Long id, TicketDTO dto) {
-        try {
-            Ticket entity = ticketRepository.getReferenceById(id);
-            EntityFromDTO(dto, entity);
-            entity = ticketRepository.save(entity);
-            return new TicketDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id not found " + id);
-        }
-    }
-
-    private void EntityFromDTO(TicketDTO dto, Ticket entity) {
-
-        entity.setStatusTicket(dto.getStatusTicket());
-
-        if (entity.getStatusTicket().equals(StatusTicket.FINISHED)) {
-            entity.setCompletionDate(Instant.now());
-        } else {
-            entity.setCompletionDate(null);
-        }
-
-        User technician = userService.authenticated();
-        entity.setTechnician(technician);
-
-        Set<AnnotationDTO> annotationDTOs = dto.getAnnotations();
-        Set<AttachmentDTO> attachmentDTOs = dto.getAttachments();
-
-        entity.getAnnotations().clear();
-        for (AnnotationDTO annotationDTO : annotationDTOs) {
-            Annotation annotation = new Annotation();
-            Ticket tk = ticketRepository.getReferenceById(annotationDTO.getTicketId());
-            User us = userRepository.getReferenceById(annotationDTO.getUserId());
-            annotation.setDescription(dto.getDescription());
-            annotation.setRegistrationDate(Instant.now());
-            annotation.setUser(us);
-            annotation.setTicket(tk);
-            annotationRepository.save(annotation);
-            entity.getAnnotations().add(annotation);
-        }
-
-        entity.getAttachment().clear();
-        if (attachmentDTOs != null) {
-            for (AttachmentDTO attachmentDTO : attachmentDTOs) {
-                Attachment attachment = new Attachment();
-                attachment.setTicket(entity);
-                entity.getAttachment().add(attachment);
-            }
-        }
-
+        return ticketMapper.toTicketDTO(ticket);
     }
 }

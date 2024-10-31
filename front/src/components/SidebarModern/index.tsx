@@ -54,7 +54,7 @@ const SidebarModern: React.FC = () => {
                   {link.title === 'Tickets' && (
                     <FontAwesomeIcon
                       icon={faChevronDown}
-                      fontSize={6}
+                      style={{ fontSize: '2px' }} // Altere o valor conforme necessário
                       className={`expand-icon ${openSubmenu === link.href ? 'open' : ''}`}
                     />
                   )}
@@ -81,7 +81,6 @@ const SidebarModern: React.FC = () => {
           <div className="user-name">Natalia Bartošová</div>
           <div className="email">@natalia_bartosova</div>
         </div>
-        {/* <FontAwesomeIcon icon={faSignOutAlt} className="logout" /> */}
       </div>
     </nav>
   );

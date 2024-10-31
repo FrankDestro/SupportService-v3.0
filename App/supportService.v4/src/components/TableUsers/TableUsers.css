@@ -1,0 +1,42 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: var(--color-text-secondary);
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f28f;
+  text-align: center;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
+  padding: 2px;
+}
+
+.container-button-details { 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}

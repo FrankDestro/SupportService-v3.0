@@ -31,7 +31,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT obj FROM User obj " +
 			"WHERE (:name IS NULL OR UPPER(CONCAT(obj.firstName, ' ', obj.lastName)) LIKE UPPER(CONCAT('%', :name, '%'))) " +
 			"AND (:id IS NULL OR obj.id = :id)" +
-			"AND (:status IS NULL OR obj.statusUser = :status)"
+			"AND (:status IS NULL OR obj.statusUser = :status)" +
+			"AND (:blocked IS NULL OR obj.blocked = :blocked)"
 	)
-	Page<User> searchByName(Long id, String name, StatusUser status, Pageable pageable);
+	Page<User> searchByName(Long id, String name, StatusUser status, boolean blocked, Pageable pageable);
 }

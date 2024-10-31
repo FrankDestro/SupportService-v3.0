@@ -1,19 +1,22 @@
 package com.dev.ServiceHelp.entities;
 
 import com.dev.ServiceHelp.enums.StatusTicket;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
-
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "ticket")
@@ -26,9 +29,6 @@ public class Ticket {
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private String priority;
-    private String typeRequest;
-    private String categoryProblem;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant registrationDate;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -38,16 +38,37 @@ public class Ticket {
     private Instant completionDate;
 
     @ManyToOne
-    @JoinColumn(name = "requester_id")
+    private TypeRequest typeRequest;
+    @ManyToOne
     private User requester;
+    @ManyToOne
+    private SLA sla;
+    @ManyToOne
+    private SolvingArea solvingArea;
+
+    @ManyToOne
+    private CategoryTicket categoryTicket;
 
     @ManyToOne
     @JoinColumn(name = "technician_id" , nullable = true)
     private User technician;
 
-    @OneToMany(mappedBy = "ticket")
-    private Set<Annotation> annotations = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "resolver_id", nullable = true)
+    private User resolver;
 
     @OneToMany(mappedBy = "ticket")
-    private Set<Attachment> attachment = new HashSet<>();
+    private Set<TicketHistory> ticketHistories = new HashSet<>();
+
+    @OneToMany(mappedBy = "ticket")
+    private Set<Attachment> attachments = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(id, ticket.id) && Objects.equals(subject, ticket.subject);
+    }
+
 }

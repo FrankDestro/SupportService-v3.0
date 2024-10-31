@@ -85,7 +85,7 @@ body.collapsed .hide {
 .sidebar-links-wrapper {
   overflow: hidden;
   padding: 1rem;
-  position: relative;
+  position: relative; /*? menu links */
 }
 
 body.collapsed .sidebar-links-wrapper {
@@ -107,12 +107,14 @@ body.collapsed .sidebar-links-wrapper {
 .sidebar-links li svg {
   stroke: #E7EAEE;
   width: 1.75rem;
-  height: 1.75rem;
+  height: 1.00rem;
   min-width: 1.10rem;
+  margin-left: 10px;
 }
 
 .sidebar-links li a:hover {
   background: #1e70c2;
+  height: 2px;
 }
 
 .sidebar-links li a {

@@ -1,90 +1,102 @@
-INSERT INTO department (description) VALUES ('Desenvolvimento');
+-- SLA --
+INSERT INTO sla (severity, response_time) VALUES ('Baixa', 48);
+INSERT INTO sla (severity, response_time) VALUES ('Média', 24);
+INSERT INTO sla (severity, response_time) VALUES ('Alta', 12);
+INSERT INTO sla (severity, response_time) VALUES ('Crítica', 4);
+INSERT INTO sla (severity, response_time) VALUES ('Urgente', 1);
+
+INSERT INTO Solving_Area (name) VALUES ('Redes');
+INSERT INTO Solving_Area (name) VALUES ('Suporte a Sistemas');
+INSERT INTO Solving_Area (name) VALUES ('Gestão de Acesso');
+INSERT INTO Solving_Area (name) VALUES ('Departamento Pessoal');
+INSERT INTO Solving_Area (name) VALUES ('Infraestrutura');
+INSERT INTO Solving_Area (name) VALUES ('Desenvolvimento');
+INSERT INTO Solving_Area (name) VALUES ('Recursos Humanos');
+INSERT INTO Solving_Area (name) VALUES ('Marketing');
+INSERT INTO Solving_Area (name) VALUES ('Vendas');
+INSERT INTO Solving_Area (name) VALUES ('Financeiro');
+INSERT INTO Solving_Area (name) VALUES ('Atendimento ao Cliente');
+INSERT INTO Solving_Area (name) VALUES ('Gestão de Projetos');
+INSERT INTO Solving_Area (name) VALUES ('Compliance');
+INSERT INTO Solving_Area (name) VALUES ('Pesquisa e Desenvolvimento');
+INSERT INTO Solving_Area (name) VALUES ('Treinamento e Desenvolvimento');
+INSERT INTO Solving_Area (name) VALUES ('Planejamento Estratégico');
+
+INSERT INTO Type_Request (name) VALUES ('Solicitação');
+INSERT INTO Type_Request (name) VALUES ('Problema');
+INSERT INTO Type_Request (name) VALUES ('Dúvidas');
+INSERT INTO Type_Request (name) VALUES ('Incidente');
+INSERT INTO Type_Request (name) VALUES ('Mudança');
+INSERT INTO Type_Request (name) VALUES ('Requisição de Serviço');
+INSERT INTO Type_Request (name) VALUES ('Melhoria');
+
+INSERT INTO category_Ticket (name) VALUES ('Hardware');
+INSERT INTO category_Ticket (name) VALUES ('Software');
+INSERT INTO category_Ticket (name) VALUES ('Acessos');
+INSERT INTO category_Ticket (name) VALUES ('Redes');
+INSERT INTO category_Ticket (name) VALUES ('Segurança da Informação');
+INSERT INTO category_Ticket (name) VALUES ('Banco de Dados');
+INSERT INTO category_Ticket (name) VALUES ('Infraestrutura');
+INSERT INTO category_Ticket (name) VALUES ('Desenvolvimento de Sistemas');
+INSERT INTO category_Ticket (name) VALUES ('Telefonia');
+INSERT INTO category_Ticket (name) VALUES ('Folha de Pagamento');
+INSERT INTO category_Ticket (name) VALUES ('Benefícios');
+INSERT INTO category_Ticket (name) VALUES ('Treinamento');
+INSERT INTO category_Ticket (name) VALUES ('Recrutamento e Seleção');
+INSERT INTO category_Ticket (name) VALUES ('Gestão de Desempenho');
+INSERT INTO category_Ticket (name) VALUES ('ERP');
+INSERT INTO category_Ticket (name) VALUES ('CRM');
+INSERT INTO category_Ticket (name) VALUES ('Financeiro/Contábil');
+INSERT INTO category_Ticket (name) VALUES ('Sistemas de Atendimento ao Cliente');
+INSERT INTO category_Ticket (name) VALUES ('E-commerce');
+INSERT INTO category_Ticket (name) VALUES ('Contas a Pagar');
+INSERT INTO category_Ticket (name) VALUES ('Contas a Receber');
+INSERT INTO category_Ticket (name) VALUES ('Faturamento');
+INSERT INTO category_Ticket (name) VALUES ('Impostos e Tributos');
+INSERT INTO category_Ticket (name) VALUES ('Controle de Orçamento');
+INSERT INTO category_Ticket (name) VALUES ('Atendimento Telefônico');
+INSERT INTO category_Ticket (name) VALUES ('Plataforma de Chat');
+INSERT INTO category_Ticket (name) VALUES ('Tickets de Suporte');
+INSERT INTO category_Ticket (name) VALUES ('Automação de Marketing');
+INSERT INTO category_Ticket (name) VALUES ('Mídias Sociais');
+INSERT INTO category_Ticket (name) VALUES ('Análises de Dados');
+INSERT INTO category_Ticket (name) VALUES ('Gestão de Leads');
+INSERT INTO category_Ticket (name) VALUES ('Pedidos de Venda');
+
 INSERT INTO department (description) VALUES ('Recursos Humanos');
+INSERT INTO department (description) VALUES ('Tecnologia da Informação');
 INSERT INTO department (description) VALUES ('Financeiro');
+INSERT INTO department (description) VALUES ('Marketing');
+INSERT INTO department (description) VALUES ('Vendas');
+INSERT INTO department (description) VALUES ('Suporte ao Cliente');
+INSERT INTO department (description) VALUES ('Logística');
+INSERT INTO department (description) VALUES ('Jurídico');
+INSERT INTO department (description) VALUES ('Compras');
+INSERT INTO department (description) VALUES ('Produção');
+INSERT INTO department (description) VALUES ('Qualidade');
+INSERT INTO department (description) VALUES ('Pesquisa e Desenvolvimento');
+INSERT INTO department (description) VALUES ('Gestão de Projetos');
+INSERT INTO department (description) VALUES ('Compliance');
 
-INSERT INTO role (authority) VALUES ('ROLE_USER');
 INSERT INTO role (authority) VALUES ('ROLE_ADMIN');
+INSERT INTO role (authority) VALUES ('ROLE_OPERATOR');
 
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Frank', 'Damaceno', 'frank.damaceno@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Amanda', 'Oliveira', 'amanda.oliveira@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Kleber', 'Gonçalves', 'kleber.gonçalves@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80', 1, 3, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Maria', 'Silva', 'maria.silva@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Lucas', 'Santos', 'lucas.santos@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Camila', 'Oliveira', 'camila.oliveira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Rafael', 'Silveira', 'rafael.silveira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Ana', 'Ferreira', 'ana.ferreira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Rodrigo', 'Almeida', 'rodrigo.almeida@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Fernanda', 'Ribeiro', 'fernanda.ribeiro@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 2, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Daniel', 'Carvalho', 'daniel.carvalho@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 3, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Carolina', 'Lima', 'carolina.lima@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Martiana', 'Maria', 'martiana.maria@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 0, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Robert', 'Garcia', 'robert.garcia@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('John', 'Smith', 'john.smith@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Jane', 'Doe', 'jane.doe@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Alice', 'Johnson', 'alice.johnson@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Bob', 'Miller', 'bob.miller@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Charlie', 'Davis', 'charlie.davis@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('David', 'Taylor', 'david.taylor@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Eva', 'Wilson', 'eva.wilson@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Frank', 'Brown', 'frank.brown@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Grace', 'Hill', 'grace.hill@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Helen', 'Jones', 'helen.jones@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Ivan', 'Clark', 'ivan.clark@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Jack', 'Roberts', 'jack.roberts@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Katie', 'Baker', 'katie.baker@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Lucas', 'Fisher', 'lucas.fisher@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
-INSERT INTO tb_user (first_name, last_name, email, password, img_Profile, status_User, id_department, created_by_user_name, failed_Login_Attempts, contact_number) VALUES ('Mia', 'Parker', 'mia.parker@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80', 1, 1, 'Frank', 0, '(19) 8978-6745');
+-- Solicitante 1
+INSERT INTO tb_user (first_name, last_name, email, password, contact_number, status_user, img_profile, created_at, update_at, failed_login_attempts, created_by_user_name, blocked, solving_area_id, id_department) VALUES ('João', 'Silva', 'joao.solicitante@empresa.com', '$2a$10$BZEayVp6X1Ry93e44/Rnze0hpK5J3ThbAdUm2OzH.GSWjA4zmtGHW', '11999998888', 1 , 'img1.png', '2023-10-24 08:30:00', '2023-10-24 08:30:00', 5, 'admin', true, 4, 1);
+-- Solicitante 2
+INSERT INTO tb_user (first_name, last_name, email, password, contact_number, status_user, img_profile, created_at, update_at, failed_login_attempts, created_by_user_name, blocked, solving_area_id, id_department) VALUES ('Maria', 'Souza', 'maria.solicitante@empresa.com', '$2a$10$BZEayVp6X1Ry93e44/Rnze0hpK5J3ThbAdUm2OzH.GSWjA4zmtGHW', '11988887777', 1 , 'img2.png', '2023-10-24 09:00:00', '2023-10-24 09:00:00', 0, 'admin',false, 7, 1);
+-- Técnico 1
+INSERT INTO tb_user (first_name, last_name, email, password, contact_number, status_user, img_profile, created_at, update_at, failed_login_attempts, created_by_user_name, blocked, solving_area_id, id_department) VALUES ('Carlos', 'Ferreira', 'carlos.tecnico@empresa.com', '$2a$10$BZEayVp6X1Ry93e44/Rnze0hpK5J3ThbAdUm2OzH.GSWjA4zmtGHW', '11977776666', 1 , 'img3.png', '2023-10-24 10:30:00', '2023-10-24 10:30:00', 0, 'admin', false, 2, 2);
+-- Técnico 2
+INSERT INTO tb_user (first_name, last_name, email, password, contact_number, status_user, img_profile, created_at, update_at, failed_login_attempts, created_by_user_name, blocked, solving_area_id, id_department) VALUES ('Ana', 'Pereira', 'ana.tecnico@empresa.com', '$2a$10$BZEayVp6X1Ry93e44/Rnze0hpK5J3ThbAdUm2OzH.GSWjA4zmtGHW', '11966665555', 1 , 'img4.png', '2023-10-24 11:00:00', '2023-10-24 11:00:00', 0, 'admin', false, 2, 6);
 
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (5, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (6, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (7, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (8, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (9, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (10, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (11, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (12, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (13, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (14, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (15, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (16, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (17, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (18, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (19, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (20, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (21, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (22, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (23, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (24, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (25, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (26, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (27, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (28, 1);
-INSERT INTO tb_user_role (user_id, role_id) VALUES (29, 1);
 
---INSERT DE TICKET PARA TESTE
+-- INSERT TICKET FULL.
+INSERT INTO ticket (subject, description, registration_date, due_date, status_ticket, completion_date, type_request_id, requester_id, sla_id, solving_area_id, category_ticket_id, technician_id, resolver_id) VALUES ('Problema no sistema', 'Erro ao tentar acessar o sistema de pagamento', '2024-10-25 08:30:00', '2024-11-01 08:30:00', 4, '2024-11-01 08:30:00', 1, 2, 1, 1, 1, 3, 4);
+INSERT INTO ticket_history (description, annotation_public, visible_to_requester, registration_date, system_generated, note_type, ticket_id, user_id) VALUES ('Anotação sobre o progresso do ticket', true, true, TIMESTAMP '2024-10-25 08:30:00', false, 'COMMENT', 1, 1);
 
---5 OPEN
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Internet lenta', 'Os usuários estão enfrentando lentidão na conexão de internet.', 'ALTA', 'Problema', 'Rede', '2024-03-20 09:15:00', '2024-03-20 10:15:00', 0, 2, null, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Teclado não funciona', 'O teclado do computador não está respondendo aos comandos.', 'MÉDIA', 'Problema', 'Hardware', '2024-03-21 10:30:00', '2024-03-21 14:30:00', 0, 3, null, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Solicitação de Acesso a Arquivos Compartilhados', 'O departamento de recursos humanos solicita acesso aos arquivos compartilhados do departamento de contabilidade.', 'BAIXA', 'Solicitação', 'Acesso', '2024-03-24 08:30:00', '2024-03-26 08:30:00', 0, 4, null, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Erro ao abrir o Excel', 'Ao tentar abrir o Excel, aparece uma mensagem de erro e o programa não inicia.', 'BAIXA', 'Problema', 'Software', '2024-03-23 11:45:00', '2024-03-23 19:45:00', 0, 5, null, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Instalação do Pacote Office', 'Solicita-se a instalação do Microsoft Office no computador do departamento de vendas.', 'BAIXA', 'Solicitação', 'Software', '2024-03-22 14:00:00', '2024-03-24 14:00:00', 0, 6, null, null);
-
---5 IN_PROGRESS
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Problema de Conexão VPN', 'Usuário relata dificuldades para se conectar à rede corporativa através da VPN.', 'ALTA', 'Problema', 'Rede', '2024-03-26 10:00:00', '2024-03-26 11:00:00', 1, 7, 1, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Solicitação de Licença de Software', 'Departamento de Marketing solicita uma licença adicional para o software de edição de imagens.', 'MÉDIA', 'Solicitação', 'Software', '2024-03-27 09:30:00', '2024-03-27 13:30:00', 1, 8, 1, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Erro de Impressão', 'Relato de erro ao imprimir documentos na impressora do departamento de recursos humanos.', 'BAIXA', 'Problema', 'Hardware', '2024-03-28 11:00:00', '2024-03-28 18:00:00', 1, 9, 1, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Configuração de Email no Dispositivo Móvel', 'Usuário solicita ajuda para configurar o email corporativo em seu dispositivo móvel.', 'BAIXA', 'Solicitação', 'Software', '2024-03-29 14:45:00', '2024-03-29 18:45:00', 1, 10, 1, null);
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Falha ao Acessar Sistema Interno', 'Usuário relata que está enfrentando dificuldades ao acessar o sistema interno da empresa.', 'BAIXA', 'Problema', 'Software', '2024-03-30 08:00:00', '2024-03-30 16:00:00', 1, 11, 1, null);
-
---1 FROZEN
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Erro de Autenticação no Sistema Financeiro', 'O sistema financeiro está apresentando erro de autenticação ao tentar fazer login.', 'ALTA', 'Problema', 'Software', '2024-04-01 09:30:00', '2024-04-01 13:30:00', 2, 12, 1, null);
---1 CANCELED
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Cancelamento de Solicitação de Hardware', 'O usuário decidiu cancelar a solicitação de um novo laptop devido a uma mudança nos requisitos.', 'BAIXA', 'Cancelamento', 'Hardware', '2024-04-02 10:00:00', '2024-04-02 14:00:00', 3, 13, 1, '2024-04-02 15:00:00');
---2 FINISHED
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Erro de Sistema Corrigido', 'O problema de travamento do sistema foi resolvido após uma atualização de software.', 'MÉDIA', 'Problema', 'Software', '2024-04-03 11:30:00', '2024-04-03 15:30:00', 4, 13, 1, '2024-04-03 16:45:00');
-INSERT INTO ticket (subject, description, priority, type_Request, category_problem, registration_Date, due_date, status_Ticket, requester_id, technician_id, completion_Date) VALUES ('Acesso concedido aos arquivos compartilhados', 'A solicitação de acesso aos arquivos compartilhados foi atendida. O usuário agora tem acesso total.', 'BAIXA', 'Solicitação', 'Acesso', '2024-04-04 09:00:00', '2024-04-04 13:00:00', 4, 13, 1, '2024-04-04 14:20:00');
+INSERT INTO attachment (url, registration_date, file_name, type, ticket_id, user_id) VALUES ('https://example.com/file.pdf', NOW(), 'file.pdf', 'PDF', 1, 2);

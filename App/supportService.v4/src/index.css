@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap");
+
+
+:root {
+  /* Cores de Background */
+  --color-bg-primary: #f5f5f5; /* Cor de fundo principal (Geral) */
+  --color-bg-secondary: #ffffff; /* Fundo de seções ou cartões */
+  --color-bg-accent: #e3f2fd; /* Fundo de destaque, notificações, ou seções especiais */
+
+  /* Cores de Tipografia */
+  --color-text-primary: #212121; /* Cor principal para texto */
+  --color-text-secondary: #757575ec; /* Cor para subtítulos e textos secundários */
+  --color-text-accent: #0d47a1; /* Cor para links ou textos de destaque */
+  --color-text-on-primary: #ffffff; /* Cor para textos em elementos com fundo escuro */
+
+  /* Títulos e Subtítulos */
+  --color-title-primary: #0d47a1; /* Cor para títulos principais */
+  --color-subtitle-primary: #1976d2; /* Cor para subtítulos */
+
+  /* Cores para Borda */
+  --color-border: #b1bdc8be; /* Cor padrão de bordas */
+  --color-border-hover: #b1bdc87c; /* Cor para bordas em foco/hover */
+
+  /* Cores para Elementos Interativos */
+  --color-primary: #2196f3; /* Cor para botões primários */
+  --color-primary-hover: #1976d2; /* Cor para botões primários ao passar o mouse */
+  --color-secondary: #ff9800; /* Cor para botões secundários */
+  --color-secondary-hover: #f57c00; /* Cor para botões secundários ao passar o mouse */
+
+  /* Feedback */
+  --color-success: #4caf50;
+  --color-error: #f44336;
+  --color-warning: #ffeb3b;
+
+  /* Estrutura */
+  --header-bg: #ffffff; /* Cor de fundo do conteúdo */
+  --sidebar-bg: #11344d; /* Cor de fundo do sidebar */
+  --content-bg: #dfecf836; /* Cor de fundo do conteúdo */
+  --footer-bg:  #ffffff; /* Cor de fundo do footer */
+  --text-color: #333; /* Cor do texto padrão */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+  color: var(--color-text-accent);
+}
+
+html,
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  margin: 0; /* Remove margens do body */
+  height: 100vh; /* Altura total da viewport */
+  overflow: hidden; /* Remove a rolagem */
+}
+
+/* Exemplo de Uso de Estilos */
+h1,
+h2,
+h3 {
+  color: var(--color-title-primary);
+}
+
+h4,
+h5,
+h6 {
+  color: var(--color-subtitle-primary);
+}
+
+p {
+  color: var(--color-text-primary);
+}
+
+.container-base {
+  background-color: #ffffff; /* Cor de fundo do card */
+  border: 1px solid var(--color-border); /* Borda leve */
+  border-radius: 3px; /* Cantos arredondados */
+  transition: box-shadow 0.3s ease; /* Transição suave ao passar o mouse */
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.button-container {
+  border: 1px solid rgba(128, 128, 128, 0);
+  padding: 10px;
+  color: rgb(255, 255, 255);
+  display: flex!important;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  border-left: 1px solid var(--border-color-2);
+  border-radius: 5px;
+  border-right: 1px solid var(--border-color-2);
+  align-items: center;
+}

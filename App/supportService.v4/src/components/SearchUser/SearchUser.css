@@ -1,0 +1,94 @@
+.search-user-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 20px;
+  justify-content: space-between;
+}
+
+.search-input-container {
+  position: relative;
+  flex: 1; /* Faz o input ocupar espaço disponível */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px; /* Espaço para o ícone de busca */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input:focus {
+  border-color: #007bff; /* Altere para a cor desejada quando em foco */
+  outline: none; /* Remove o contorno padrão */
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+  gap: 10px; /* Espaçamento entre os elementos */
+}
+
+.status-select-container {
+  flex: 1; /* Faz o select ocupar espaço disponível */
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+select:focus {
+  border-color: #007bff; /* Altere para a cor desejada quando em foco */
+  outline: none; /* Remove o contorno padrão */
+}
+
+.input-container {
+  position: relative;
+  margin: 20px 0; /* Ajuste conforme necessário */
+}
+
+.floating-input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px; /* Espaço para o ícone de busca */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, padding 0.2s ease;
+}
+
+.floating-input:focus {
+  border-color: #007bff; /* Cor da borda quando em foco */
+  outline: none; /* Remove o contorno padrão */
+}
+
+.floating-label {
+  position: absolute;
+  left: 10px;
+  top: 10px; /* Ajuste conforme necessário */
+  font-size: 14px;
+  color: #999; /* Cor do label */
+  transition: all 0.2s ease; /* Suaviza a transição */
+}
+
+/* Estilo para o label quando o input está focado ou tem valor */
+.floating-input:focus + .floating-label,
+.floating-input:not(:placeholder-shown) + .floating-label {
+  top: -10px; /* Move o label para cima */
+  left: 10px;
+  font-size: 12px; /* Altere o tamanho da fonte */
+  color: #007bff; /* Altera a cor do label quando em foco */
+  background-color: white;
+}
