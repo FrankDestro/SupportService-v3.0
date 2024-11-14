@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,15 +23,14 @@ public class UserResource {
     private final UserService userService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/getALlUsers")
+    @GetMapping("/getAllUsers")
     public ResponseEntity<Page<UserDTO>> getUserPaged(
+            @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "name", defaultValue = "") String name,
-            @RequestParam(name = "id", defaultValue = "") Long id,
             @RequestParam(name = "status", required = false) StatusUser status,
-            @RequestParam(name = "blocked", required = false) boolean blocked,
             Pageable pageable) {
         {
-            Page<UserDTO> list = userService.getUserPaged(id, name, status, blocked, pageable);
+            Page<UserDTO> list = userService.getUserPaged(id, name, status, pageable);
             return ResponseEntity.ok().body(list);
         }
     }

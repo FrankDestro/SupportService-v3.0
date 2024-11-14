@@ -1,8 +1,6 @@
 package com.dev.ServiceHelp.entities;
 
 import com.dev.ServiceHelp.enums.StatusTicket;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

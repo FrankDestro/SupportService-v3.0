@@ -43,8 +43,8 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> getUserPaged(Long id, String name, StatusUser status, boolean blocked, Pageable pageable) {
-        Page<User> usersResult = userRepository.searchByName(id, name, status, blocked, pageable);
+    public Page<UserDTO> getUserPaged(Long id, String name, StatusUser status, Pageable pageable) {
+        Page<User> usersResult = userRepository.searchByName(id, name, status, pageable);
         return usersResult.map(user -> userMapper.toUserDTO(user));
     }
 

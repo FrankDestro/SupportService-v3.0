@@ -14,5 +14,13 @@ export function requestBackendConfig(config: AxiosRequestConfig) {
       }
     : config.headers;
 
+    
+    console.log({
+      ...config,
+      baseURL: BASE_URL,
+      headers,
+    });
+
+
   return axios({ ...config, baseURL: BASE_URL, headers });
 }

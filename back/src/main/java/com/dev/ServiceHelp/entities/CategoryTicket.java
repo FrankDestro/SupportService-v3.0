@@ -18,4 +18,9 @@ public class CategoryTicket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    // NEW
+    @ManyToOne(fetch = FetchType.EAGER)
+    private SolvingArea solvingArea;
+
 }

@@ -39,6 +39,7 @@ public class User implements UserDetails {
     private Instant updateAt;
     private Integer failedLoginAttempts;
     private String createdByUserName;
+    @Column(nullable = true)
     private Boolean blocked;
 
     @ManyToOne

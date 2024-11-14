@@ -1,8 +1,18 @@
+import LineChartSupportByDay from "../Dashboard/LineChartSupportByDay/LineChartSupportByDay";
+import PieChartByUrgency from "../Dashboard/PieChartByUrgency/PieChartByUrgency";
+import PieChartDonutByStatusTicket from "../Dashboard/PieChartDonutByStatusTicket/PieChartDonutByStatusTicket";
+import SlaIndicators from "../Dashboard/SlaIndicators/SlaIndicators";
+import SearchPanel from "../SearchPanel/SearchPanel";
 import "./ActivityPanel.css";
 
 function ActivityPanel() {
   return (
     <div>
+      <div className="container-base">
+        <SearchPanel />
+      </div>
+
+      {/* Resumo dos Chamados */}
       <div className="container-main-panel">
         <div className="container-main-summary">
           <div className="container-base card-summary">
@@ -31,8 +41,25 @@ function ActivityPanel() {
           </div>
         </div>
 
-        <div className="container-base painel-geral">
-        <span className="title-panel-tickets">Vencimentos hoje</span>
+        <div className="container-all-charts">
+          {/* Gráficos de Distribuição e Urgência dos Chamados */}
+          <div className="container-charts">
+            <div className="content-pie-chart-donuts-tickets">
+              <PieChartDonutByStatusTicket />
+            </div>
+            <div className="content-pie-chart-donuts-tickets">
+              <PieChartByUrgency />
+            </div>
+          </div>
+
+          {/* Indicadores de SLA */}
+          <div className="container-base sla-panel">
+            <SlaIndicators />
+          </div>
+
+          <div className="container-base sla-panel">
+            <LineChartSupportByDay />
+          </div>
         </div>
       </div>
     </div>

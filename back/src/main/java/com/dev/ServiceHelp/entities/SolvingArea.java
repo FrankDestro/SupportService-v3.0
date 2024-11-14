@@ -29,4 +29,8 @@ public class SolvingArea {
     @OneToMany(mappedBy = "solvingArea")
     private List<User> users;
 
+    // NEW
+    @OneToMany(mappedBy = "solvingArea")
+    private List<CategoryTicket> categories;
+
 }

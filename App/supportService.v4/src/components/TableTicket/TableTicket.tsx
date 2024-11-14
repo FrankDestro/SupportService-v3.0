@@ -1,15 +1,23 @@
 import { faClock, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ticketDataMock from "../../mocks/mockTicketData"; // Caminho do arquivo de dados mockados
+import { NavLink } from "react-router-dom";
+import { TicketSimpleDTO } from "../../models/ticketDTO";
 import * as functions from "../../utils/functions";
-import SearchTicker from "../SearchTicket/SearchTicket";
+import "./TableTicket.css";
 
-function TableTicket() {
+type TableTicketProps = {
+  tickets: TicketSimpleDTO[];
+  onFilter: (ticket: TicketSimpleDTO) => void;
+};
+
+function TableTicket({ tickets, onFilter }: TableTicketProps) {
+
+  const handleChamadoClick = (ticket: TicketSimpleDTO) => {
+    onFilter(ticket);
+  };
+
   return (
     <div>
-      <div className="container-base">
-        <SearchTicker />
-      </div>
       <div className="ticket-table-container">
         <table className="container-base">
           <thead>
@@ -28,8 +36,8 @@ function TableTicket() {
             </tr>
           </thead>
           <tbody>
-            {ticketDataMock.content.map((ticket) => (
-              <tr key={ticket.id}>
+            {tickets.map((ticket) => (
+            <tr key={ticket.id} onClick={() => handleChamadoClick(ticket)}>
                 <td>{ticket.id}</td>
                 <td>{ticket.subject}</td>
                 <td>
@@ -53,7 +61,14 @@ function TableTicket() {
 
                   {functions.calculateRemainingTime(ticket.dueDate)}
                 </td>
-                <td>{ticket.onSLA ? <span>No prazo</span> : <span style={{color: "red"}}>Fora do prazo</span>}</td>
+                <td>
+                  {/* {ticket.onSLA ? (
+                    <span>No prazo</span>
+                  ) : (
+                    <span style={{ color: "red" }}>Fora do prazo</span>
+                  )} */}
+                  sera implantado
+                </td>
                 <td>
                   <span
                     style={functions.getStatusTicketBadgeStyle(
@@ -64,12 +79,15 @@ function TableTicket() {
                   </span>
                 </td>
                 <td>{`${ticket.requester.firstName} ${ticket.requester.lastName}`}</td>
-                <td>{`${ticket.technician.firstName} ${ticket.technician.lastName}`}</td>
-                <td>{`${ticket.resolver.firstName} ${ticket.resolver.lastName}`}</td>
+                <td>{ticket.technician ? `${ticket.technician.firstName} ${ticket.technician.lastName}` : 'Técnico não atribuído'}</td>
+<td>{ticket.resolver ? `${ticket.resolver.firstName} ${ticket.resolver.lastName}` : 'Resolver não atribuído'}</td>
+
                 <td>
-                  <div className="container-button-details">
-                    <FontAwesomeIcon icon={faEdit} />
-                  </div>
+                  <NavLink to="/ticketdetails">
+                    <div className="container-button-details">
+                      <FontAwesomeIcon icon={faEdit} />
+                    </div>
+                  </NavLink>
                 </td>
               </tr>
             ))}

@@ -52,18 +52,12 @@ public class TicketService {
                 slaRepository.findById(ticketSimpleDTO.getSla().getId()),
                 "SLA with ID " + ticketSimpleDTO.getSla().getId() + " not found");
 
-        SolvingArea solvingArea = ResourceUtil.getOrThrow(
-                solvingAreaRepository.findById(ticketSimpleDTO.getSolvingArea().getId()),
-                "SolvingArea with ID " + ticketSimpleDTO.getSolvingArea().getId() + " not found");
-
         CategoryTicket categoryTicket = ResourceUtil.getOrThrow(
-                categoryTicketRepository.findById(ticketSimpleDTO.getCategoryTicket().id()),
-                "CategoryTicket with ID " + ticketSimpleDTO.getCategoryTicket().id() + " not found");
-
+                categoryTicketRepository.findById(ticketSimpleDTO.getCategoryTicket().getId()),
+                "CategoryTicket with ID " + ticketSimpleDTO.getCategoryTicket().getId() + " not found");
 
         ticket.setTypeRequest(typeRequest);
         ticket.setSla(sla);
-        ticket.setSolvingArea(solvingArea);
         ticket.setCategoryTicket(categoryTicket);
         ticket.setRequester(userService.authenticated());
         ticket.setRegistrationDate(Instant.now());
@@ -130,8 +124,6 @@ public class TicketService {
         ticket.setTicketHistories(ticketHistoriesResult);
         Set<Attachment> attachmentsResult = attachmentRepository.findByTicketId(ticket.getId());
         ticket.setAttachments(attachmentsResult);
-
-
 
         return ticketMapper.toTicketDTO(ticket);
     }

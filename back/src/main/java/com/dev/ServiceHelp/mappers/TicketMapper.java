@@ -1,9 +1,6 @@
 package com.dev.ServiceHelp.mappers;
 
-import com.dev.ServiceHelp.dto.AttachmentDTO;
-import com.dev.ServiceHelp.dto.TicketDTO;
-import com.dev.ServiceHelp.dto.TicketSimpleDTO;
-import com.dev.ServiceHelp.dto.UserSimpleDTO;
+import com.dev.ServiceHelp.dto.*;
 import com.dev.ServiceHelp.entities.*;
 import com.dev.ServiceHelp.enums.StatusTicket;
 import org.mapstruct.AfterMapping;
@@ -11,15 +8,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import java.time.Instant;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 
 @Mapper(componentModel = "spring")
 public interface TicketMapper {
 
     @Mapping(target = "resolver", source = "resolver")
+    @Mapping(target = "categoryTicket", source = "categoryTicket")
     TicketSimpleDTO toTicketSimpleDTO(Ticket ticket);
 
     @Mapping(target = "ticketHistories", ignore = true)

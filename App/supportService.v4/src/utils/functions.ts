@@ -1,8 +1,8 @@
 import { differenceInDays, differenceInHours, differenceInMinutes, parseISO } from "date-fns";
 
-export const getStatusBadgeStyle = (status: string): React.CSSProperties => {
+export const getStatusUserBadgeStyle = (status: string): React.CSSProperties => {
   switch (status.toLowerCase()) {
-    case "inativo": // Use "não" em vez de "nao" se o seu dado tiver acentos
+    case "inactive": // Use "não" em vez de "nao" se o seu dado tiver acentos
       return {
         backgroundColor: "#FF0000", // Shade of red for blocked status
         color: "white",
@@ -10,7 +10,7 @@ export const getStatusBadgeStyle = (status: string): React.CSSProperties => {
         borderRadius: "4px",
         fontSize: "12px",
       };
-    case "ativo": // Use "sim" em vez de "default"
+    case "active": // Use "sim" em vez de "default"
       return {
         backgroundColor: "#8DD600", // Shade of green for unblocked status
         color: "white",
@@ -30,10 +30,10 @@ export const getStatusBadgeStyle = (status: string): React.CSSProperties => {
 };
 
 export const getBlockedStatusBadgeStyle = (
-  statusBlock: string
+  statusBlock: boolean
 ): React.CSSProperties => {
-  switch (statusBlock.toLowerCase()) {
-    case "sim": // Use "não" em vez de "nao" se o seu dado tiver acentos
+  switch (statusBlock) {
+    case true: // Use "não" em vez de "nao" se o seu dado tiver acentos
       return {
         backgroundColor: "#FF0000", // Shade of red for blocked status
         color: "white",
@@ -41,7 +41,7 @@ export const getBlockedStatusBadgeStyle = (
         borderRadius: "4px",
         fontSize: "12px",
       };
-    case "nao": // Use "sim" em vez de "default"
+    case false: // Use "sim" em vez de "default"
       return {
         backgroundColor: "#8DD600", // Shade of green for unblocked status
         color: "white",

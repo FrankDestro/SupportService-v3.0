@@ -1,39 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 import Bell from "../../assets/bell.png";
 import Help from "../../assets/help.png";
-import Logo from "../../assets/logo.svg";
-import Logout from "../../assets/logout.png";
-
-
-
+import Logo from "../../assets/logo4.png";
+import Settings from "../../assets/settings.png";
 import "./header.css";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false); // Estado para o submenu
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+  const [isLogoutSubmenuOpen, setIsLogoutSubmenuOpen] = useState(false); // Novo estado para o submenu do Logout
   const menuRef = useRef<HTMLDivElement>(null);
-  const submenuRef = useRef<HTMLDivElement>(null); // Ref para o submenu
+  const submenuRef = useRef<HTMLDivElement>(null);
+  const logoutSubmenuRef = useRef<HTMLDivElement>(null); // Novo ref para o submenu do Logout
 
-  // Abre ou fecha o menu de notificações
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Abre ou fecha o submenu
   const toggleSubmenu = () => {
     setIsSubmenuOpen((prev) => !prev);
   };
 
-  // Fecha o menu ou submenu ao clicar fora
+  const toggleLogoutSubmenu = () => {
+    setIsLogoutSubmenuOpen((prev) => !prev); // Lógica para alternar o submenu do Logout
+  };
+
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
     }
-    if (
-      submenuRef.current &&
-      !submenuRef.current.contains(event.target as Node)
-    ) {
+    if (submenuRef.current && !submenuRef.current.contains(event.target as Node)) {
       setIsSubmenuOpen(false);
+    }
+    if (logoutSubmenuRef.current && !logoutSubmenuRef.current.contains(event.target as Node)) {
+      setIsLogoutSubmenuOpen(false); // Fecha o submenu do Logout
     }
   };
 
@@ -59,10 +59,11 @@ function Header() {
         <div className="header-user-icon">
           <div className="notification-badge">3</div>
           <img src={Bell} alt="bell" onClick={toggleMenu} />
-          <img src={Logout} alt="help" />
+          <img src={Settings} alt="logout" onClick={toggleLogoutSubmenu} /> {/* Adiciona o evento para o submenu do Logout */}
           <img src={Help} alt="help" />
         </div>
 
+        {/* Menu de Notificação */}
         <div
           className={`notification-menu ${isMenuOpen ? "visible" : ""}`}
           ref={menuRef}
@@ -72,6 +73,7 @@ function Header() {
           <p>Notificação 3</p>
         </div>
 
+        {/* Submenu de Opções Rápidas */}
         <div
           className={`submenu ${isSubmenuOpen ? "visible" : ""}`}
           ref={submenuRef}
@@ -79,6 +81,16 @@ function Header() {
           <p>Submenu Item 1</p>
           <p>Submenu Item 2</p>
           <p>Submenu Item 3</p>
+        </div>
+
+        {/* Submenu do Logout */}
+        <div
+          className={`submenu-logout ${isLogoutSubmenuOpen ? "visible" : ""}`} // Controle da visibilidade do submenu de Logout
+          ref={logoutSubmenuRef}
+        >
+          <p>Configurações de Conta</p>
+          <p>Alterar Senha</p>
+          <p>Logout</p>
         </div>
       </div>
     </div>

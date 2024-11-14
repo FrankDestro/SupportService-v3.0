@@ -63,6 +63,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ isCollapsed, toggleSidebar }) => {
           <FontAwesomeIcon icon={faGear} className="icon" />
           <h3>Settings</h3>
         </Link>
+        <Link to="/abas" className="link">
+          <FontAwesomeIcon icon={faGear} className="icon" />
+          <h3>Abas</h3>
+        </Link>
       </div>
 
       <div className="sidebar__profile">
