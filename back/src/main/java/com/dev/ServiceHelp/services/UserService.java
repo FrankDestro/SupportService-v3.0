@@ -88,11 +88,11 @@ public class UserService implements UserDetailsService {
         User user = userMapper.toUserEntity(dto);
 
         Department department = ResourceUtil.getOrThrow(
-                departmentRepository.findById(dto.getDepartment().id()),
-                "Department with ID " + dto.getDepartment().id() + " not found");
+                departmentRepository.findById(dto.getDepartment().getId()),
+                "Department with ID " + dto.getDepartment().getId() + " not found");
         SolvingArea solvingArea = ResourceUtil.getOrThrow(
                 solvingAreaRepository.findById(dto.getSolvingArea().getId()),
-                "Department with ID " + dto.getDepartment().id() + " not found");
+                "Department with ID " + dto.getDepartment().getId() + " not found");
 
         user.setDepartment(department);
         user.setSolvingArea(solvingArea);

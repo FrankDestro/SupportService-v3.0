@@ -19,6 +19,7 @@ public class TicketDTO {
     private Instant dueDate;
     private StatusTicket statusTicket;
     private Instant completionDate;
+    private Long parentTicketId;
     private TypeRequestDTO typeRequest;
     private SLADTO sla;
     private SolvingAreaDTO solvingArea;

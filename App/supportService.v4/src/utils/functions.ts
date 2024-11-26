@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { differenceInDays, differenceInHours, differenceInMinutes, parseISO } from "date-fns";
 
 export const getStatusUserBadgeStyle = (status: string): React.CSSProperties => {
@@ -156,5 +157,22 @@ export const formatDate = (date: Date | string) => {
   }).replace(',', '');
 };
 
+export function toValuesTicket(inputs: any) {
+  const data: any = {};
+
+  for (const name in inputs) {
+    if (name === "typeRequest" || name === "categoryTicket" || name === "sla") {
+      data[name] = { id: parseInt(inputs[name], 10) }; 
+    } else {
+      data[name] = inputs[name];
+    }
+  }
+  return data;
+}
+
+
+export const cleanDescription = (description: string) => {
+  return description.replace(/<\/?p>/g, '');
+};
 
 

@@ -29,6 +29,14 @@
   flex: 1;
 }
 
+.sla-select-ticker-container {
+  flex: 2;
+}
+
+.sla-container-ticker {
+  width: 10%;
+}
+
 .date-input-ticker {
   width: 100%;
   padding: 10px;
@@ -50,10 +58,10 @@
 
 .area-select-ticker-container,
 .tipo-select-ticker-container {
-  flex: 4;
+  flex: 3;
 }
 
 .categoria-select-ticker-container,
 .status-select-ticker-container {
-  flex: 2;
+  flex: 3;
 }

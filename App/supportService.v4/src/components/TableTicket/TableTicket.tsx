@@ -1,20 +1,42 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { faClock, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
-import { TicketSimpleDTO } from "../../models/ticketDTO";
+import { TicketDTO, TicketSimpleDTO } from "../../models/ticketDTO";
+import * as ticketService from "../../Service/ticket-service";
 import * as functions from "../../utils/functions";
 import "./TableTicket.css";
+import { useEffect, useState } from "react";
 
 type TableTicketProps = {
   tickets: TicketSimpleDTO[];
-  onFilter: (ticket: TicketSimpleDTO) => void;
+  onFilter: (ticket: TicketSimpleDTO, ticketComplete: TicketDTO) => void;
 };
 
 function TableTicket({ tickets, onFilter }: TableTicketProps) {
+  const [completeTicket, setCompleteTicket] = useState<TicketDTO>();
+  const [selectedTicket, setSelectedTicket] = useState<TicketSimpleDTO | null>(
+    null
+  );
 
   const handleChamadoClick = (ticket: TicketSimpleDTO) => {
-    onFilter(ticket);
+    setSelectedTicket(ticket);
   };
+
+  useEffect(() => {
+    if (selectedTicket) {
+      ticketService
+        .ticketById(selectedTicket.id)
+        .then((response) => {
+          const ticketData: TicketDTO = response.data;
+          setCompleteTicket(ticketData);
+          onFilter(selectedTicket, ticketData);
+          console.log("fui apertado");
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar ticket completo:", error);
+        });
+    }
+  }, [selectedTicket]);
 
   return (
     <div>
@@ -27,7 +49,7 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
               <th>Data de Registro</th>
               <th>Data de Vencimento</th>
               <th>Tempo restante</th>
-              <th>Dentro da SLA</th>
+              <th>Criticidade</th>
               <th>Status</th>
               <th>Solicitante</th>
               <th>Em atendimento por</th>
@@ -37,11 +59,11 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
           </thead>
           <tbody>
             {tickets.map((ticket) => (
-            <tr key={ticket.id} onClick={() => handleChamadoClick(ticket)}>
+              <tr key={ticket.id} onClick={() => handleChamadoClick(ticket)}>
                 <td>{ticket.id}</td>
                 <td>{ticket.subject}</td>
                 <td>
-                  {new Date(ticket.registrationDate).toLocaleDateString()}
+                  {functions.formatDate(ticket.registrationDate)}
                 </td>
                 <td>{functions.formatDate(ticket.dueDate)}</td>
                 <td
@@ -61,14 +83,7 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
 
                   {functions.calculateRemainingTime(ticket.dueDate)}
                 </td>
-                <td>
-                  {/* {ticket.onSLA ? (
-                    <span>No prazo</span>
-                  ) : (
-                    <span style={{ color: "red" }}>Fora do prazo</span>
-                  )} */}
-                  sera implantado
-                </td>
+                <td>{ticket.sla.severity}</td>
                 <td>
                   <span
                     style={functions.getStatusTicketBadgeStyle(
@@ -79,15 +94,27 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
                   </span>
                 </td>
                 <td>{`${ticket.requester.firstName} ${ticket.requester.lastName}`}</td>
-                <td>{ticket.technician ? `${ticket.technician.firstName} ${ticket.technician.lastName}` : 'Técnico não atribuído'}</td>
-<td>{ticket.resolver ? `${ticket.resolver.firstName} ${ticket.resolver.lastName}` : 'Resolver não atribuído'}</td>
-
                 <td>
-                  <NavLink to="/ticketdetails">
-                    <div className="container-button-details">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </div>
-                  </NavLink>
+                  {ticket.technician ? (
+                    `${ticket.technician.firstName} ${ticket.technician.lastName}`
+                  ) : (
+                    <span style={{ color: "black" }}>Não Atribuído</span>
+                  )}
+                </td>
+                <td>
+                  {ticket.resolver ? (
+                    `${ticket.resolver.firstName} ${ticket.resolver.lastName}`
+                  ) : (
+                    <span style={{ color: "black" }}>Não Finalizado</span>
+                  )}
+                </td>
+                <td>
+                  <div
+                    className="container-button-details"
+                    onClick={() => handleChamadoClick(ticket)}
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </div>
                 </td>
               </tr>
             ))}

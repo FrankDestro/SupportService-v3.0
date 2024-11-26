@@ -34,7 +34,7 @@ spring:
                         enable: true
         username: ${EMAIL_USERNAME:teste@gmail.com}
     profiles:
-        active: ${APP_PROFILE:test}
+        active: ${APP_PROFILE:migration}
 springdoc:
     api-docs:
         path: /api-doc

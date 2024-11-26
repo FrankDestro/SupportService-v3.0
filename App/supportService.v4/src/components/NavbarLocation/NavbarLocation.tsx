@@ -6,6 +6,7 @@ import {
   faTasks,
   faTicket,
   faUser,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./NavbarLocation.css";
@@ -25,6 +26,8 @@ const NavbarLocation = () => {
         return { title: "AbasTicket", icon: faDatabase };
       case "/ticketdetails":
         return { title: "Detalhes do ticket", icon: faTasks };
+      case "/test":
+        return { title: "Pagina de testes", icon: faWarning };
       default:
         return { title: "", icon: null };
     }

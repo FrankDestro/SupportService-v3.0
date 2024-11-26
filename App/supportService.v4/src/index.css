@@ -244,6 +244,11 @@ table td {
   font-size: 14px;
 }
 
+table tr:hover {
+  background-color: #c4c7ca4b;
+  cursor: pointer;
+}
+
 td {
   text-align: center;
 }
@@ -275,7 +280,6 @@ th {
   bottom: 0;
   display: flex;
   justify-content: flex-end;
- 
   background-color: #fff; /* Opcional: cor de fundo para manter contraste */
 }
 /* Estilização Pagination */

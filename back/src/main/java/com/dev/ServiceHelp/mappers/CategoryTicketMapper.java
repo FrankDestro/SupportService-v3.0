@@ -12,4 +12,7 @@ public interface CategoryTicketMapper {
     @Mapping(target = "solvingAreaDTO", source = "solvingArea")
     CategoryTicketDTO toCategoryTicketDTO(CategoryTicket categoryTicket);
     CategoryTicket toCategoryTicketEntity(CategoryTicketDTO categoryTicketDTO);
+
+    @Mapping(target = "solvingAreaDTO", ignore = true)
+    CategoryTicketDTO toCategoryTicketDTOSimple(CategoryTicket categoryTicket);
 }

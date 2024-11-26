@@ -3,7 +3,6 @@ package com.dev.ServiceHelp.services;
 import com.dev.ServiceHelp.dto.AttachmentDTO;
 import com.dev.ServiceHelp.entities.Attachment;
 import com.dev.ServiceHelp.entities.Ticket;
-import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.mappers.AttachmentMapper;
 import com.dev.ServiceHelp.repository.AttachmentRepository;
 import com.dev.ServiceHelp.repository.TicketRepository;

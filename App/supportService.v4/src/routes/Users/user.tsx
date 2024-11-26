@@ -40,8 +40,6 @@ function User() {
   }, [queryParams]);
 
   function handleSearch(searchText: string, status: string) {
-    console.log("Search Parameters:", { searchText, status });
-
     setUsers([]);
 
     const isNumber = /^\d+$/.test(searchText);

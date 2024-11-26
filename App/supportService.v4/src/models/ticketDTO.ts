@@ -14,6 +14,7 @@ export type TicketDTO = {
   dueDate: string;
   statusTicket: string;
   completionDate: string;
+  parentTicketId: number;
   typeRequest: TypeRequestDTO;
   sla: SLADTO;
   solvingArea: SolvingAreaDTO;

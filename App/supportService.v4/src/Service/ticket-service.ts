@@ -1,5 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { requestBackendConfig } from "../utils/apiService";
+import { TicketDTO } from "../models/ticketDTO";
 
 export function allTicketsRequest(
   page: number,
@@ -7,10 +8,11 @@ export function allTicketsRequest(
   registrationDate: string,
   status: string,
   area: string,
-  categoryTicket: string,
   typeRequest: string,
-  size = 12,
-  sort = "registrationDate",
+  categoryTicket: string,
+  sla: string,
+  size = 11,
+  sort = "registrationDate"
 ) {
   const config: AxiosRequestConfig = {
     method: "GET",
@@ -23,8 +25,9 @@ export function allTicketsRequest(
       size,
       sort,
       area,
-      categoryTicket,
       typeRequest,
+      categoryTicket,
+      sla,
     },
   };
   return requestBackendConfig(config);
@@ -32,4 +35,14 @@ export function allTicketsRequest(
 
 export function ticketById(id: number) {
   return requestBackendConfig({ url: `/ticket/getTicketById/${id}` });
+}
+
+export function createTicket(obj: TicketDTO) {
+  const config: AxiosRequestConfig = {
+    method: "POST",
+    url: "/ticket",
+    withCredentials: true,
+    data: obj,
+  };
+  return requestBackendConfig(config);
 }

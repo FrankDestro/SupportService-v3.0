@@ -1,8 +1,8 @@
-import TicketDetails from "../../components/TicketDetails/TicketDetails"
-import { TicketSimpleDTO } from "../../models/ticketDTO";
+import TicketDetails from "../../components/TicketDetails/TicketDetails";
+import { TicketDTO } from "../../models/ticketDTO";
 
 type Props = {
-  ticket: TicketSimpleDTO;
+  ticket: TicketDTO;
 };
 
 function TicketDetailsPage({ ticket }: Props) {

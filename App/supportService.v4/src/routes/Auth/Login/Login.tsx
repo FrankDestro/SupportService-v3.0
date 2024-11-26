@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as loginService from "../../../Service/LoginService";
+import * as loginService from "../../../Service/login-service";
 import LockIcon from "../../../assets/lock.png";
 import InputCustom from "../../../components/InputCustom/InputCustom";
 import { ContextToken } from "../../../utils/context-token";

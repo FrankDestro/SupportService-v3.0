@@ -3,6 +3,7 @@ import PieChartByUrgency from "../Dashboard/PieChartByUrgency/PieChartByUrgency"
 import PieChartDonutByStatusTicket from "../Dashboard/PieChartDonutByStatusTicket/PieChartDonutByStatusTicket";
 import SlaIndicators from "../Dashboard/SlaIndicators/SlaIndicators";
 import SearchPanel from "../SearchPanel/SearchPanel";
+
 import "./ActivityPanel.css";
 
 function ActivityPanel() {

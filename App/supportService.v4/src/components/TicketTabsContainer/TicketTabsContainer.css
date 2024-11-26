@@ -11,6 +11,13 @@
   padding-top: 15px;
 }
 
+.table-tickets-container h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+}
+
 /* Estilo para a navegação das abas */
 .nav-tabs .nav-link {
   padding: 8px 10px 8px 8px;

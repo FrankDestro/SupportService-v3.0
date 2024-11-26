@@ -22,46 +22,6 @@
 }
 /*  CONTAINER E ESTRUTURA FIM*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  RESUMO DO CHAMADO LADO ESQUERDO INICIO */
 .ticket-details {
   padding: 10px;
@@ -91,7 +51,6 @@
 }
 
 .ticket-details p {
-  color: #555;
   margin: 5px 0;
 }
 
@@ -116,21 +75,40 @@
   background-color: #4caf50 !important; /* Green */
   color: white !important;
   padding: 5px;
+  margin-left: 5px;
   border-radius: 4px;
 }
 .ticket-status.IN_PROGRESS {
   background-color: #ff9800; /* Orange */
   color: white !important;
   padding: 5px;
-  border-radius: 4px;
-}
-.ticket-status.PENDING {
-  background-color: #f44336; /* Red */
-  color: white !important;
-  padding: 5px;
+  margin-left: 5px;
   border-radius: 4px;
 }
 
+.ticket-status.CANCELED {
+  background-color: #f44336; /* Red */
+  color: white !important;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+
+.ticket-status.OPEN {
+  background-color: #2187cc; /* Red */
+  color: white !important;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+
+.ticket-status.FROZEN {
+  background-color: #8e8f91; /* Red */
+  color: white !important;
+  padding: 5px;
+  margin-left: 5px;
+  border-radius: 4px;
+}
 
 .ticket-onSLA {
   display: inline-block;
@@ -144,7 +122,7 @@
 
 /* Customize colors based on SLA or not */
 .ticket-onSLA.true {
-  background-color:  #4caf50 ; /* Orange */
+  background-color: #4caf50; /* Orange */
   color: white !important;
   padding: 5px;
   border-radius: 4px;
@@ -156,53 +134,7 @@
   border-radius: 4px;
 }
 
-
-
 /*  RESUMO DO CHAMADO LADO ESQUERDO FIM */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*  ANDAMENTO DO CHAMADO CENTRO INICIO */
 .center-ticket-details-history {
@@ -281,42 +213,6 @@
 }
 /*  ANDAMENTO DO CHAMADO CENTRO FIM */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  OPÇÕES CHAMADO LADO DIREITO INICIO */
 .right-center-ticket-details-options {
   background-color: #f9f9f9; /* Fundo leve */
@@ -330,14 +226,13 @@
   margin-bottom: 1.5rem; /* Espaço entre as seções */
 }
 
-
 .requester-info h3 {
-  font-size: 1.0em;
+  font-size: 1em;
 }
 
 .requester-info h4 {
   color: #333;
-  font-size: 1.0em;
+  font-size: 1em;
   margin-bottom: 10px;
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 8px;
@@ -351,11 +246,15 @@
 }
 
 .requester-details p {
-  margin: 0.2rem 0; /* Margens para os parágrafos */
-  font-size: 0.rem; /* Tamanho da fonte */
+  margin: 0.3rem 0; /* Margens para os parágrafos */
+  font-size: 0.9rem; /* Tamanho da fonte */
   color: #555; /* Cor do texto */
+  margin-left: 10px;
 }
 
+.requester-details p strong {
+  margin-right: 5px;
+}
 .options-container {
   padding-top: 1rem; /* Padding interno */
   border-top: 1px solid #ddd; /* Borda superior para separar */
@@ -363,7 +262,7 @@
 
 .options-container h4 {
   color: #333;
-  font-size: 1.0em;
+  font-size: 1em;
   margin-bottom: 10px;
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 8px;
@@ -392,7 +291,6 @@
 .form-group {
   margin-bottom: 1rem; /* Espaço entre os grupos de formulário */
 }
-
 
 .styled-select {
   width: 100%; /* Largura total do select */

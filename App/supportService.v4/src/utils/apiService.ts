@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import * as authService from "../Service/LoginService";
+import * as authService from "../Service/login-service";
 import { BASE_URL } from "./system";
 
 export function requestBackend(config: AxiosRequestConfig) {

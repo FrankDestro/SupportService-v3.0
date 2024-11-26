@@ -17,10 +17,17 @@ public class CategoryTicketService {
     private final CategoryTicketRepository categoryTicketRepository;
     private final CategoryTicketMapper categoryTicketMapper;
 
+    // verificar o uso ??
     @Transactional(readOnly = true)
     public List<CategoryTicketDTO> getCategoryTicketAndSolvingArea() {
         List<CategoryTicket> categoryTicketsAndSolvingArea = categoryTicketRepository.findAllCategoryTicketsWithSolvingArea();
         return categoryTicketsAndSolvingArea.stream().map(cat ->
                 categoryTicketMapper.toCategoryTicketDTO(cat)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryTicketDTO> getAllCategoryTicket() {
+        List<CategoryTicket> solvingAreaList = categoryTicketRepository.findAll();
+        return solvingAreaList.stream().map(category -> categoryTicketMapper.toCategoryTicketDTOSimple(category)).toList();
     }
 }

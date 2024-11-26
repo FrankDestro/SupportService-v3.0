@@ -2,53 +2,58 @@ import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Tab, Tabs } from "react-bootstrap";
-import { TicketSimpleDTO } from "../../models/ticketDTO";
+import { TicketDTO, TicketSimpleDTO } from "../../models/ticketDTO";
 import TicketDetailsPage from "../../routes/TicketDetailsPage/TicketDetailsPage";
 import TableTicket from "../TableTicket/TableTicket";
-import "./AbasTicket.css";
+import "./TicketTabsContainer.css";
+import TicketFormCreate from "../TicketFormCreate/TicketFormCreate";
 
 type TicketsProps = {
   tickets: TicketSimpleDTO[];
+  onActiveTabChange: (isTabOneActive: boolean) => void;
 };
 
-function AbasTicket({ tickets }: TicketsProps) {
+type Tab = {
+  key: string;
+  ticket: TicketDTO;
+};
+
+function TicketTabsContainer({ tickets, onActiveTabChange }: TicketsProps) {
   const [activeKey, setActiveKey] = useState<string | undefined>("1");
 
+  console.log(activeKey);
+
   const [openTabs, setOpenTabs] = useState<
-    Array<{ key: string; ticket: TicketSimpleDTO | null }>
-  >([{ key: "2", ticket: null }]);
+    Array<{ key: string; ticket: TicketSimpleDTO | TicketDTO | null }>
+  >([{ key: "1", ticket: null }]);
 
   const handleSelect = (key: string | null) => {
     if (key) {
       setActiveKey(key);
+      onActiveTabChange(key === "1");
     }
   };
 
   const handleCloseTab = (key: string) => {
     const filteredTabs = openTabs.filter((tab) => tab.key !== key);
     setOpenTabs(filteredTabs);
-    // Se a aba fechada era a ativa, define a aba ativa para a primeira aba ou para "1" se não houver abas dinâmicas
     if (activeKey === key) {
       setActiveKey(filteredTabs.length > 0 ? filteredTabs[0].key : "1");
     }
-
-    if (filteredTabs.length === 0) {
-      setActiveKey("1");
-      setOpenTabs([{ key: "1", ticket: null }]);
-    }
   };
 
-  // Função onFilter passada para TableTicket
-  const onFilter = (ticket: TicketSimpleDTO) => {
+  const onFilter = (_ticket: TicketSimpleDTO, ticketData: TicketDTO) => {
     const existingTab = openTabs.find(
-      (tab) => tab.ticket && tab.ticket.id === ticket.id
+      (tab) => tab.ticket && tab.ticket.id === ticketData.id
     );
+
     if (existingTab) {
-      setActiveKey(existingTab.key); // Se já tiver a aba, ativa ela
+      setActiveKey(existingTab.key);
     } else {
-      const newKey = `chamado-${ticket.id}`;
-      setOpenTabs([...openTabs, { key: newKey, ticket }]); // Cria nova aba com o ticket
-      setActiveKey(newKey); // Ativa a nova aba
+      const newKey = `chamado-${ticketData.id}`;
+      setOpenTabs([...openTabs, { key: newKey, ticket: ticketData }]);
+      setActiveKey(newKey);
+      onActiveTabChange(false);
     }
   };
 
@@ -81,7 +86,7 @@ function AbasTicket({ tickets }: TicketsProps) {
               title={
                 <>
                   <div className="container-title-tab">
-                    <div># {tab.ticket?.id}</div>
+                    <div># {tab.ticket ? tab.ticket.id : "Novo Ticket"}</div>
                     <div className="close-icon">
                       <span
                         onClick={() => handleCloseTab(tab.key)}
@@ -95,13 +100,17 @@ function AbasTicket({ tickets }: TicketsProps) {
               }
             >
               <div className="table-tickets-container">
-                <TicketDetailsPage ticket={tab.ticket} />
+                {tab.ticket && "ticketHistories" in tab.ticket ? (
+                  <TicketDetailsPage ticket={tab.ticket as TicketDTO} />
+                ) : (
+                  <p>Carregando informações do ticket...</p>
+                )}
               </div>
             </Tab>
           ) : null
         )}
         <Tab
-          eventKey="novo-chamado"
+          eventKey="newTicket"
           title={
             <>
               <FontAwesomeIcon icon={faPlus} color="#757575ec" />
@@ -110,8 +119,8 @@ function AbasTicket({ tickets }: TicketsProps) {
           }
         >
           <div className="table-tickets-container">
-            <h3>Abra um Novo Chamado</h3>
-            <p>Formulário para abrir um novo chamado vai aqui.</p>
+            <h3># Novo ticket</h3>
+            <TicketFormCreate />
           </div>
         </Tab>
       </Tabs>
@@ -119,4 +128,4 @@ function AbasTicket({ tickets }: TicketsProps) {
   );
 }
 
-export default AbasTicket;
+export default TicketTabsContainer;

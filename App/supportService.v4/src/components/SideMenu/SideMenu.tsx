@@ -6,6 +6,7 @@ import {
   faHome,
   faTicket,
   faUser,
+  faWarning,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -63,9 +64,9 @@ const SideMenu: React.FC<SideMenuProps> = ({ isCollapsed, toggleSidebar }) => {
           <FontAwesomeIcon icon={faGear} className="icon" />
           <h3>Settings</h3>
         </Link>
-        <Link to="/abas" className="link">
-          <FontAwesomeIcon icon={faGear} className="icon" />
-          <h3>Abas</h3>
+        <Link to="/test" className="link">
+          <FontAwesomeIcon icon={faWarning} className="icon" />
+          <h3>Test</h3>
         </Link>
       </div>
 

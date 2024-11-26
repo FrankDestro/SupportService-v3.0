@@ -3,10 +3,8 @@ package com.dev.ServiceHelp.mappers;
 import com.dev.ServiceHelp.dto.*;
 import com.dev.ServiceHelp.entities.*;
 import com.dev.ServiceHelp.enums.StatusTicket;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
+
 import java.time.Instant;
 
 @Mapper(componentModel = "spring")

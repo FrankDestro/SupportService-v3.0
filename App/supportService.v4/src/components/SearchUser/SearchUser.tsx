@@ -1,7 +1,9 @@
+// SearchUser.jsx
 import { faFilter, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import Button from "../Button/Button";
+import DialogUserCreateModal2 from "../ModalBootTest/DialogUserCreateModal2";  // Componente modal
 import "./SearchUser.css";
 
 type Props = {
@@ -11,6 +13,15 @@ type Props = {
 function SearchUser({ onSearch }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [status, setStatus] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalVisible(true);  // Abre o modal
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);  // Fecha o modal
+  };
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -34,9 +45,9 @@ function SearchUser({ onSearch }: Props) {
         <div className="filter-container">
           <div className="status-select-container">
             <select value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option value="">Selecione o status</option>
-              <option value="ACTIVE">Ativo</option>
-              <option value="INACTIVE">Inativo</option>
+              <option value="">Buscar todos</option>
+              <option value="ACTIVE">Usuários Ativos</option>
+              <option value="INACTIVE">Usuários Inativos</option>
             </select>
           </div>
           <Button
@@ -46,14 +57,22 @@ function SearchUser({ onSearch }: Props) {
             hoverColor="#335577"
             type="submit"
           />
-          <Button
-            text="Adicinar Novo"
-            icon={faPlus}
-            background="#11344d"
-            hoverColor="#335577"
-          />
+          <div onClick={handleOpenModal}>
+            <Button
+              text="Adicionar Novo"
+              icon={faPlus}
+              background="#11344d"
+              hoverColor="#335577"
+            />
+          </div>
         </div>
       </div>
+
+      {/* Renderiza o modal somente quando for visível */}
+      <DialogUserCreateModal2
+        isVisible={isModalVisible}
+        onClose={handleCloseModal}
+      />
     </form>
   );
 }

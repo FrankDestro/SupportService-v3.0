@@ -1,7 +1,8 @@
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import AbasTicket from "../../components/AbasTicket/AbasTicket";
+import TicketTabsContainer from "../../components/TicketTabsContainer/TicketTabsContainer";
 import NoData from "../../components/NoData/NoData";
+import Pagination from "../../components/Pagination/Pagination";
 import SearchTicker from "../../components/SearchTicket/SearchTicket";
 import { TicketSimpleDTO } from "../../models/ticketDTO";
 import * as ticketService from "../../Service/ticket-service";
@@ -14,9 +15,11 @@ type QueryParams = {
   area: string;
   categoryTicket: string;
   typeRequest: string;
+  sla: string;
 };
 
 function Ticket() {
+  const [showPagination, setShowPagination] = useState(true);
   const [tickets, setTickets] = useState<TicketSimpleDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
@@ -27,6 +30,7 @@ function Ticket() {
     area: "",
     categoryTicket: "",
     typeRequest: "",
+    sla: "",
   });
 
   useEffect(() => {
@@ -38,15 +42,15 @@ function Ticket() {
         queryParams.status,
         queryParams.area,
         queryParams.categoryTicket,
-        queryParams.typeRequest
+        queryParams.typeRequest,
+        queryParams.sla
       )
       .then((response) => {
         const { totalPages, content } = response.data;
         setTickets(content);
         setTotalPages(totalPages);
-        console.log(tickets);
       });
-  }, [queryParams]);
+  }, [queryParams, showPagination]);
 
   function handleSearch(
     id: string,
@@ -54,7 +58,8 @@ function Ticket() {
     status: string,
     area: string,
     categoryTicket: string,
-    typeRequest: string
+    typeRequest: string,
+    sla: string
   ) {
     setTickets([]);
     setQueryParams({
@@ -66,27 +71,44 @@ function Ticket() {
       area: area,
       categoryTicket: categoryTicket,
       typeRequest: typeRequest,
+      sla: sla,
     });
   }
 
-  // const handlePageChange = (newPage: number) => {
-  //   setQueryParams({ ...queryParams, page: newPage });
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth",
-  //   });
-  // };
+  const handlePageChange = (newPage: number) => {
+    setQueryParams({ ...queryParams, page: newPage });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handleActiveTabChange = (isTabOneActive: boolean) => {
+    setShowPagination(isTabOneActive);
+  };
 
   return (
     <div>
       <div className="container-base">
         <SearchTicker onSearch={handleSearch} />
       </div>
-      {tickets.length == 0 ? (
+      {tickets.length === 0 ? (
         <NoData icon={faTicket} message="Não foi encontrado ticket" />
       ) : (
         <>
-          <AbasTicket tickets={tickets} />
+          <TicketTabsContainer
+            tickets={tickets}
+            onActiveTabChange={handleActiveTabChange}
+          />
+          <div className="container-pagination">
+            {showPagination && (
+              <Pagination
+                currentPage={queryParams.page}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
+          </div>
         </>
       )}
     </div>

@@ -35,6 +35,9 @@ public class Ticket {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant completionDate;
 
+    @Column(name = "parent_ticket_id", nullable = true)
+    private Long parentTicketId;
+
     @ManyToOne
     private TypeRequest typeRequest;
     @ManyToOne

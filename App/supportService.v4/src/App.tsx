@@ -8,6 +8,8 @@ import Recovery from "./routes/Auth/Recovery/Recovery";
 import Home from "./routes/Home/home";
 import Ticket from "./routes/Tickets/tickets";
 import User from "./routes/Users/user";
+import Test from "./routes/Test/Test";
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Route path="/ticket" element={<Ticket />} />
             <Route path="/auth" element={<Login />} />
             <Route path="/user" element={<User />} />
+            <Route path="/test" element={<Test />} />
           </Route>
         </Routes>
       </BrowserRouter>

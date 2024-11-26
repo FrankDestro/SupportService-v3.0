@@ -1,19 +1,32 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as solvingAreaService from "../../Service/solving-area";
 import Button from "../Button/Button";
 import "./SearchPanel.css";
+import { SolvingAreaDTO } from "../../models/solvingAreaDTO";
 
 function SearchPanel() {
+  const [solvingAreas, setSolvingAreas] = useState<SolvingAreaDTO[]>([]);
+
   const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    solvingAreaService.getAllSolvingArea().then((response) => {
+      setSolvingAreas(response.data);
+    });
+  }, []);
 
   return (
     <div className="ticket-search-panel">
       <div className="ticket-filter-panel">
         <div className="ticket-status-select">
           <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="">Área solucionadora</option>
-            <option value="ativo">Ativo</option>
-            <option value="inativo">Inativo</option>
+            <option value="">Todas Áreas</option>
+            {solvingAreas.map((area) => (
+              <option key={area.id} value={area.id}>
+                {area.id} - {area.name}
+              </option>
+            ))}
           </select>
         </div>
         <Button

@@ -2,6 +2,7 @@ package com.dev.ServiceHelp.controller.exception;
 
 import java.time.Instant;
 
+import com.dev.ServiceHelp.services.exceptions.TicketStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -65,6 +66,18 @@ public class ResourceExceptionHandler {
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("Password exception");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler(TicketStatusException.class)
+	public ResponseEntity<StandardError> ticketCannotBeChanged(TicketStatusException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Ticket cannot be Changed");
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);

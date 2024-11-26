@@ -1,16 +1,15 @@
 import "./TicketDetails.css";
 
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { TicketSimpleDTO } from "../../models/ticketDTO";
+import { faSave, faTicket } from "@fortawesome/free-solid-svg-icons";
+import { TicketDTO } from "../../models/ticketDTO";
 import Button from "../Button/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
-  ticket: TicketSimpleDTO;
+  ticket: TicketDTO;
 };
 
 function TicketDetails({ ticket }: Props) {
-  // const ticket = ticketData;
-
   return (
     <div className="container-ticket-details">
       <div className="left-ticket-details-summary container-base">
@@ -21,13 +20,13 @@ function TicketDetails({ ticket }: Props) {
               <strong>Assunto:</strong> {ticket.subject}
             </p>
             <p>
-              <strong>Status:</strong>{" "}
+              <strong>Status:</strong>
               <p className={`ticket-status ${ticket.statusTicket}`}>
                 {ticket.statusTicket}
               </p>
             </p>
             <p>
-              <strong>Data de Registro:</strong>{" "}
+              <strong>Data de Registro : </strong>{" "}
               {new Date(ticket.registrationDate).toLocaleString()}
             </p>
             <p>
@@ -40,7 +39,6 @@ function TicketDetails({ ticket }: Props) {
               <strong>Prazo Final:</strong>{" "}
               {new Date(ticket.dueDate).toLocaleString()}
             </p>
-
             <p>
               <strong>SLA: </strong>
               {/* <p className={`ticket-onSLA ${ticket.onSLA}`}>
@@ -48,13 +46,21 @@ function TicketDetails({ ticket }: Props) {
               </p> */}
               sera implementado
             </p>
-
             <p>
               <strong>Criticidade:</strong> {ticket.sla.severity}
             </p>
+            <p>
+              <strong>Tempo de Resposta:</strong> {ticket.sla.responseTime}{" "}
+              horas
+            </p>
 
             <p>
-              <strong>Tempo de Resposta:</strong> {ticket.sla.responseTime} horas
+              <FontAwesomeIcon
+                icon={faTicket}
+                style={{ marginRight: "10px" }}
+              />
+              <strong>Referencia ticket: </strong>
+              {ticket.parentTicketId ? ticket.parentTicketId : "N/A"}
             </p>
 
             <div className="description-container">
@@ -68,7 +74,7 @@ function TicketDetails({ ticket }: Props) {
       <div className="center-ticket-details-history container-base">
         <h3>Andamento do ticket</h3>
 
-        {/* {ticket.ticketHistories.map((history) => (
+        {ticket.ticketHistories.map((history) => (
           <div key={history.id} className="history-entry">
             <div className="history-user">
               <img
@@ -88,7 +94,7 @@ function TicketDetails({ ticket }: Props) {
             <div className="history-info">
               <p className="history-description">{history.description}</p>
               <p>
-                <strong>Date:</strong>{" "}
+                <strong>Date:</strong>
                 {new Date(history.registrationDate).toLocaleString()}
               </p>
               <p>
@@ -99,7 +105,7 @@ function TicketDetails({ ticket }: Props) {
               )}
             </div>
           </div>
-        ))} */}
+        ))}
       </div>
 
       <div className="right-center-ticket-details-options container-base">
@@ -118,11 +124,11 @@ function TicketDetails({ ticket }: Props) {
 
           <div className="requester-details">
             <p>
-              <strong>Departamento:</strong>{" "}
+              <strong>Departamento:</strong>
               {ticket.requester.department.description}
             </p>
             <p>
-              <strong>Email:</strong>{" "}
+              <strong>Email:</strong>
               <a href={`mailto:${ticket.requester.email}`}>
                 {ticket.requester.email}
               </a>
@@ -145,7 +151,6 @@ function TicketDetails({ ticket }: Props) {
               <option value={ticket.typeRequest.id}>
                 {ticket.typeRequest.name}
               </option>
-              {/* Adicione outras opções conforme necessário */}
             </select>
           </div>
 
@@ -155,7 +160,6 @@ function TicketDetails({ ticket }: Props) {
               <option value={ticket.sla.id}>
                 {ticket.sla.severity} - {ticket.sla.responseTime} horas
               </option>
-              {/* Adicione outras opções conforme necessário */}
             </select>
           </div>
 
