@@ -17,7 +17,6 @@ public class CategoryTicketService {
     private final CategoryTicketRepository categoryTicketRepository;
     private final CategoryTicketMapper categoryTicketMapper;
 
-    // verificar o uso ??
     @Transactional(readOnly = true)
     public List<CategoryTicketDTO> getCategoryTicketAndSolvingArea() {
         List<CategoryTicket> categoryTicketsAndSolvingArea = categoryTicketRepository.findAllCategoryTicketsWithSolvingArea();

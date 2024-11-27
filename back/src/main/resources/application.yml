@@ -12,6 +12,7 @@ security:
         duration: ${JWT_DURATION:86400}
 server:
     port: 8081
+
 spring:
     jpa:
         open-in-view: false
@@ -19,6 +20,7 @@ spring:
     output:
         ansi:
             enabled: ALWAYS
+
     hibernate:
         jdbc:
             time_zone: UTC
@@ -34,10 +36,42 @@ spring:
                         enable: true
         username: ${EMAIL_USERNAME:teste@gmail.com}
     profiles:
-        active: ${APP_PROFILE:migration}
+        active: ${APP_PROFILE:test}
+
 springdoc:
     api-docs:
-        path: /api-doc
+        path: /supportService/v3/api-docs
+    swagger-ui:
+        operationsSorter: method
+        path: /swagger-ui.html
+        title: "REST Documentation for SupportService API "
+        description: "This is the REST UI support of SupportService API. Here you can perform REST operations on the API."
+        license: "Apache License 2.0"
+        base_package: "com.dev.ServiceHelp"
+        contact_name: "Frank Destro"
+        contact_url: "https://github.com/FrankDestro/SupportService-v3.0"
+        contact_email: "frank-destro@outlook.com"
 logging:
-    level:
-        org.hibernate.SQL: DEBUG
+    pattern:
+        level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+    endpoints:
+        enabled-by-default: false
+        web:
+            exposure:
+                include: refresh, health, info, metrics, prometheus, h2-console
+    endpoint:
+        health:
+            enabled: true
+            show-details : always
+        info:
+            enabled: true
+        metrics:
+            enabled: true
+        prometheus:
+            enabled : true
+
+
+
+

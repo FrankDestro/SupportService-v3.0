@@ -63,32 +63,4 @@ public class TicketResource {
         TicketSimpleDTO updatedTicket = ticketService.updateTicketData(id, ticketUpdateDTO);
         return ResponseEntity.ok().body(updatedTicket);
     }
-
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-//    @PostMapping("/assignTicket")
-//    public ResponseEntity<TicketSimpleDTO> assignTicketToTechnician(@Valid @RequestBody TicketSimpleDTO ticketSimpleDTO) throws JsonProcessingException {
-//        ticketSimpleDTO = ticketService.assignTicketToTechnician(ticketSimpleDTO);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//                .buildAndExpand(ticketSimpleDTO.getId()).toUri();
-//        return ResponseEntity.created(uri).body(ticketSimpleDTO);
-//    }
-//
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-//    @PostMapping("/resolveTicket")
-//    public ResponseEntity<TicketSimpleDTO> resolveTicket(@Valid @RequestBody TicketSimpleDTO ticketSimpleDTO) throws JsonProcessingException {
-//        ticketSimpleDTO = ticketService.resolveTicket(ticketSimpleDTO);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//                .buildAndExpand(ticketSimpleDTO.getId()).toUri();
-//        return ResponseEntity.created(uri).body(ticketSimpleDTO);
-//    }
-//
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-//    @PostMapping("/pauseTicket")
-//    public ResponseEntity<TicketSimpleDTO> pauseTicket(@Valid @RequestBody TicketSimpleDTO ticketSimpleDTO) throws JsonProcessingException {
-//        ticketSimpleDTO = ticketService.pauseTicket(ticketSimpleDTO);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//                .buildAndExpand(ticketSimpleDTO.getId()).toUri();
-//        return ResponseEntity.created(uri).body(ticketSimpleDTO);
-//    }
-
 }

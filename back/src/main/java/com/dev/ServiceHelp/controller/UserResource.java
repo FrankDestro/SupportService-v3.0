@@ -42,7 +42,7 @@ public class UserResource {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping(value = "/profile")
     public ResponseEntity<UserDTO> getUserProfile() {
         UserDTO dto = userService.findUserLogged();

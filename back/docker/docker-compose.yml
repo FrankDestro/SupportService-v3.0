@@ -1,8 +1,8 @@
 version: "3.9"
 services:
-  # ====================================================================================================================
-  # POSTGRES SERVER
-  # ====================================================================================================================
+# ====================================================================================================================
+# POSTGRES SERVER
+# ====================================================================================================================
   pg-docker:
     image: postgres:latest
     restart: unless-stopped
@@ -13,12 +13,12 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - ./.data/postgresql/data:/etc/postgresql/data
+      - /.data/postgresql/data:/etc/postgresql/data
     networks:
       - dev-network
-  # ====================================================================================================================
-  # PGADMIN
-  # ====================================================================================================================
+# ====================================================================================================================
+# PGADMIN
+# ====================================================================================================================
   pgadmin-docker:
     image: dpage/pgadmin4
     restart: unless-stopped
@@ -34,9 +34,48 @@ services:
       - pg-docker
     networks:
       - dev-network
+# ====================================================================================================================
+# PROMETHEUS
+# ====================================================================================================================
+  prometheus-supportService:
+    image: prom/prometheus:latest
+    container_name: prometheus-supportService
+    networks:
+      - dev-network
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus:/prometheus
+    ports:
+      - "9091:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+    user: root
+    restart: unless-stopped
+# ====================================================================================================================
+# GRAFANA
+# ====================================================================================================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-supportService
+    networks:
+      - dev-network
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus-supportService
 # ======================================================================================================================
-# REDE
+# NETWORK
 # ======================================================================================================================
 networks:
   dev-network:
     driver: bridge
+
+volumes:
+  grafana-storage:

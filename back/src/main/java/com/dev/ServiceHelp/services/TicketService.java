@@ -16,14 +16,14 @@ import com.dev.ServiceHelp.services.exceptions.TicketStatusException;
 import com.dev.ServiceHelp.utils.ResourceUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -97,7 +97,23 @@ public class TicketService {
         return ticketResults.map(ticket -> ticketMapper.toTicketSimpleDTO(ticket));
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
+//    public TicketDTO getTicketById(Long id) {
+//        Ticket ticket = ticketRepository.findById(id)
+//                .orElseThrow(
+//                        () -> new ResourceNotFoundException("ticket not found"));
+//
+//        Set<TicketHistory> ticketHistoriesResult = ticketHistoryRepository.findByTicketId(ticket.getId());
+//        ticket.setTicketHistories(ticketHistoriesResult);
+//
+//        Set<Attachment> attachmentsResult = attachmentRepository.findByTicketId(ticket.getId());
+//        ticket.setAttachments(attachmentsResult);
+//
+//        return ticketMapper.toTicketDTO(ticket);
+//    }
+
+
+    @Transactional
     public TicketDTO getTicketById(Long id) {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(
@@ -105,11 +121,13 @@ public class TicketService {
 
         Set<TicketHistory> ticketHistoriesResult = ticketHistoryRepository.findByTicketId(ticket.getId());
         ticket.setTicketHistories(ticketHistoriesResult);
+
         Set<Attachment> attachmentsResult = attachmentRepository.findByTicketId(ticket.getId());
         ticket.setAttachments(attachmentsResult);
 
         return ticketMapper.toTicketDTO(ticket);
     }
+
 
     @Transactional
     public TicketSimpleDTO updateTicketData(Long id, TicketUpdateDTO ticketUpdateDTO) {
@@ -153,7 +171,7 @@ public class TicketService {
                         categoryTicketRepository.findById(ticketUpdateDTO.getCategoryTicket().getId()),
                         "CategoryTicket with ID " + ticketUpdateDTO.getCategoryTicket().getId() + " not found");
 
-                SolvingArea solvingArea  = ResourceUtil.getOrThrow(
+                SolvingArea solvingArea = ResourceUtil.getOrThrow(
                         solvingAreaRepository.findById(categoryTicket.getSolvingArea().getId()),
                         "SolvingArea with ID " + ticketUpdateDTO.getCategoryTicket().getSolvingAreaDTO().getId() + " not found");
                 ticket.setCategoryTicket(categoryTicket);
@@ -178,7 +196,7 @@ public class TicketService {
             }
 
             // Condições para cada tipo de status
-            if(ticketUpdateDTO.getStatusTicket() != null) {
+            if (ticketUpdateDTO.getStatusTicket() != null) {
                 ticket.setStatusTicket(ticketUpdateDTO.getStatusTicket());  // State Patterns ?!?!?!?!? cada status seta campos diferente e muda o comportamento
 
                 if (EnumSet.of(StatusTicket.CANCELED).contains(ticket.getStatusTicket())) {
@@ -195,13 +213,13 @@ public class TicketService {
                     ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
                 }
 
-                if(ticket.getStatusTicket().equals(StatusTicket.FROZEN)) {
+                if (ticket.getStatusTicket().equals(StatusTicket.FROZEN)) {
                     TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
                             TicketHistoryConstants.TICKET_FROZEN_DESCRIPTION, NoteType.SYSTEM_GENERATED);
                     ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
                 }
 
-                if(ticket.getStatusTicket().equals(StatusTicket.IN_PROGRESS)) {
+                if (ticket.getStatusTicket().equals(StatusTicket.IN_PROGRESS)) {
                     ticket.setTechnician(userService.authenticated());
                     TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
                             TicketHistoryConstants.TICKET_IN_PROGRESS_DESCRIPTION, NoteType.SYSTEM_GENERATED);
