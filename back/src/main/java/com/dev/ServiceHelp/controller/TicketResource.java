@@ -4,6 +4,7 @@ import com.dev.ServiceHelp.dto.TicketDTO;
 import com.dev.ServiceHelp.dto.TicketSimpleDTO;
 import com.dev.ServiceHelp.dto.TicketUpdateDTO;
 import com.dev.ServiceHelp.enums.StatusTicket;
+import com.dev.ServiceHelp.projections.*;
 import com.dev.ServiceHelp.services.TicketService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.text.ParseException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -42,10 +45,13 @@ public class TicketResource {
             @RequestParam(name = "categoryTicket", defaultValue = "") Long category,
             @RequestParam(name = "typeRequest", defaultValue = "") Long type,
             @RequestParam(name = "sla", defaultValue = "") Long sla,
+            @RequestParam(name = "ticketsAssignedToMe", required = false) Boolean ticketsAssignedToMe,
+            @RequestParam(name = "myOpenTickets", required = false) Boolean myOpenTickets,
+            @RequestParam(name = "hasTicketsInMyArea", required = false) Boolean hasTicketsInMyArea,
             Pageable pageable) {
         {
             Page<TicketSimpleDTO> list = ticketService.getTicketsByCriteria(id, registrationDate,
-                    status, area, category, type, sla, pageable);
+                    status, area, category, type, sla, ticketsAssignedToMe, myOpenTickets, hasTicketsInMyArea, pageable);
             return ResponseEntity.ok().body(list);
         }
     }
@@ -59,8 +65,50 @@ public class TicketResource {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PatchMapping(value = "/updateData/{id}")
     public ResponseEntity<TicketSimpleDTO> updateTicketData(@PathVariable Long id,
-            @Valid @RequestBody TicketUpdateDTO ticketUpdateDTO) {
+                                                            @Valid @RequestBody TicketUpdateDTO ticketUpdateDTO) {
         TicketSimpleDTO updatedTicket = ticketService.updateTicketData(id, ticketUpdateDTO);
         return ResponseEntity.ok().body(updatedTicket);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelSummaryTickets")
+    public ResponseEntity<ActivityPanelSummaryTicketsProjection> getActivityPanelSummaryTickets() throws ParseException {
+        ActivityPanelSummaryTicketsProjection activityPanelSummaryTicketsProjection = ticketService.getActivityPanelSummaryTickets();
+        return ResponseEntity.ok(activityPanelSummaryTicketsProjection);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelSummaryPercentTickets")
+    public ResponseEntity<ActivityPanelSummaryPercentTicketsProjection> getActivityPanelSummaryPercentTickets() throws ParseException {
+        ActivityPanelSummaryPercentTicketsProjection activityPanelSummaryPercentTicketsProjection = ticketService.getActivityPanelSummaryPercentTickets();
+        return ResponseEntity.ok(activityPanelSummaryPercentTicketsProjection);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelSummaryTicketsByUrgency")
+    public ResponseEntity<ActivityPanelSummaryTicketsByUrgencyProjection> getActivityPanelSummaryTicketsByUrgency() throws ParseException {
+        ActivityPanelSummaryTicketsByUrgencyProjection activityPanelSummaryPercentTicketsProjection = ticketService.getActivityPanelSummaryTicketsByUrgency();
+        return ResponseEntity.ok(activityPanelSummaryPercentTicketsProjection);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelSummaryTicketsValueByUrgencyProjection")
+    public ResponseEntity<ActivityPanelSummaryTicketsValueByUrgencyProjection> getActivityPanelSummaryTicketsValueByUrgencyProjection() throws ParseException {
+        ActivityPanelSummaryTicketsValueByUrgencyProjection activityPanelSummaryTicketsValueByUrgencyProjection = ticketService.getActivityPanelSummaryTicketsValueByUrgencyProjection();
+        return ResponseEntity.ok(activityPanelSummaryTicketsValueByUrgencyProjection);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelSlaIndicator")
+    public ResponseEntity<ActivityPanelSlaIndicatorProjection> getActivityPanelSlaIndicator() throws ParseException {
+        ActivityPanelSlaIndicatorProjection activityPanelSlaIndicatorProjection = ticketService.getActivityPanelSlaIndicatorProjection();
+        return ResponseEntity.ok(activityPanelSlaIndicatorProjection);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping(value = "/getActivityPanelServiceByDay")
+    public ResponseEntity<List<ActivityPanelServiceByDayProjection>> getActivityPanelServiceByDay() throws ParseException {
+        List<ActivityPanelServiceByDayProjection> activityPanelServiceByDay = ticketService.getActivityPanelServiceByDay();
+        return ResponseEntity.ok(activityPanelServiceByDay);
     }
 }

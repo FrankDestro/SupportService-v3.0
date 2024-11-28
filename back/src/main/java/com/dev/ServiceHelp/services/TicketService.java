@@ -10,18 +10,22 @@ import com.dev.ServiceHelp.enums.NoteType;
 import com.dev.ServiceHelp.enums.StatusTicket;
 import com.dev.ServiceHelp.mappers.TicketHistoryMapper;
 import com.dev.ServiceHelp.mappers.TicketMapper;
+import com.dev.ServiceHelp.projections.*;
 import com.dev.ServiceHelp.repository.*;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 import com.dev.ServiceHelp.services.exceptions.TicketStatusException;
 import com.dev.ServiceHelp.utils.ResourceUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
@@ -85,33 +89,49 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TicketSimpleDTO> getTicketsByCriteria(Long id, String registrationDate, StatusTicket status, Long area, Long category, Long type, Long sla, Pageable pageable) {
+    public Page<TicketSimpleDTO> getTicketsByCriteria(Long id, String registrationDate, StatusTicket status, Long area, Long category, Long type, Long sla,
+                                                      Boolean ticketsAssignedToMe,
+                                                      Boolean myOpenTickets,
+                                                      Boolean hasTicketsInMyArea,
+                                                      Pageable pageable) {
 
-        SolvingArea solvingArea = area != null ? solvingAreaRepository.findById(area).orElse(null) : null;
-        CategoryTicket categoryTicket = category != null ? categoryTicketRepository.findById(category).orElse(null) : null;
-        TypeRequest typeRequest = type != null ? typeRequestRepository.findById(type).orElse(null) : null;
-        SLA Sla = sla != null ? slaRepository.findById(sla).orElse(null) : null;
+        User authenticatedUser = userService.authenticated();
 
-        Page<Ticket> ticketResults = ticketRepository.searchTicketsByParams(id, registrationDate, status, solvingArea, categoryTicket, typeRequest, Sla, pageable);
+        Long technicianID = resolveTechnicianID(ticketsAssignedToMe, authenticatedUser);
+        Long requesterID = resolveRequesterID(myOpenTickets, authenticatedUser);
+        Long solvingAreaID = resolveSolvingAreaID(hasTicketsInMyArea, authenticatedUser);
 
-        return ticketResults.map(ticket -> ticketMapper.toTicketSimpleDTO(ticket));
+
+        SolvingArea solvingArea = findEntityById(area, solvingAreaRepository);
+        CategoryTicket categoryTicket = findEntityById(category, categoryTicketRepository);
+        TypeRequest typeRequest = findEntityById(type, typeRequestRepository);
+        SLA Sla = findEntityById(sla, slaRepository);
+
+        Page<Ticket> ticketResults = ticketRepository.searchTicketsByParams(id, registrationDate, status, solvingArea, categoryTicket,
+                typeRequest, Sla,
+                technicianID,
+                requesterID,
+                solvingAreaID,
+                pageable);
+
+        return ticketResults.map(ticketMapper::toTicketSimpleDTO);
     }
 
-//    @Transactional(readOnly = true)
-//    public TicketDTO getTicketById(Long id) {
-//        Ticket ticket = ticketRepository.findById(id)
-//                .orElseThrow(
-//                        () -> new ResourceNotFoundException("ticket not found"));
-//
-//        Set<TicketHistory> ticketHistoriesResult = ticketHistoryRepository.findByTicketId(ticket.getId());
-//        ticket.setTicketHistories(ticketHistoriesResult);
-//
-//        Set<Attachment> attachmentsResult = attachmentRepository.findByTicketId(ticket.getId());
-//        ticket.setAttachments(attachmentsResult);
-//
-//        return ticketMapper.toTicketDTO(ticket);
-//    }
+    private Long resolveTechnicianID(Boolean ticketsAssignedToMe, User user) {
+        return Boolean.TRUE.equals(ticketsAssignedToMe) ? user.getId() : null;
+    }
 
+    private Long resolveRequesterID(Boolean myOpenTickets, User user) {
+        return Boolean.TRUE.equals(myOpenTickets) ? user.getId() : null;
+    }
+
+    private Long resolveSolvingAreaID(Boolean hasTicketsInMyArea, User user) {
+        return Boolean.TRUE.equals(hasTicketsInMyArea) ? user.getSolvingArea().getId() : null;
+    }
+
+    private <T> T findEntityById(Long id, JpaRepository<T, Long> repository) {
+        return id != null ? repository.findById(id).orElse(null) : null;
+    }
 
     @Transactional
     public TicketDTO getTicketById(Long id) {
@@ -233,5 +253,35 @@ public class TicketService {
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelSummaryTicketsProjection getActivityPanelSummaryTickets() throws ParseException {
+        return ticketRepository.ActivityPanelSummaryTickets();
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelSummaryPercentTicketsProjection getActivityPanelSummaryPercentTickets() throws ParseException {
+        return ticketRepository.ActivityPanelSummaryPercentTickets();
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelSummaryTicketsByUrgencyProjection getActivityPanelSummaryTicketsByUrgency() throws ParseException {
+        return ticketRepository.ActivityPanelSummaryTicketsByUrgency();
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelSummaryTicketsValueByUrgencyProjection getActivityPanelSummaryTicketsValueByUrgencyProjection() throws ParseException {
+        return ticketRepository.ActivityPanelSummaryTicketsValueByUrgency();
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelSlaIndicatorProjection getActivityPanelSlaIndicatorProjection() throws ParseException {
+        return ticketRepository.ActivityPanelSlaIndicator();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActivityPanelServiceByDayProjection> getActivityPanelServiceByDay() throws ParseException {
+        return ticketRepository.activityPanelServiceByDay();
     }
 }

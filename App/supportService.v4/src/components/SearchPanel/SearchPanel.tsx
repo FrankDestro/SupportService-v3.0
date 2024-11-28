@@ -4,6 +4,7 @@ import * as solvingAreaService from "../../Service/solving-area";
 import Button from "../Button/Button";
 import "./SearchPanel.css";
 import { SolvingAreaDTO } from "../../models/solvingAreaDTO";
+import Clock from "../Clock/Clock";
 
 function SearchPanel() {
   const [solvingAreas, setSolvingAreas] = useState<SolvingAreaDTO[]>([]);
@@ -35,6 +36,9 @@ function SearchPanel() {
           background="#11344d"
           hoverColor="#335577"
         />
+      </div>
+      <div>
+        <Clock />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import com.dev.ServiceHelp.dto.RoleDTO;
 import com.dev.ServiceHelp.services.RoleService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/roles")
+@SecurityRequirement(name = "bearerAuth")
 public class RoleResource {
 
     private final RoleService roleService;
 
-    @Operation(summary = "Get all roles ", method = "GET")
+    @Operation(summary = "Get all roles",
+            description = "Only admins can get roles.",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/getAllRoles")
     public ResponseEntity<List<RoleDTO>> getAllRoles() throws JsonProcessingException {
