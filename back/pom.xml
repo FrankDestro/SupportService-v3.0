@@ -124,6 +124,12 @@
 			<optional>true</optional>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<groupId>org.apache.maven.plugins</groupId>-->
+<!--			<artifactId>maven-surefire-plugin</artifactId>-->
+<!--			<version>2.19.1</version>-->
+<!--		</dependency>-->
+
 		<!-- INICIO /  Mapstruct -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -133,15 +139,9 @@
 		<!-- FIM /  Mapstruct -->
 
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.2.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>2.15.2</version> <!-- Use a versão mais recente -->
+			<version>2.15.2</version>
 		</dependency>
 	</dependencies>
 
@@ -182,6 +182,49 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<!-- INICIO /  JACOCO -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>com/dev/ServiceHelp</exclude>
+						<exclude>com/dev/ServiceHelp/ServiceHelpApplication.class</exclude>
+						<exclude>com/dev/ServiceHelp/customgrant/**</exclude>
+						<exclude>com/dev/ServiceHelp/mappers/**</exclude>
+						<exclude>com/dev/ServiceHelp/config/**</exclude>
+						<exclude>com/dev/ServiceHelp/entities/**</exclude>
+						<exclude>com/dev/ServiceHelp/dto/**</exclude>
+						<exclude>com/dev/ServiceHelp/enums/**</exclude>
+						<exclude>com/dev/ServiceHelp/controllers/handlers/**</exclude>
+						<exclude>com/dev/ServiceHelp/services/validation/**</exclude>
+						<exclude>com/dev/ServiceHelp/services/exceptions/**</exclude>
+						<exclude>com/dev/ServiceHelp/controllers/**</exclude>]
+						<exclude>com/dev/ServiceHelp/constants/**</exclude>
+						<exclude>com/dev/ServiceHelp/utils/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/jacoco-report</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- FIM /  JACOCO -->
 
 		</plugins>
 	</build>

@@ -19,6 +19,7 @@ type QueryParams = {
 };
 
 function Ticket() {
+  const [isLoading, setIsLoading] = useState(false);
   const [showPagination, setShowPagination] = useState(true);
   const [tickets, setTickets] = useState<TicketSimpleDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -34,6 +35,8 @@ function Ticket() {
   });
 
   useEffect(() => {
+    // setIsLoading(true);
+
     ticketService
       .allTicketsRequest(
         queryParams.page,
@@ -49,7 +52,8 @@ function Ticket() {
         const { totalPages, content } = response.data;
         setTickets(content);
         setTotalPages(totalPages);
-      });
+      })
+      // .finally(() => setIsLoading(false))
   }, [queryParams, showPagination]);
 
   function handleSearch(
@@ -92,7 +96,12 @@ function Ticket() {
       <div className="container-base">
         <SearchTicker onSearch={handleSearch} />
       </div>
-      {tickets.length === 0 ? (
+      {isLoading ? ( // Exibe o spinner durante o carregamento
+        <div className="spinner-container">
+          <div className="spinner-border" role="status"></div>
+          <span>Carregando....</span>
+        </div>
+      ) : tickets.length === 0 ? (
         <NoData icon={faTicket} message="Não foi encontrado ticket" />
       ) : (
         <>

@@ -2,9 +2,7 @@ package com.dev.ServiceHelp.customgrant;
 
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.UserRepository;
-import com.dev.ServiceHelp.services.exceptions.PasswordException;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;

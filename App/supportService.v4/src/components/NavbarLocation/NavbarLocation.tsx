@@ -1,13 +1,17 @@
-import { useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faClock,
+  faDashboard,
   faDatabase,
+  faGear,
+  faGears,
   faHome,
   faTasks,
   faTicket,
   faUser,
-  faWarning,
+  faWarning
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "react-router-dom";
 
 import "./NavbarLocation.css";
 
@@ -28,6 +32,14 @@ const NavbarLocation = () => {
         return { title: "Detalhes do ticket", icon: faTasks };
       case "/test":
         return { title: "Pagina de testes", icon: faWarning };
+      case "/settings/general":
+        return { title: "Settings | General", icon: faGears };
+      case "/dashboard":
+        return { title: "Dashboard", icon: faDashboard };
+      case "/settings/profile":
+          return { title: "Settings |Profile", icon: faUser };
+      case "/settings/sla":
+            return { title: "Settings | SLA", icon: faClock };
       default:
         return { title: "", icon: null };
     }

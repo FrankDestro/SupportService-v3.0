@@ -1,7 +1,6 @@
 package com.dev.ServiceHelp.services;
 
 import com.dev.ServiceHelp.dto.TypeRequestDTO;
-import com.dev.ServiceHelp.entities.SolvingArea;
 import com.dev.ServiceHelp.entities.TypeRequest;
 import com.dev.ServiceHelp.mappers.TypeRequestMapper;
 import com.dev.ServiceHelp.repository.TypeRequestRepository;

@@ -1,22 +1,12 @@
 package com.dev.ServiceHelp.services;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.dev.ServiceHelp.dto.EmailDTO;
-import com.dev.ServiceHelp.dto.NewPasswordDTO;
-import com.dev.ServiceHelp.entities.PasswordRecover;
-import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.PasswordRecoverRepository;
 import com.dev.ServiceHelp.repository.UserRepository;
-import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class AuthService {

@@ -241,20 +241,6 @@ INSERT INTO ticket (subject, description, registration_date, due_date, status_ti
 INSERT INTO ticket (subject, description, registration_date, due_date, status_ticket, completion_date, type_request_id, requester_id, sla_id, solving_area_id, category_ticket_id, technician_id, resolver_id, parent_ticket_id) VALUES ('Erro no sistema de inventário', 'Falha ao tentar atualizar o inventário de produtos', '2024-10-29 13:00:00', '2024-11-06 13:00:00', 4, '2024-11-06 13:00:00', 1, 2, 1, 5, 5, null, null, null);
 INSERT INTO ticket (subject, description, registration_date, due_date, status_ticket, completion_date, type_request_id, requester_id, sla_id, solving_area_id, category_ticket_id, technician_id, resolver_id, parent_ticket_id) VALUES ('Problema de impressão', 'Impressora não está funcionando', '2024-11-13 14:45:00', '2024-11-07 14:45:00', 3, '2024-11-07 14:45:00', 2, 3, 2, 6, 6, 3, null, 1);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 --50 historico de teste do ticket 2
 INSERT INTO ticket_history (description, annotation_public, visible_to_requester, registration_date, system_generated, note_type, ticket_id, user_id) VALUES ('O técnico iniciou a investigação do problema', true, true, TIMESTAMP '2024-10-26 09:30:00', false, 'COMMENT', 2, 3);
 INSERT INTO ticket_history (description, annotation_public, visible_to_requester, registration_date, system_generated, note_type, ticket_id, user_id) VALUES ('O técnico iniciou a investigação do problema', true, true, TIMESTAMP '2024-10-26 09:30:00', false, 'COMMENT', 2, 3);

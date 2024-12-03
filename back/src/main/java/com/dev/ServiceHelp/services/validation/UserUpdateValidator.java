@@ -1,16 +1,9 @@
 package com.dev.ServiceHelp.services.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
 
 import com.dev.ServiceHelp.dto.UserUpdateDTO;
-import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.repository.UserRepository;
-import com.dev.ServiceHelp.controller.exception.FieldMessage;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintValidator;

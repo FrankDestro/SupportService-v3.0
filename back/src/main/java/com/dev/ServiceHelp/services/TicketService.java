@@ -23,10 +23,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -76,7 +75,9 @@ public class TicketService {
         ticket.setCategoryTicket(categoryTicket);
         ticket.setSolvingArea(solvingArea);
         ticket.setRequester(userService.authenticated());
-        ticket.setRegistrationDate(Instant.now());
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime zdt = ZonedDateTime.now(zoneId);
+        ticket.setRegistrationDate(zdt.toInstant());
         ticket.setDueDate(resourceUtil.calculateDueDate(ticket.getRegistrationDate(), sla.getResponseTime()));
         ticket = ticketRepository.save(ticket);
 
@@ -276,12 +277,22 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public ActivityPanelSlaIndicatorProjection getActivityPanelSlaIndicatorProjection() throws ParseException {
-        return ticketRepository.ActivityPanelSlaIndicator();
+    public ActivityPanelTimeMediumResolution getActivityPanelTimeMediumResolution() throws ParseException {
+        return ticketRepository.activityPanelTimeMediumResolution();
     }
 
     @Transactional(readOnly = true)
     public List<ActivityPanelServiceByDayProjection> getActivityPanelServiceByDay() throws ParseException {
         return ticketRepository.activityPanelServiceByDay();
+    }
+
+    @Transactional(readOnly = true)
+    public ActivityPanelPercentOnSlaProjection getActivityPanelPercentOnSla() throws ParseException {
+        return ticketRepository.activityPanelPercentOnSla();
+    }
+
+    @Transactional(readOnly = true)
+    public activityPanelAverageFirstResponseTimeProjection getActivityPanelAverageFirstResponseTime() throws ParseException {
+        return ticketRepository.activityPanelAverageFirstResponseTime();
     }
 }

@@ -283,3 +283,70 @@ th {
   background-color: #fff; /* Opcional: cor de fundo para manter contraste */
 }
 /* Estilização Pagination */
+
+/* Estilização do Spiner de Carregamento */
+
+/* Container do spinner */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Centraliza verticalmente */
+  padding: 50px;
+}
+
+/* Customização do spinner (spinner-border) */
+.spinner-border {
+  width: 50px !important; /* Tamanho */
+  height: 50px !important; /* Tamanho */
+  border-width: 5px !important; /* Espessura da borda */
+  border-top-color: rgb(17, 52, 77)!important; /* Cor da borda superior */
+  border-right-color: #2ecc71; /* Cor da borda direita */
+  border-bottom-color: rgb(17, 52, 77)!important; /* Cor da borda inferior */
+  border-left-color: rgb(17, 52, 77)!important; /* Cor da borda esquerda */
+  animation: spin 1s linear infinite; /* Animação de rotação */
+}
+
+/* Customização do spinner (spinner-grow) */
+.spinner-grow {
+  width: 200px; /* Tamanho */
+  height: 200px; /* Tamanho */
+  border-radius: 50%; /* Tornar o spinner redondo */
+  background-color: #3498db; /* Cor de fundo */
+  animation: grow 1.5s ease-in-out infinite; /* Animação de crescimento */
+}
+
+/* Definição das animações de rotação e crescimento */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+/* Estilização do Spiner de Carregamento */
+
+/* Estilização do Titlle Settings */
+.container-title-settings {
+  font-size: 20px;
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+  width: 100%;
+}
+/* Estilização do Titlle Settings */

@@ -1,11 +1,11 @@
 import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import NoData from "../../components/NoData/NoData";
+import Pagination from "../../components/Pagination/Pagination";
 import SearchUser from "../../components/SearchUser/SearchUser";
 import TableUsers from "../../components/TableUsers/TableUsers";
 import { UserDTO } from "../../models/RequesterDTO";
 import * as userService from "../../Service/user-service";
-import Pagination from "../../components/Pagination/Pagination";
 
 type QueryParams = {
   page: number;
@@ -15,6 +15,7 @@ type QueryParams = {
 };
 
 function User() {
+  const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
@@ -25,6 +26,8 @@ function User() {
   });
 
   useEffect(() => {
+    setIsLoading(true);
+
     userService
       .findAllUserByCriteria(
         queryParams.page,
@@ -36,7 +39,8 @@ function User() {
         const { totalPages, content } = response.data;
         setTotalPages(totalPages);
         setUsers(content);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [queryParams]);
 
   function handleSearch(searchText: string, status: string) {
@@ -77,28 +81,18 @@ function User() {
     });
   };
 
-  useEffect(() => {
-    userService
-      .findAllUserByCriteria(
-        queryParams.page,
-        queryParams.id,
-        queryParams.name,
-        queryParams.status
-      )
-      .then((response) => {
-        const { totalPages, content } = response.data;
-        setTotalPages(totalPages);
-        setUsers(content);
-      });
-  }, [queryParams]);
-
   return (
     <div>
       <div className="container-base">
         <SearchUser onSearch={handleSearch} />
       </div>
 
-      {users.length == 0 ? (
+      {isLoading ? ( // Exibe o spinner durante o carregamento
+        <div className="spinner-container">
+          <div className="spinner-border" role="status"></div>
+          <span>Carregando....</span>
+        </div>
+      ) : users.length === 0 ? (
         <NoData icon={faDatabase} message="Não há dados disponíveis" />
       ) : (
         <>

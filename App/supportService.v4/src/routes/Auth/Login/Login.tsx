@@ -12,6 +12,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Login() {
+  const [isLoading, setIsLoading] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const navigate = useNavigate();
   const { setContextTokenPayload } = useContext(ContextToken);
@@ -51,16 +52,21 @@ function Login() {
       return;
     }
 
-    loginService
-      .LoginRequest(forms.toValues(formData))
-      .then((response) => {
-        loginService.saveAccessToken(response.data.access_token);
-        setContextTokenPayload(loginService.getAccessTokenPayload());
-        navigate("/");
-      })
-      .catch(() => {
-        setSubmitResponseFail(true);
-      });
+    setIsLoading(true);
+
+    setTimeout(() => {
+      loginService
+        .LoginRequest(forms.toValues(formData))
+        .then((response) => {
+          loginService.saveAccessToken(response.data.access_token);
+          setContextTokenPayload(loginService.getAccessTokenPayload());
+          navigate("/");
+        })
+        .catch(() => {
+          setSubmitResponseFail(true);
+        })
+        .finally(() => setIsLoading(false));
+    }, 2000);
   }
 
   function handleInputChange(event: any) {
@@ -131,18 +137,32 @@ function Login() {
                 usuário ou senha inválidos
               </div>
             )}
-            <div className="container-button-login">
+
+            {isLoading ? (
               <Button
-                text="Login"
+                text="Carregar"
+                isLoading={true}
                 size="medium"
                 background="#11344d"
                 hoverColor="#335577"
                 borderRadius="5px"
                 height="50px"
                 width="400px"
-                type="submit"
               />
-            </div>
+            ) : (
+              <div className="container-button-login">
+                <Button
+                  text="Login"
+                  size="medium"
+                  background="#11344d"
+                  hoverColor="#335577"
+                  borderRadius="5px"
+                  height="50px"
+                  width="400px"
+                  type="submit"
+                />
+              </div>
+            )}
           </form>
         </div>
       </div>

@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import "./button.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { Oval } from "react-loader-spinner";
+import "./button.css";
 
 type Props = {
   text: string;
@@ -13,6 +14,7 @@ type Props = {
   height?: string;
   width?: string;
   type?: "submit" | "reset" | "button" | undefined;
+  isLoading?: boolean; // Nova propriedade opcional para o spinner
 };
 
 function Button({
@@ -25,6 +27,7 @@ function Button({
   height = "auto",
   width = "auto",
   type = "button",
+  isLoading = false, // Valor padrão de isLoading é false
 }: Props) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -41,9 +44,30 @@ function Button({
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        disabled={isLoading} // Desabilita o botão quando isLoading for true
       >
-        {icon && <FontAwesomeIcon icon={icon} style={{ marginRight: "8px" }} />}
-        {text}
+        {isLoading ? (
+          <div className="container-spiner-button-login">
+            <Oval
+              visible={true}
+              height="30"
+              width="30"
+              color="white"
+              secondaryColor="white"
+              ariaLabel="oval-loading"
+              wrapperStyle={{}}
+              wrapperClass="oval-spinner"
+            />
+            <span>Logando...</span>
+          </div>
+        ) : (
+          <>
+            {icon && (
+              <FontAwesomeIcon icon={icon} style={{ marginRight: "8px" }} />
+            )}
+            {text}
+          </>
+        )}
       </button>
     </div>
   );

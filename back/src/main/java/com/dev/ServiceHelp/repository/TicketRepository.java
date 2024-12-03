@@ -107,7 +107,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
                 AND t.completion_date >= CURRENT_DATE
                 AND t.completion_date < CURRENT_DATE + INTERVAL '1 day';
             """)
-    ActivityPanelSlaIndicatorProjection ActivityPanelSlaIndicator();
+    ActivityPanelTimeMediumResolution activityPanelTimeMediumResolution();
 
     @Query(nativeQuery = true, value = """
             SELECT
@@ -122,6 +122,46 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             """)
     List<ActivityPanelServiceByDayProjection> activityPanelServiceByDay();
 
+    @Query(nativeQuery = true, value = """
+    SELECT
+        ROUND(
+            (SUM(
+                CASE
+                    WHEN t.completion_date <= t.due_date 
+                         AND t.completion_date >= CURRENT_DATE 
+                         AND t.completion_date < CURRENT_DATE + INTERVAL '1 day'
+                    THEN 1
+                    ELSE 0
+                END
+            ) * 100.0) /
+            NULLIF(COUNT(t.id), 0), 2
+        ) AS percentOnSla
+    FROM public.ticket AS t
+    WHERE t.status_ticket = 4
+      AND t.completion_date IS NOT NULL
+      AND t.due_date IS NOT NULL
+      AND t.completion_date >= CURRENT_DATE
+      AND t.completion_date < CURRENT_DATE + INTERVAL '1 day';
+      """)
+    ActivityPanelPercentOnSlaProjection activityPanelPercentOnSla();
+
+
+    @Query(nativeQuery = true, value = """
+           SELECT
+                                    ROUND(
+                                        AVG(EXTRACT(EPOCH FROM (th.registration_date - t.registration_date)) / 60), 2
+                                    ) AS averageFirstResponseTime
+                                FROM public.ticket AS t
+                                JOIN public.ticket_history AS th ON t.id = th.ticket_id
+                                WHERE th.description = 'Ticket In progress'  
+                                  AND t.registration_date IS NOT NULL
+                                  AND th.registration_date IS NOT NULL
+                                  AND t.status_ticket != 4  
+                                  AND t.registration_date >= CURRENT_DATE
+                                  AND t.registration_date < CURRENT_DATE + INTERVAL '1 day'
+                                GROUP BY t.id;
+      """)
+    activityPanelAverageFirstResponseTimeProjection activityPanelAverageFirstResponseTime();
 
 
 
@@ -139,31 +179,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
 
 
-//    @Query("SELECT obj FROM Ticket obj " +
-//            "WHERE (:id IS NULL OR obj.id = :id) " +
-//            "AND (:registrationDate IS NULL OR :registrationDate = '' OR CAST(obj.registrationDate AS DATE) = CAST(:registrationDate AS DATE)) " +
-//            "AND (:status IS NULL OR obj.statusTicket = :status) " +
-//            "AND (:area IS NULL OR obj.solvingArea = :area) " +
-//            "AND (:categoryTicket IS NULL OR obj.categoryTicket = :categoryTicket) " +
-//            "AND (:type IS NULL OR obj.typeRequest = :type)" +
-//            "AND (:sla IS NULL OR obj.sla = :sla)"
-//    )
-//    Page<Ticket> searchTicketsByParams(Long id, String registrationDate, StatusTicket status, SolvingArea area,
-//                                       CategoryTicket categoryTicket, TypeRequest type, SLA sla, Pageable pageable);
-
-//    @Query("SELECT t FROM Ticket t " +
-//            "JOIN FETCH t.ticketHistories " +
-//            "JOIN FETCH t.attachments " +
-//            "WHERE t.id = :id")
-//    Ticket getTicketWithRelations(@Param("id") Long id);
 
 
-    // POSTGRES
-//    @Query("SELECT obj FROM Ticket obj " +
-//            "WHERE (:id IS NULL OR obj.id = :id) " +
-//            "AND (:registrationDate IS NULL OR :registrationDate = '' OR DATE(obj.registrationDate) = CAST(:registrationDate AS DATE)) " +
-//            "AND (:status IS NULL OR obj.statusTicket = :status)"
-//    )
-//    Page<Ticket> searchTicketsByParams(Long id, String registrationDate , StatusTicket status, Pageable pageable);
+
 
 }

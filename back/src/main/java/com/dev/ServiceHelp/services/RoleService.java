@@ -1,6 +1,5 @@
 package com.dev.ServiceHelp.services;
 
-
 import com.dev.ServiceHelp.dto.RoleDTO;
 import com.dev.ServiceHelp.entities.Role;
 import com.dev.ServiceHelp.mappers.RoleMapper;
@@ -20,7 +19,10 @@ public class RoleService {
 
     @Transactional(readOnly = true)
     public List<RoleDTO> getAllRoles() {
-        List<Role> rolesList = roleRepository.findAll();
-        return rolesList.stream().map(role -> roleMapper.toRoleDTO(role)).toList();
+        List<Role> list = roleRepository.findAll();
+        return list.stream().map(role -> roleMapper.toRoleDTO(role)).toList();
+
+//        List<RoleDTO> listRoles = list.stream().map(roles -> roleMapper.toRoleDTO(roles)).toList();
+//        return listRoles;
     }
 }
