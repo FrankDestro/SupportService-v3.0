@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { requestBackendConfig } from "../utils/apiService";
 import { BASE_URL } from "../utils/system";
+import { UserDTO, UserDTOUpdate } from "../models/RequesterDTO";
 
 export function findAll() {
   return axios.get(`${BASE_URL}/users?size=12`);
@@ -29,4 +30,18 @@ export function findAllUserByCriteria(
 
 export function findUserById(id: number) {
   return requestBackendConfig({ url: `/users/getUser/${id}` });
+}
+
+export function UserProfileDetails() {
+  return requestBackendConfig({ url: `/users/profile` })
+}
+
+export function updateUserDetails(obj: UserDTOUpdate) {
+  const config: AxiosRequestConfig = {
+    method: "PATCH",
+    url: `/users/updateDataUserLogged`,
+    withCredentials: true,
+    data: obj
+  }
+  return requestBackendConfig(config);
 }

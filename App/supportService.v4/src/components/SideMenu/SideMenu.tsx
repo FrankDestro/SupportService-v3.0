@@ -12,6 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import profile from "../../assets/natalia.jpg";
 import "./SideMenu.css";
+import * as userService from "../../Service/user-service"
+import { useEffect, useState } from "react";
+import { UserDTO } from "../../models/RequesterDTO";
 
 interface SideMenuProps {
   isCollapsed: boolean;
@@ -19,6 +22,16 @@ interface SideMenuProps {
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({ isCollapsed, toggleSidebar }) => {
+
+  const [userDetails, setUserDetails] = useState<UserDTO>();
+
+  useEffect(() => {
+    userService.UserProfileDetails().
+      then((response) => {
+        setUserDetails(response.data)
+      })
+  }, [])
+
   return (
     <div className={`sideMenu ${isCollapsed ? "collapsed" : ""}`}>
       <div className="container-bt">
@@ -72,12 +85,12 @@ const SideMenu: React.FC<SideMenuProps> = ({ isCollapsed, toggleSidebar }) => {
 
       <div className="sidebar__profile">
         <div className="avatar__wrapper">
-          <img className="avatar" src={profile} alt="Natalia Bartošová" />
+          <img className="avatar" src={userDetails?.imgProfile} alt="Natalia Bartošová" />
           <div className="online__status"></div>
         </div>
         <div className="avatar__name hide">
-          <div className="user-name">Natalia Bartošová</div>
-          <div className="email">@natalia_bartosova</div>
+          <div className="user-name">{userDetails?.firstName} {userDetails?.lastName}</div>
+          <div className="email">{userDetails?.email}</div>
         </div>
       </div>
     </div>

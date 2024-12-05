@@ -1,16 +1,19 @@
 package com.dev.ServiceHelp.services;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
-
 import com.dev.ServiceHelp.dto.RoleDTO;
 import com.dev.ServiceHelp.dto.UserDTO;
-import com.dev.ServiceHelp.entities.*;
+import com.dev.ServiceHelp.dto.UserUpdateDTO;
+import com.dev.ServiceHelp.entities.Department;
+import com.dev.ServiceHelp.entities.Role;
+import com.dev.ServiceHelp.entities.SolvingArea;
+import com.dev.ServiceHelp.entities.User;
+import com.dev.ServiceHelp.enums.StatusUser;
 import com.dev.ServiceHelp.mappers.UserMapper;
+import com.dev.ServiceHelp.projections.UserDetailsProjection;
 import com.dev.ServiceHelp.repository.DepartmentRepository;
 import com.dev.ServiceHelp.repository.RoleRepository;
 import com.dev.ServiceHelp.repository.SolvingAreaRepository;
+import com.dev.ServiceHelp.repository.UserRepository;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 import com.dev.ServiceHelp.utils.ResourceUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +27,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
-import com.dev.ServiceHelp.enums.StatusUser;
-import com.dev.ServiceHelp.projections.UserDetailsProjection;
-import com.dev.ServiceHelp.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -41,6 +45,41 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     private final UserMapper userMapper;
+
+
+    @Transactional
+    public UserDTO updateDataUserLogged(UserUpdateDTO userUpdateDTO) {
+
+        User user = ResourceUtil.getOrThrow(
+                userRepository.findById(authenticated().getId()),
+                "User with ID " + authenticated().getId() + " not found");
+
+        if (userUpdateDTO.getSolvingArea() != null) {
+            SolvingArea solvingArea = ResourceUtil.getOrThrow(
+                    solvingAreaRepository.findById(userUpdateDTO.getSolvingArea().getId()),
+                    "SolvingArea with ID " + userUpdateDTO.getSolvingArea().getId() + " not found");
+            user.setSolvingArea(solvingArea);
+        }
+
+        if (userUpdateDTO.getSolvingArea() != null) {
+            Department department = ResourceUtil.getOrThrow(
+                    departmentRepository.findById(userUpdateDTO.getDepartment().getId()),
+                    "Department with ID " + userUpdateDTO.getDepartment().getId() + " not found");
+            user.setDepartment(department);
+        }
+
+        if (userUpdateDTO.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
+        }
+        
+        user = userRepository.save(user);
+        return userMapper.toUserDTO(user);
+    }
+
+
+
+
+
 
     @Transactional(readOnly = true)
     public Page<UserDTO> getUserPaged(Long id, String name, StatusUser status, Pageable pageable) {

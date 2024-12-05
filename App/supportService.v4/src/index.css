@@ -2,30 +2,45 @@
 
 :root {
   /* Cores de Background */
-  --color-bg-primary: #f5f5f5; /* Cor de fundo principal (Geral) */
-  --color-bg-secondary: #ffffff; /* Fundo de seções ou cartões */
-  --color-bg-accent: #e3f2fd; /* Fundo de destaque, notificações, ou seções especiais */
+  --color-bg-primary: #f5f5f5;
+  /* Cor de fundo principal (Geral) */
+  --color-bg-secondary: #ffffff;
+  /* Fundo de seções ou cartões */
+  --color-bg-accent: #e3f2fd;
+  /* Fundo de destaque, notificações, ou seções especiais */
 
   /* Cores de Tipografia */
-  --color-text-primary: #212121; /* Cor principal para texto */
-  --color-text-secondary: #757575ec; /* Cor para subtítulos e textos secundários */
-  --color-text-accent: #0d47a1; /* Cor para links ou textos de destaque */
-  --color-text-on-primary: #ffffff; /* Cor para textos em elementos com fundo escuro */
+  --color-text-primary: #212121;
+  /* Cor principal para texto */
+  --color-text-secondary: #757575ec;
+  /* Cor para subtítulos e textos secundários */
+  --color-text-accent: #0d47a1;
+  /* Cor para links ou textos de destaque */
+  --color-text-on-primary: #ffffff;
+  /* Cor para textos em elementos com fundo escuro */
 
   /* Títulos e Subtítulos */
-  --color-title-primary: #0d47a1; /* Cor para títulos principais */
-  --color-subtitle-primary: #1976d2; /* Cor para subtítulos */
+  --color-title-primary: #0d47a1;
+  /* Cor para títulos principais */
+  --color-subtitle-primary: #1976d2;
+  /* Cor para subtítulos */
 
   /* Cores para Borda */
-  --color-border: #b1bdc8be; /* Cor padrão de bordas */
-  --color-border-hover: #b1bdc87c; /* Cor para bordas em foco/hover */
+  --color-border: #b1bdc8be;
+  /* Cor padrão de bordas */
+  --color-border-hover: #b1bdc87c;
+  /* Cor para bordas em foco/hover */
   --color-border-secondary: #11344da4;
 
   /* Cores para Elementos Interativos */
-  --color-primary: #2196f3; /* Cor para botões primários */
-  --color-primary-hover: #11344d; /* Cor para botões primários ao passar o mouse */
-  --color-secondary: #ff9800; /* Cor para botões secundários */
-  --color-secondary-hover: #f57c00; /* Cor para botões secundários ao passar o mouse */
+  --color-primary: #2196f3;
+  /* Cor para botões primários */
+  --color-primary-hover: #11344d;
+  /* Cor para botões primários ao passar o mouse */
+  --color-secondary: #ff9800;
+  /* Cor para botões secundários */
+  --color-secondary-hover: #f57c00;
+  /* Cor para botões secundários ao passar o mouse */
 
   /* Feedback */
   --color-success: #4caf50;
@@ -33,11 +48,16 @@
   --color-warning: #ffeb3b;
 
   /* Estrutura */
-  --header-bg: #ffffff; /* Cor de fundo do conteúdo */
-  --sidebar-bg: #11344d; /* Cor de fundo do sidebar */
-  --content-bg: #dfecf836; /* Cor de fundo do conteúdo */
-  --footer-bg: #ffffff; /* Cor de fundo do footer */
-  --text-color: #333; /* Cor do texto padrão */
+  --header-bg: #ffffff;
+  /* Cor de fundo do conteúdo */
+  --sidebar-bg: #11344d;
+  /* Cor de fundo do sidebar */
+  --content-bg: #dfecf836;
+  /* Cor de fundo do conteúdo */
+  --footer-bg: #ffffff;
+  /* Cor de fundo do footer */
+  --text-color: #333;
+  /* Cor do texto padrão */
 
   /*  Button card  */
   --color-button-primary: #11344d;
@@ -60,9 +80,12 @@ html,
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  margin: 0; /* Remove margens do body */
-  height: 100vh; /* Altura total da viewport */
-  overflow: hidden; /* Remove a rolagem */
+  margin: 0;
+  /* Remove margens do body */
+  height: 100vh;
+  /* Altura total da viewport */
+  overflow: hidden;
+  /* Remove a rolagem */
 }
 
 /* Exemplo de Uso de Estilos */
@@ -83,10 +106,14 @@ p {
 }
 
 .container-base {
-  background-color: #ffffff; /* Cor de fundo do card */
-  border: 1px solid var(--color-border); /* Borda leve */
-  border-radius: 3px; /* Cantos arredondados */
-  transition: box-shadow 0.3s ease; /* Transição suave ao passar o mouse */
+  background-color: #ffffff;
+  /* Cor de fundo do card */
+  border: 1px solid var(--color-border);
+  /* Borda leve */
+  border-radius: 3px;
+  /* Cantos arredondados */
+  transition: box-shadow 0.3s ease;
+  /* Transição suave ao passar o mouse */
   margin-bottom: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -134,14 +161,15 @@ select option {
   transition: all 0.2s ease;
 }
 
-.floating-input:focus + .floating-label,
-.floating-input:not(:placeholder-shown) + .floating-label {
+.floating-input:focus+.floating-label,
+.floating-input:not(:placeholder-shown)+.floating-label {
   top: -10px;
   left: 10px;
   font-size: 12px;
   color: #007bff;
   background-color: white;
 }
+
 /* Estilização input e select */
 
 /* Estilização de form login */
@@ -149,7 +177,8 @@ select option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px; /* Reduzindo o padding para ajustar o conteúdo */
+  padding: 20px;
+  /* Reduzindo o padding para ajustar o conteúdo */
   width: 100%;
 }
 
@@ -191,7 +220,7 @@ select option {
   border: 1px solid var(--color-error);
 }
 
-.support-form-control[data-dirty="true"][data-invalid="true"] ~ div {
+.support-form-control[data-dirty="true"][data-invalid="true"]~div {
   display: unset;
 }
 
@@ -213,6 +242,7 @@ select option {
   border-radius: 5px;
   margin-bottom: 20px;
 }
+
 /* Estilização de form login */
 
 /* Estilização Table */
@@ -276,12 +306,15 @@ th {
 /* Estilização Pagination */
 
 .container-pagination {
-  position: sticky; /* Alinha o componente na parte inferior conforme rolagem */
+  position: sticky;
+  /* Alinha o componente na parte inferior conforme rolagem */
   bottom: 0;
   display: flex;
   justify-content: flex-end;
-  background-color: #fff; /* Opcional: cor de fundo para manter contraste */
+  background-color: #fff;
+  /* Opcional: cor de fundo para manter contraste */
 }
+
 /* Estilização Pagination */
 
 /* Estilização do Spiner de Carregamento */
@@ -293,29 +326,43 @@ th {
   gap: 10px;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Centraliza verticalmente */
+  height: 100%;
+  /* Centraliza verticalmente */
   padding: 50px;
 }
 
 /* Customização do spinner (spinner-border) */
 .spinner-border {
-  width: 50px !important; /* Tamanho */
-  height: 50px !important; /* Tamanho */
-  border-width: 5px !important; /* Espessura da borda */
-  border-top-color: rgb(17, 52, 77)!important; /* Cor da borda superior */
-  border-right-color: #2ecc71; /* Cor da borda direita */
-  border-bottom-color: rgb(17, 52, 77)!important; /* Cor da borda inferior */
-  border-left-color: rgb(17, 52, 77)!important; /* Cor da borda esquerda */
-  animation: spin 1s linear infinite; /* Animação de rotação */
+  width: 50px !important;
+  /* Tamanho */
+  height: 50px !important;
+  /* Tamanho */
+  border-width: 5px !important;
+  /* Espessura da borda */
+  border-top-color: rgb(17, 52, 77) !important;
+  /* Cor da borda superior */
+  border-right-color: #2ecc71;
+  /* Cor da borda direita */
+  border-bottom-color: rgb(17, 52, 77) !important;
+  /* Cor da borda inferior */
+  border-left-color: rgb(17, 52, 77) !important;
+  /* Cor da borda esquerda */
+  animation: spin 1s linear infinite;
+  /* Animação de rotação */
 }
 
 /* Customização do spinner (spinner-grow) */
 .spinner-grow {
-  width: 200px; /* Tamanho */
-  height: 200px; /* Tamanho */
-  border-radius: 50%; /* Tornar o spinner redondo */
-  background-color: #3498db; /* Cor de fundo */
-  animation: grow 1.5s ease-in-out infinite; /* Animação de crescimento */
+  width: 200px;
+  /* Tamanho */
+  height: 200px;
+  /* Tamanho */
+  border-radius: 50%;
+  /* Tornar o spinner redondo */
+  background-color: #3498db;
+  /* Cor de fundo */
+  animation: grow 1.5s ease-in-out infinite;
+  /* Animação de crescimento */
 }
 
 /* Definição das animações de rotação e crescimento */
@@ -323,6 +370,7 @@ th {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -332,9 +380,11 @@ th {
   0% {
     transform: scale(0);
   }
+
   50% {
     transform: scale(1.2);
   }
+
   100% {
     transform: scale(0);
   }
@@ -349,4 +399,9 @@ th {
   padding: 10px;
   width: 100%;
 }
+
 /* Estilização do Titlle Settings */
+
+.error-message {
+  color: var(--color-error);
+}

@@ -1,15 +1,25 @@
-import { useEffect, useState } from "react"
-import { SLADTO } from "../../../models/slaDTO"
+import { faCheckCircle, faSave } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import Button from "../../../components/Button/Button";
+import DialogInfo from "../../../components/DialogInfo/DialogInfo";
+import { SLADTO } from "../../../models/slaDTO";
 import * as slaService from '../../../Service/sla-service';
 import './SlaSettingsPage.css';
-import Button from "../../../components/Button/Button";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 function SlaSettings() {
 
   const [sla, setSla] = useState<SLADTO[]>([]);
   const [selectedSla, setSelectedSla] = useState<SLADTO | null>(null);
 
+
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação com Sucesso!"
+  });
+
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false })
+  }
 
   useEffect(() => {
     slaService.getAllSla()
@@ -19,7 +29,7 @@ function SlaSettings() {
       .catch((e) => {
         console.error("Erro ao buscar os SLAs:", e);
       });
-  }, []);
+  }, [sla]);
 
   const handleCardClick = (item: SLADTO) => {
     setSelectedSla(item);
@@ -34,9 +44,16 @@ function SlaSettings() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedSla) {
-      console.log("SLA atualizado:", selectedSla);
-    }
-  };
+      const sla: SLADTO = {
+        ...selectedSla
+      };
+      slaService.updateSlaDetails(sla);
+      setDialogInfoData({
+        visible: true,
+        message: "Alteração realizada com sucesso!"
+      })
+    };
+  }
 
   return (
     <div className="container-settings-sla">
@@ -49,52 +66,65 @@ function SlaSettings() {
               className="content-settings-sla-item"
               onClick={() => handleCardClick(item)}
               style={{
-                border: selectedSla?.id === item.id ? "2px solid red" : "1px solid gray",
+                background: selectedSla?.id === item.id ? "lightgray" : "",
                 cursor: "pointer",
                 padding: "10px",
                 marginBottom: "10px",
                 borderRadius: "5px",
               }}
             >
-              <span style={{ color: "black", fontWeight: "700" }}>ID</span>
-              <span>{item.id}</span>
-              <span style={{ color: "black", fontWeight: "700" }}>Criticidade</span>
+              <span style={{ color: "black", fontWeight: "700" }}>Criticidade: </span>
               <span>{item.severity}</span>
-              <span style={{ color: "black", fontWeight: "700" }}>Tempo de Resposta</span>
+              <span style={{ color: "black", fontWeight: "700" }}>Tempo de Resposta: </span>
               <span>{item.responseTime} horas</span>
             </div>
+
           ))}
         </div>
 
-        {/* Formulário de SLA */}
-        <div className="container-settings-sla-form">
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Nome"
-              className="floating-input"
-              value={selectedSla?.severity || ""}
-              onChange={handleInputChange}
-            />
-            <input
-              type="number"
-              name="responseTime"
-              placeholder="Tempo de Resposta (horas)"
-              className="floating-input"
-              value={selectedSla?.responseTime || ""}
-              onChange={handleInputChange}
-            />
-            <Button
-              text="Salvar Alterações"
-              icon={faSave}
-              background="#11344d"
-              hoverColor="#335577"
-              borderRadius="5px"
-            />
-          </form>
-        </div>
+        {selectedSla !== null ? (
+          <div className="container-settings-sla-form">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="severity"
+                placeholder="Nome"
+                className="floating-input"
+                value={selectedSla?.severity || ""}
+                onChange={handleInputChange}
+              />
+              <input
+                type="number"
+                name="responseTime"
+                placeholder="Tempo de Resposta (horas)"
+                className="floating-input"
+                value={selectedSla?.responseTime || ""}
+                onChange={handleInputChange}
+              />
+              <Button
+                text="Salvar Alterações"
+                icon={faSave}
+                background="#11344d"
+                hoverColor="#335577"
+                borderRadius="5px"
+                type="submit"
+              />
+            </form>
+          </div>
+        ) : (
+          <p>Selecione um SLA para editar.</p>
+        )}
       </div>
+      {
+        dialogInfoData.visible &&
+        <DialogInfo
+          IconColor="#3a7e24"
+          ButtonColor="#3a7e24"
+          ButtonHoverColor="#70a94a"
+          Icon={faCheckCircle}
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose} />
+      }
     </div>
   )
 }

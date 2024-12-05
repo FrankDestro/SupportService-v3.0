@@ -176,3 +176,8 @@ export const cleanDescription = (description: string) => {
 };
 
 
+export const validatePassword = (password: string): boolean => {
+  const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\\/?]).{8,}$/;
+  return regex.test(password);
+};
+

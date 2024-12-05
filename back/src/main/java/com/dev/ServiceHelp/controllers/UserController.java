@@ -1,6 +1,7 @@
 package com.dev.ServiceHelp.controllers;
 
 import com.dev.ServiceHelp.dto.UserDTO;
+import com.dev.ServiceHelp.dto.UserUpdateDTO;
 import com.dev.ServiceHelp.enums.StatusUser;
 import com.dev.ServiceHelp.services.UserService;
 import jakarta.validation.Valid;
@@ -20,6 +21,13 @@ import java.net.URI;
 public class UserController {
 
     private final UserService userService;
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @PatchMapping(value = "/updateDataUserLogged")
+    public ResponseEntity<UserDTO> updateDataUserLogged(@Valid @RequestBody UserUpdateDTO userUpdateDTO) {
+        UserDTO userDataUpdated = userService.updateDataUserLogged(userUpdateDTO);
+        return ResponseEntity.ok().body(userDataUpdated);
+    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAllUsers")

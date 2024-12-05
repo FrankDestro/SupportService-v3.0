@@ -33,4 +33,9 @@ build/
 .vscode/
 
 ### data
-/docker/.data
+/docker/data
+
+### prometheus
+back/docker/data/prometheus/
+back/docker/data/prometheus/queries.active
+

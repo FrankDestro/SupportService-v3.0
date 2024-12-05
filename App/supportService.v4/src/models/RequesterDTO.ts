@@ -17,3 +17,16 @@ export type UserDTO = {
   solvingArea: SolvingAreaDTO;
   roles: RoleDTO[];
 };
+
+
+export type UserDTOUpdate = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  imgProfile: string;
+  contactNumber: string;
+};
+
+
+
