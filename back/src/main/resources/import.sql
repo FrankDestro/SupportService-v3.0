@@ -510,4 +510,14 @@ INSERT INTO attachment (url, registration_date, file_name, type, ticket_id, user
 INSERT INTO attachment (url, registration_date, file_name, type, ticket_id, user_id) VALUES ('https://example.com/ticket6-file.pdf', NOW(), 'ticket6-file.pdf', 'PDF', 6, 3);
 
 
+INSERT INTO know_Error (id, title, root_cause, solution, tags, status, create_Date, resolution_Date, id_registration_User) VALUES (1, 'Erro ao salvar no banco de dados', 'Conexão interrompida', 'Reiniciar o serviço de banco de dados', '["database", "timeout"]', 'OPEN', '2024-12-01', NULL, 1);
+INSERT INTO know_Error (id, title, root_cause, solution, tags, status, create_Date, resolution_Date, id_registration_User) VALUES (2, 'Falha ao autenticar usuário', 'Credenciais inválidas', 'Reiniciar o servidor de autenticação', '["authentication", "login"]', 'OPEN', '2024-12-02', NULL, 2);
+INSERT INTO know_Error (id, title, root_cause, solution, tags, status, create_Date, resolution_Date, id_registration_User) VALUES (3, 'Erro 500 no serviço de pagamento', 'Exceção não tratada', 'Atualizar a lógica de tratamento de exceções', '["payment", "server-error"]', 'OPEN', '2024-12-03', NULL, 1);
+INSERT INTO know_Error (id, title, root_cause, solution, tags, status, create_Date, resolution_Date, id_registration_User) VALUES (4, 'Tempo limite excedido na API externa', 'Resposta demorada da API externa', 'Implementar retries com Resilience4j', '["api", "timeout"]', 'OPEN', '2024-12-04', NULL, 2);
+INSERT INTO know_Error (id, title, root_cause, solution, tags, status, create_Date, resolution_Date, id_registration_User) VALUES (5, 'Erro de permissão no acesso ao arquivo', 'Configuração incorreta de permissões', 'Corrigir permissões do arquivo no servidor', '["file", "permission"]', 'OPEN', '2024-12-05', NULL, 1);
 
+INSERT INTO attachment (url, registration_date, file_name, type, known_error_id, user_id) VALUES ('https://example.com/kwnow-error-file.pdf', NOW(), 'kwnow-error-file.pdf', 'PDF', 1, 3);
+INSERT INTO attachment (url, registration_date, file_name, type, known_error_id, user_id) VALUES ('https://example.com/kwnow-error-file.pdf', NOW(), 'kwnow-error-file.pdf', 'PDF', 1, 4);
+INSERT INTO attachment (url, registration_date, file_name, type, known_error_id, user_id) VALUES ('https://example.com/kwnow-error-file.pdf', NOW(), 'kwnow-error-file.pdf', 'PDF', 2, 4);
+INSERT INTO attachment (url, registration_date, file_name, type, known_error_id, user_id) VALUES ('https://example.com/kwnow-error-file.pdf', NOW(), 'kwnow-error-file.pdf', 'PDF', 3, 4);
+INSERT INTO attachment (url, registration_date, file_name, type, known_error_id, user_id) VALUES ('https://example.com/kwnow-error-file.pdf', NOW(), 'kwnow-error-file.pdf', 'PDF', 3, 3);

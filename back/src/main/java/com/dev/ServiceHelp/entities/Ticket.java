@@ -64,6 +64,11 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket")
     private Set<Attachment> attachments = new HashSet<>();
 
+    //NOVO
+    @ManyToOne
+    @JoinColumn(name = "knowError_id", nullable = true)
+    private KnowError knowError;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -43,7 +43,10 @@ public class Attachment {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    //NOVO
+    @ManyToOne
+    @JoinColumn(name = "known_error_id")
+    private KnowError knowError;
 
     @PrePersist
     private void prePersist() {

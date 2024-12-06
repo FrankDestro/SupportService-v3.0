@@ -65,6 +65,10 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Attachment> attachments = new HashSet<>();
 
+    //novo
+    @OneToMany(mappedBy = "RegistratorUser")
+    private Set<KnowError> knowErrors = new HashSet<>();
+
     public User(Long id) {
         this.id = id;
     }

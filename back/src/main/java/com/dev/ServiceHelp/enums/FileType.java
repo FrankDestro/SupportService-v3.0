@@ -8,7 +8,8 @@ public enum FileType {
     GIF("image/gif"),
     DOC("application/msword"),
     DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-    TXT("text/plain");
+    TXT("text/plain"),
+    LINK("url/link");
 
     private final String mimeType;
 
