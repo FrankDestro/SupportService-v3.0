@@ -117,6 +117,62 @@ export const getStatusTicketBadgeStyle = (
 };
 
 
+export const getStatusKnowErrorsBadgeStyle = (
+  knowErrorStatus: string
+): React.CSSProperties => {
+  switch (knowErrorStatus.toUpperCase()) {
+    case "OPEN":
+      return {
+        backgroundColor: "#FFC107", /* Amarelo */
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+    case "UNDER_ANALYSIS":
+      return {
+        backgroundColor: "#17a2b8", /* Azul Claro */
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+    case "DOCUMENTED":
+      return {
+        backgroundColor: "#6c757d", /* Cinza Claro */
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+    case "SOLUTION_PENDING":
+      return {
+        backgroundColor: "#fd7e14",  /* Laranja Escuro */
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+    case "RESOLVED":
+      return {
+        backgroundColor: " #28a745", /* Verde */  
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+    default:
+      return {
+        backgroundColor: "#343a40", /* Cinza Escuro */
+        color: "white",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        fontSize: "12px",
+      };
+  }
+};
+
+
 export function calculateRemainingTime(dueDate: string): string {
   // Converte a string de data fornecida para um objeto Date
   const dueDateObj = parseISO(dueDate);

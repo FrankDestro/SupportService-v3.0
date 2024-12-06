@@ -14,6 +14,7 @@ import SlaSettings from "./routes/SettingPages/SLA Settings/SlaSettingsPage";
 import Test from "./routes/Test/Test";
 import Ticket from "./routes/Tickets/tickets";
 import User from "./routes/Users/user";
+import KnowErrorDbPage from "./routes/knowErrorDbPage/KnowErrorDbPage";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="sla" element={<SlaSettings />} />
             </Route>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/knowErrorDatabase" element={<KnowErrorDbPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

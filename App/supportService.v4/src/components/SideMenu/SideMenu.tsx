@@ -2,19 +2,19 @@ import {
   faArrowLeft,
   faArrowRight,
   faChartPie,
+  faDatabase,
   faGear,
   faHome,
   faTicket,
   faUser,
-  faWarning,
+  faWarning
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import profile from "../../assets/natalia.jpg";
-import "./SideMenu.css";
-import * as userService from "../../Service/user-service"
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { UserDTO } from "../../models/RequesterDTO";
+import * as userService from "../../Service/user-service";
+import "./SideMenu.css";
 
 interface SideMenuProps {
   isCollapsed: boolean;
@@ -72,6 +72,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ isCollapsed, toggleSidebar }) => {
         <Link to="/dashboard" className="link">
           <FontAwesomeIcon icon={faChartPie} className="icon" />
           <h3>Dashboard</h3>
+        </Link>
+        <Link to="/knowErrorDatabase" className="link">
+          <FontAwesomeIcon icon={faDatabase} className="icon" />
+          <h3>KEDB (Know Error DB)</h3>
         </Link>
         <Link to="/settings/general" className="link">
           <FontAwesomeIcon icon={faGear} className="icon" />

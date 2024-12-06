@@ -2,7 +2,6 @@ import {
   faClock,
   faDashboard,
   faDatabase,
-  faGear,
   faGears,
   faHome,
   faTasks,
@@ -36,6 +35,8 @@ const NavbarLocation = () => {
         return { title: "Settings | General", icon: faGears };
       case "/dashboard":
         return { title: "Dashboard", icon: faDashboard };
+      case "/knowErrorDatabase":
+        return { title: "Know Error DataBase", icon: faDatabase };
       case "/settings/profile":
           return { title: "Settings |Profile", icon: faUser };
       case "/settings/sla":

@@ -44,7 +44,7 @@ public class KnowErrorController {
             @RequestParam(name = "status", required = false) String status,
             @RequestParam(name = "initialDate", required = false) LocalDate initialDate,
             @RequestParam(name = "finalDate", required = false) LocalDate finalDate,
-            @RequestParam(name = "sla", required = false) LocalDate initialDateResolution,
+            @RequestParam(name = "initialDateResolution", required = false) LocalDate initialDateResolution,
             @RequestParam(name = "finalDateResolution", required = false) LocalDate finalDateResolution
             )
         {
