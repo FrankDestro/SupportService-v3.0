@@ -14,6 +14,8 @@ import com.dev.ServiceHelp.projections.*;
 import com.dev.ServiceHelp.repository.*;
 import com.dev.ServiceHelp.services.exceptions.ResourceNotFoundException;
 import com.dev.ServiceHelp.services.exceptions.TicketStatusException;
+import com.dev.ServiceHelp.strategy.StatusTicketStrategy;
+import com.dev.ServiceHelp.strategy.factory.StatusTicketStrategyFactory;
 import com.dev.ServiceHelp.utils.ResourceUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -37,6 +37,8 @@ public class TicketService {
 
     private final TicketMapper ticketMapper;
     private final TicketHistoryMapper ticketHistoryMapper;
+
+    private final StatusTicketStrategyFactory strategyFactory;
 
     private final TicketRepository ticketRepository;
     private final TypeRequestRepository typeRequestRepository;
@@ -51,8 +53,6 @@ public class TicketService {
 
     @Transactional
     public TicketSimpleDTO createTicket(TicketSimpleDTO ticketSimpleDTO) {
-
-        Ticket ticket = ticketMapper.toTicketEntity(ticketSimpleDTO);
 
         TypeRequest typeRequest = ResourceUtil.getOrThrow(
                 typeRequestRepository.findById(ticketSimpleDTO.getTypeRequest().getId()),
@@ -70,20 +70,14 @@ public class TicketService {
                 solvingAreaRepository.findById(categoryTicket.getSolvingArea().getId()),
                 "SolvingArea with ID " + categoryTicket.getSolvingArea().getId() + " not found");
 
-        ticket.setTypeRequest(typeRequest);
-        ticket.setSla(sla);
-        ticket.setCategoryTicket(categoryTicket);
-        ticket.setSolvingArea(solvingArea);
-        ticket.setRequester(userService.authenticated());
-        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
-        ZonedDateTime zdt = ZonedDateTime.now(zoneId);
-        ticket.setRegistrationDate(zdt.toInstant());
-        ticket.setDueDate(resourceUtil.calculateDueDate(ticket.getRegistrationDate(), sla.getResponseTime()));
+        Ticket ticket = ticketMapper.toInitializedTicket(ticketSimpleDTO, typeRequest, sla,
+                categoryTicket, solvingArea,
+                userService.authenticated(), resourceUtil);
+
         ticket = ticketRepository.save(ticket);
 
         TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
                 TicketHistoryConstants.TICKET_OPENED_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-
         ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
 
         return ticketMapper.toTicketSimpleDTO(ticket);
@@ -98,10 +92,9 @@ public class TicketService {
 
         User authenticatedUser = userService.authenticated();
 
-        Long technicianID = resolveTechnicianID(ticketsAssignedToMe, authenticatedUser);
-        Long requesterID = resolveRequesterID(myOpenTickets, authenticatedUser);
-        Long solvingAreaID = resolveSolvingAreaID(hasTicketsInMyArea, authenticatedUser);
-
+        Long technicianID = resolverId(ticketsAssignedToMe, authenticatedUser.getId());
+        Long requesterID = resolverId(myOpenTickets, authenticatedUser.getId());
+        Long solvingAreaID = resolverId(hasTicketsInMyArea, authenticatedUser.getSolvingArea().getId());
 
         SolvingArea solvingArea = findEntityById(area, solvingAreaRepository);
         CategoryTicket categoryTicket = findEntityById(category, categoryTicketRepository);
@@ -118,27 +111,11 @@ public class TicketService {
         return ticketResults.map(ticketMapper::toTicketSimpleDTO);
     }
 
-    private Long resolveTechnicianID(Boolean ticketsAssignedToMe, User user) {
-        return Boolean.TRUE.equals(ticketsAssignedToMe) ? user.getId() : null;
-    }
-
-    private Long resolveRequesterID(Boolean myOpenTickets, User user) {
-        return Boolean.TRUE.equals(myOpenTickets) ? user.getId() : null;
-    }
-
-    private Long resolveSolvingAreaID(Boolean hasTicketsInMyArea, User user) {
-        return Boolean.TRUE.equals(hasTicketsInMyArea) ? user.getSolvingArea().getId() : null;
-    }
-
-    private <T> T findEntityById(Long id, JpaRepository<T, Long> repository) {
-        return id != null ? repository.findById(id).orElse(null) : null;
-    }
-
     @Transactional
     public TicketDTO getTicketById(Long id) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("ticket not found"));
+        Ticket ticket = ResourceUtil.getOrThrow(
+                ticketRepository.findById(id),
+                "Ticket with ID " + id + " not found");
 
         Set<TicketHistory> ticketHistoriesResult = ticketHistoryRepository.findByTicketId(ticket.getId());
         ticket.setTicketHistories(ticketHistoriesResult);
@@ -153,39 +130,31 @@ public class TicketService {
     @Transactional
     public TicketSimpleDTO updateTicketData(Long id, TicketUpdateDTO ticketUpdateDTO) {
         try {
+
             Ticket ticket = ticketRepository.getReferenceById(id);
 
-            //verificar se o chamado esta com status de (FINISHED / CANCELED) nesse caso não prosseguir.
             if (EnumSet.of(StatusTicket.CANCELED, StatusTicket.FINISHED).contains(ticket.getStatusTicket())) {
                 throw new TicketStatusException("Ticket CANCELED OR FINISHED CANNOT BE CHANGED");
             }
 
-            // Pode mudar avontade (problema/incidente/PM/Solicitação)
             if (ticketUpdateDTO.getTypeRequest() != null) {
                 TypeRequest typeRequest = ResourceUtil.getOrThrow(
                         typeRequestRepository.findById(ticketUpdateDTO.getTypeRequest().getId()),
                         "TypeRequest with ID " + ticketUpdateDTO.getTypeRequest().getId() + " not found");
                 ticket.setTypeRequest(typeRequest);
 
-                TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                        TicketHistoryConstants.TICKET_TYPE_REQUEST_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-
+                executeAddTicketHistory(ticket, TicketHistoryConstants.TICKET_TYPE_REQUEST_DESCRIPTION, NoteType.SYSTEM_GENERATED);
             }
 
-            // Pode mudar avontade (baixa/media/alta/critica)
             if (ticketUpdateDTO.getSla() != null) {
                 SLA sla = ResourceUtil.getOrThrow(
                         slaRepository.findById(ticketUpdateDTO.getSla().getId()),
                         "SLA with ID " + ticketUpdateDTO.getSla().getId() + " not found");
                 ticket.setSla(sla);
 
-                TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                        TicketHistoryConstants.TICKET_SLA_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
+                executeAddTicketHistory(ticket, TicketHistoryConstants.TICKET_SLA_DESCRIPTION, NoteType.SYSTEM_GENERATED);
             }
 
-            // Tirar a area solving e trabalhar na category , alterando a categoria altera automaticamente a área de solução correspondente.
             if (ticketUpdateDTO.getCategoryTicket() != null) {
 
                 CategoryTicket categoryTicket = ResourceUtil.getOrThrow(
@@ -195,57 +164,28 @@ public class TicketService {
                 SolvingArea solvingArea = ResourceUtil.getOrThrow(
                         solvingAreaRepository.findById(categoryTicket.getSolvingArea().getId()),
                         "SolvingArea with ID " + ticketUpdateDTO.getCategoryTicket().getSolvingAreaDTO().getId() + " not found");
+
                 ticket.setCategoryTicket(categoryTicket);
                 ticket.getCategoryTicket().setSolvingArea(solvingArea);
 
-                TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                        TicketHistoryConstants.TICKET_CATEGORY_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-
+                executeAddTicketHistory(ticket, TicketHistoryConstants.TICKET_CATEGORY_DESCRIPTION, NoteType.SYSTEM_GENERATED);
             }
 
-            // Pode mudar avontade.
             if (ticketUpdateDTO.getTechnician() != null) {
                 User technician = ResourceUtil.getOrThrow(
                         userRepository.findById(ticketUpdateDTO.getTechnician().getId()),
                         "User with ID " + ticketUpdateDTO.getTechnician().getId() + " not found");
                 ticket.setTechnician(technician);
 
-                TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                        TicketHistoryConstants.TICKET_TECHNICIAN_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
+                executeAddTicketHistory(ticket, TicketHistoryConstants.TICKET_TECHNICIAN_DESCRIPTION, NoteType.SYSTEM_GENERATED);
             }
 
-            // Condições para cada tipo de status
             if (ticketUpdateDTO.getStatusTicket() != null) {
-                ticket.setStatusTicket(ticketUpdateDTO.getStatusTicket());  // State Patterns ?!?!?!?!? cada status seta campos diferente e muda o comportamento
+                ticket.setStatusTicket(ticketUpdateDTO.getStatusTicket());
 
-                if (EnumSet.of(StatusTicket.CANCELED).contains(ticket.getStatusTicket())) {
-                    ticket.setResolver(userService.authenticated());
-                    TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                            TicketHistoryConstants.TICKET_CANCELED_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                    ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-                }
+                StatusTicketStrategy strategy = strategyFactory.getStrategy(ticket.getStatusTicket());
 
-                if (EnumSet.of(StatusTicket.FINISHED).contains(ticket.getStatusTicket())) {
-                    ticket.setResolver(userService.authenticated());
-                    TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                            TicketHistoryConstants.TICKET_CLOSED_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                    ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-                }
-
-                if (ticket.getStatusTicket().equals(StatusTicket.FROZEN)) {
-                    TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                            TicketHistoryConstants.TICKET_FROZEN_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                    ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-                }
-
-                if (ticket.getStatusTicket().equals(StatusTicket.IN_PROGRESS)) {
-                    ticket.setTechnician(userService.authenticated());
-                    TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
-                            TicketHistoryConstants.TICKET_IN_PROGRESS_DESCRIPTION, NoteType.SYSTEM_GENERATED);
-                    ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-                }
+                strategy.applyStatus(ticket, ticketUpdateDTO);
             }
 
             ticket = ticketRepository.save(ticket);
@@ -254,6 +194,12 @@ public class TicketService {
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
+    }
+
+    private void executeAddTicketHistory(Ticket ticket, String description, NoteType noteType) {
+        TicketHistoryDTO ticketHistoryDTO = ticketHistoryMapper.createDefaultTicketHistoryDTO(ticket,
+                description, noteType);
+        ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
     }
 
     @Transactional(readOnly = true)
@@ -272,7 +218,7 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public ActivityPanelSummaryTicketsValueByUrgencyProjection getActivityPanelSummaryTicketsValueByUrgencyProjection() throws ParseException {
+    public ActivityPanelSummaryTicketsValueByUrgencyProjection getActivityPanelSummaryTicketsValueByUrgency() throws ParseException {
         return ticketRepository.ActivityPanelSummaryTicketsValueByUrgency();
     }
 
@@ -294,5 +240,13 @@ public class TicketService {
     @Transactional(readOnly = true)
     public activityPanelAverageFirstResponseTimeProjection getActivityPanelAverageFirstResponseTime() throws ParseException {
         return ticketRepository.activityPanelAverageFirstResponseTime();
+    }
+
+    private Long resolverId(Boolean value, Long id) {
+        return Boolean.TRUE.equals(value) ? id : null;
+    }
+
+    private <T> T findEntityById(Long id, JpaRepository<T, Long> repository) {
+        return id != null ? repository.findById(id).orElse(null) : null;
     }
 }

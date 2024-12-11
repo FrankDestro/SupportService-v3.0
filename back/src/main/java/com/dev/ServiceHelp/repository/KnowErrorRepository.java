@@ -46,4 +46,4 @@ public interface KnowErrorRepository extends JpaRepository<KnowError, Long> {
             @Param("finalDateResolution") LocalDate finalDateResolution
     );
 
-    }
+}

@@ -1,14 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Chart } from "react-google-charts";
-
-export const data = [
-  ["Status", "Quantidade"],
-  ["Abertos", 40],
-  ["Resolvidos", 32],
-  ["Vencidos", 18],
-  ["Em Atendimento", 15],
-  ["Atrasados", 10],
-];
+import { activityPanelSummaryPercentTicketsDTO } from "../../../models/activityPanelSummaryPercentTickets";
 
 export const options = {
   title: "Estatisticas de chamados por Status",
@@ -21,7 +13,22 @@ export const options = {
   },
 };
 
-function PieChartDonutByStatusTicket() {
+type ActivityPanelSummaryPercentTickets = {
+  ticketStats: activityPanelSummaryPercentTicketsDTO | null;
+};
+
+function PieChartDonutByStatusTicket({ticketStats}: ActivityPanelSummaryPercentTickets) {
+
+  const data = [
+    ["Status", "Quantidade"],
+    ["Abertos", ticketStats?.totalOpenedPercent ?? 0],
+    ["Resolvidos", ticketStats?.totalFinishedPercent ?? 0],
+    ["Vencidos", ticketStats?.totalDueTodayPercent ?? 0],
+    ["Em Atendimento", ticketStats?.totalInProgressPercent ?? 0],
+    ["Atrasados", ticketStats?.totalFrozenPercent ?? 0],
+    ["Cancelados", ticketStats?.totalCanceledPercent ?? 0],
+  ];
+
   return (
     <div className="base-card-charts">
       <Chart

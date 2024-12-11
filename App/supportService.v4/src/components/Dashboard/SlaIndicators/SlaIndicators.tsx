@@ -14,7 +14,7 @@ function SlaIndicators() {
   const responseColor = averageFirstResponseTime <= 30 ? "green" : "red";
 
   return (
-    <div className="sla-panel">
+    <div className="sla-container">
       <span className="title-panel-tickets">
         Indicadores de SLA - Dia Atual
       </span>

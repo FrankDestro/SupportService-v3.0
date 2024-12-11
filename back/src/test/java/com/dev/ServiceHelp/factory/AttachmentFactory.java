@@ -15,9 +15,18 @@ public class AttachmentFactory {
     public static AttachmentMapper attachmentMapper;
 
     public static Attachment createAttachmentEntity() {
-        return new Attachment(1L, "anexo", Instant.now(),
-                "file", FileType.PDF, TicketFactory.createTicketEntity(), UserFactory.createUserEntity());
+        return new Attachment(
+                1L,
+                "anexo",
+                Instant.now(),
+                "file",
+                FileType.PDF,
+                TicketFactory.createTicketEntity(),
+                UserFactory.createUserEntity(),
+                null
+        );
     }
+
     public static AttachmentDTO createAttachmentDTO() {
         return new AttachmentDTO(1L, "anexo", Instant.now(),
                 "file", FileType.PDF, 1L, null);

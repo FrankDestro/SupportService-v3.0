@@ -70,17 +70,26 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     ActivityPanelSummaryPercentTicketsProjection ActivityPanelSummaryPercentTickets();
 
     @Query(nativeQuery = true, value = """
-            SELECT
-                COUNT(t.id) AS totalTickets,
-                ROUND(SUM(CASE WHEN t.sla_id = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalLow, 
-                ROUND(SUM(CASE WHEN t.sla_id = 2 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalMedium, 
-                ROUND(SUM(CASE WHEN t.sla_id = 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalHigh,  
-                ROUND(SUM(CASE WHEN t.sla_id = 4 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalCritical, 
-                ROUND(SUM(CASE WHEN t.sla_id = 5 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalUrgent
-            FROM public.ticket AS t
-            WHERE t.registration_date >= CURRENT_DATE
-                AND t.registration_date < CURRENT_DATE + INTERVAL '1 day';
-            """)
+    SELECT
+        COUNT(t.id) AS totalTickets,
+        ROUND(SUM(CASE WHEN t.sla_id = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalLowPercent,
+        SUM(CASE WHEN t.sla_id = 1 THEN 1 ELSE 0 END) AS totalLowQuantity,
+
+        ROUND(SUM(CASE WHEN t.sla_id = 2 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalMediumPercent,
+        SUM(CASE WHEN t.sla_id = 2 THEN 1 ELSE 0 END) AS totalMediumQuantity,
+
+        ROUND(SUM(CASE WHEN t.sla_id = 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalHighPercent,
+        SUM(CASE WHEN t.sla_id = 3 THEN 1 ELSE 0 END) AS totalHighQuantity,
+
+        ROUND(SUM(CASE WHEN t.sla_id = 4 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalCriticalPercent,
+        SUM(CASE WHEN t.sla_id = 4 THEN 1 ELSE 0 END) AS totalCriticalQuantity,
+
+        ROUND(SUM(CASE WHEN t.sla_id = 5 THEN 1 ELSE 0 END) * 100.0 / COUNT(t.id), 2) AS totalUrgentPercent,
+        SUM(CASE WHEN t.sla_id = 5 THEN 1 ELSE 0 END) AS totalUrgentQuantity
+        FROM public.ticket AS t
+        WHERE t.registration_date >= CURRENT_DATE
+        AND t.registration_date < CURRENT_DATE + INTERVAL '1 day';
+    """)
     ActivityPanelSummaryTicketsByUrgencyProjection ActivityPanelSummaryTicketsByUrgency();
 
     @Query(nativeQuery = true, value = """
@@ -127,8 +136,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
         ROUND(
             (SUM(
                 CASE
-                    WHEN t.completion_date <= t.due_date 
-                         AND t.completion_date >= CURRENT_DATE 
+                    WHEN t.completion_date <= t.due_date
+                         AND t.completion_date >= CURRENT_DATE
                          AND t.completion_date < CURRENT_DATE + INTERVAL '1 day'
                     THEN 1
                     ELSE 0
@@ -142,26 +151,34 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
       AND t.due_date IS NOT NULL
       AND t.completion_date >= CURRENT_DATE
       AND t.completion_date < CURRENT_DATE + INTERVAL '1 day';
-      """)
+    """)
     ActivityPanelPercentOnSlaProjection activityPanelPercentOnSla();
 
 
     @Query(nativeQuery = true, value = """
-           SELECT
-                                    ROUND(
-                                        AVG(EXTRACT(EPOCH FROM (th.registration_date - t.registration_date)) / 60), 2
-                                    ) AS averageFirstResponseTime
-                                FROM public.ticket AS t
-                                JOIN public.ticket_history AS th ON t.id = th.ticket_id
-                                WHERE th.description = 'Ticket In progress'  
-                                  AND t.registration_date IS NOT NULL
-                                  AND th.registration_date IS NOT NULL
-                                  AND t.status_ticket != 4  
-                                  AND t.registration_date >= CURRENT_DATE
-                                  AND t.registration_date < CURRENT_DATE + INTERVAL '1 day'
-                                GROUP BY t.id;
-      """)
+    SELECT
+        ROUND(
+            AVG(
+                EXTRACT(EPOCH FROM (th.registration_date - t.registration_date)) / 60
+            ), 2
+        ) AS averageFirstResponseTime
+    FROM
+        public.ticket AS t
+    JOIN
+        public.ticket_history AS th
+        ON t.id = th.ticket_id
+    WHERE
+        th.description = 'Ticket In progress'
+        AND t.registration_date IS NOT NULL
+        AND th.registration_date IS NOT NULL
+        AND t.status_ticket != 4
+        AND t.registration_date >= CURRENT_DATE
+        AND t.registration_date < CURRENT_DATE + INTERVAL '1 day'
+    GROUP BY
+        t.id;
+    """)
     activityPanelAverageFirstResponseTimeProjection activityPanelAverageFirstResponseTime();
+
 
 
 

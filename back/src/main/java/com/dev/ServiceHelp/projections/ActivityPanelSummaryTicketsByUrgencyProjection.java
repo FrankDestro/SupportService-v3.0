@@ -4,13 +4,18 @@ public interface ActivityPanelSummaryTicketsByUrgencyProjection {
 
     Integer getTotalTickets();
 
-    Double getTotalLow();
+    Double getTotalLowPercent();
+    Integer getTotalLowQuantity();
 
-    Double getTotalMedium();
+    Double getTotalMediumPercent();
+    Integer getTotalMediumQuantity();
 
-    Double getTotalHigh();
+    Double getTotalHighPercent();
+    Integer getTotalHighQuantity();
 
-    Double getTotalCritical();
+    Double getTotalCriticalPercent();
+    Integer getTotalCriticalQuantity();
 
-    Double getTotalUrgent();
+    Double getTotalUrgentPercent();
+    Integer getTotalUrgentQuantity();
 }

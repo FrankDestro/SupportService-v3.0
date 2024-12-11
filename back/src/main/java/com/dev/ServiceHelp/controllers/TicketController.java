@@ -92,10 +92,10 @@ public class TicketController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
-    @GetMapping(value = "/getActivityPanelSummaryTicketsValueByUrgencyProjection")
-    public ResponseEntity<ActivityPanelSummaryTicketsValueByUrgencyProjection> getActivityPanelSummaryTicketsValueByUrgencyProjection() throws ParseException {
-        ActivityPanelSummaryTicketsValueByUrgencyProjection activityPanelSummaryTicketsValueByUrgencyProjection = ticketService.getActivityPanelSummaryTicketsValueByUrgencyProjection();
-        return ResponseEntity.ok(activityPanelSummaryTicketsValueByUrgencyProjection);
+    @GetMapping(value = "/getActivityPanelSummaryTicketsValueByUrgency")
+    public ResponseEntity<ActivityPanelSummaryTicketsValueByUrgencyProjection> getActivityPanelSummaryTicketsValueByUrgency() throws ParseException {
+        ActivityPanelSummaryTicketsValueByUrgencyProjection activityPanelSummaryTicketsValueByUrgency = ticketService.getActivityPanelSummaryTicketsValueByUrgency();
+        return ResponseEntity.ok(activityPanelSummaryTicketsValueByUrgency);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")

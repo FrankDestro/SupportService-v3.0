@@ -1,8 +1,7 @@
-.sla-panel {
+.sla-container {
   background-color: #ffffff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .title-panel-tickets {
@@ -15,11 +14,11 @@
 .sla-items-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 }
 
 .sla-item {
-  width: 30%;
+  width: 100%;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -28,6 +27,7 @@
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
+  margin-bottom: 15px
 }
 
 .sla-item-title {

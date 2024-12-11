@@ -1,9 +1,9 @@
-import ActivityPanel from "../../components/ActivityPanel/ActivityPanel";
+import ActivityPainelPage from "../ActivityPainelPage/ActivityPainelPage";
 
 function Home() {
   return (
     <div>
-    <ActivityPanel/>
+    <ActivityPainelPage/>
     </div>
   );
 }

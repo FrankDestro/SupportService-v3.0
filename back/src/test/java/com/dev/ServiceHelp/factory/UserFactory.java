@@ -1,6 +1,7 @@
 package com.dev.ServiceHelp.factory;
 
 import com.dev.ServiceHelp.dto.UserDTO;
+import com.dev.ServiceHelp.entities.SolvingArea;
 import com.dev.ServiceHelp.entities.User;
 import com.dev.ServiceHelp.enums.StatusUser;
 import com.dev.ServiceHelp.mappers.UserMapper;
@@ -36,7 +37,9 @@ public class UserFactory {
                 null,
                 null,
                 null,
-                null);
+                null,
+                null
+                );
         return user;
     }
 
