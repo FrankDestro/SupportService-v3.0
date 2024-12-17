@@ -54,13 +54,13 @@ public class TicketService {
     @Transactional
     public TicketSimpleDTO createTicket(TicketSimpleDTO ticketSimpleDTO) {
 
-        TypeRequest typeRequest = ResourceUtil.getOrThrow(
-                typeRequestRepository.findById(ticketSimpleDTO.getTypeRequest().getId()),
-                "TypeRequest with ID " + ticketSimpleDTO.getTypeRequest().getId() + " not found");
-
         SLA sla = ResourceUtil.getOrThrow(
                 slaRepository.findById(ticketSimpleDTO.getSla().getId()),
                 "SLA with ID " + ticketSimpleDTO.getSla().getId() + " not found");
+
+        TypeRequest typeRequest = ResourceUtil.getOrThrow(
+                typeRequestRepository.findById(ticketSimpleDTO.getTypeRequest().getId()),
+                "TypeRequest with ID " + ticketSimpleDTO.getTypeRequest().getId() + " not found");
 
         CategoryTicket categoryTicket = ResourceUtil.getOrThrow(
                 categoryTicketRepository.findById(ticketSimpleDTO.getCategoryTicket().getId()),

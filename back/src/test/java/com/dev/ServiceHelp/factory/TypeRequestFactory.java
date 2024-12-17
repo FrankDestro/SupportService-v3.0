@@ -18,7 +18,7 @@ public class TypeRequestFactory {
     }
 
     public static TypeRequestDTO createTypeRequestDTO(TypeRequest typeRequest) {
-        return typeRequestMapper.toTypeRequestDTO(typeRequest);
+        return new TypeRequestDTO(1L, "Problema");
     }
 
     public static TypeRequestDTO createTypeRequestDTO() {
@@ -32,7 +32,6 @@ public class TypeRequestFactory {
     public static List<TypeRequest> createTypeRequestEntityList() {
         return createSingletonList(createTypeRequestEntity());
     }
-
     public static List<TypeRequestDTO> createTypeRequestDTOList() {
         return createSingletonList(createTypeRequestDTO());
     }

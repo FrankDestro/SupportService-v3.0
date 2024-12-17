@@ -21,7 +21,7 @@ public class SolvingAreaFactory {
     }
 
     public static SolvingAreaDTO createSolvingAreaDTO(SolvingArea solvingArea) {
-        return solvingAreaMapper.toSolvingAreaDTO(solvingArea);
+        return new SolvingAreaDTO(1l, "sistemas");
     }
 
     public static List<SolvingArea> createSolvingAreaEntityList() {

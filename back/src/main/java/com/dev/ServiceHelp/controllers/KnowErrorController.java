@@ -37,7 +37,8 @@ public class KnowErrorController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping("/getKnowErrorByCriteria")
-    public ResponseEntity<List<KnowErrorDTO>> getTicketsByCriteria(
+    public ResponseEntity<Page<KnowErrorDTO>> getTicketsByCriteria(
+            @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "titleText", required = false) String titleText,
             @RequestParam(name = "rootCauseText", required = false) String rootCauseText,
             @RequestParam(name = "solution", required = false) String solution,
@@ -45,11 +46,12 @@ public class KnowErrorController {
             @RequestParam(name = "initialDate", required = false) LocalDate initialDate,
             @RequestParam(name = "finalDate", required = false) LocalDate finalDate,
             @RequestParam(name = "initialDateResolution", required = false) LocalDate initialDateResolution,
-            @RequestParam(name = "finalDateResolution", required = false) LocalDate finalDateResolution
+            @RequestParam(name = "finalDateResolution", required = false) LocalDate finalDateResolution,
+            Pageable pageable
             )
         {
-            List<KnowErrorDTO> list = knowErrorService.findKnowErrorsWithFilters( titleText, rootCauseText, solution, status, initialDate, finalDate,
-                    initialDateResolution, finalDateResolution);
+            Page<KnowErrorDTO> list = knowErrorService.findKnowErrorsWithFilters(id, titleText, rootCauseText, solution, status, initialDate, finalDate,
+                    initialDateResolution, finalDateResolution, pageable);
             return ResponseEntity.ok().body(list);
         }
     }

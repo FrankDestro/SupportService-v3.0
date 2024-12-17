@@ -6,6 +6,8 @@ import com.dev.ServiceHelp.mappers.KnowErrorMapper;
 import com.dev.ServiceHelp.repository.KnowErrorRepository;
 import com.dev.ServiceHelp.utils.ResourceUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,13 +30,14 @@ public class KnowErrorService {
     }
 
     @Transactional(readOnly = true)
-    public List<KnowErrorDTO> findKnowErrorsWithFilters(String titleText, String rootCauseText, String solution, String status, LocalDate initialDate, LocalDate finalDate,
+    public Page<KnowErrorDTO> findKnowErrorsWithFilters(Long id, String titleText, String rootCauseText, String solution, String status, LocalDate initialDate, LocalDate finalDate,
                                                         LocalDate initialDateResolution,
-                                                        LocalDate finalDateResolution
+                                                        LocalDate finalDateResolution,
+                                                        Pageable pageable
     ) {
-        List<KnowError> knowErrorsList = knowErrorRepository.findKnowErrorsWithFilters(
-                titleText, rootCauseText, solution, status, initialDate, finalDate, initialDateResolution, finalDateResolution);
+        Page<KnowError> knowErrorsList = knowErrorRepository.findKnowErrorsWithFilters(id,
+                titleText, rootCauseText, solution, status, initialDate, finalDate, initialDateResolution, finalDateResolution, pageable);
 
-        return knowErrorsList.stream().map(knowError -> knowErrorMapper.toKnowErrorDTO(knowError)).toList();
+        return knowErrorsList.map(knowErrorMapper::toKnowErrorDTO);
     }
 }

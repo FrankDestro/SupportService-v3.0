@@ -10,7 +10,17 @@ import "./KEDBSearch.css";
 import { Accordion } from "react-bootstrap";
 
 type Props = {
-  onSearch: (formData: FormData) => void;
+  onSearch: (formData: {
+    titleText: string;
+    rootCauseText: string;
+    solution: string;
+    status: string;
+    initialDate: string;
+    finalDate: string;
+    initialDateResolution: string;
+    finalDateResolution: string;
+    tags: string[];
+  }) => void;
 };
 
 function KEDBSearch({ onSearch }: Props) {
@@ -23,7 +33,7 @@ function KEDBSearch({ onSearch }: Props) {
     finalDate: "",
     initialDateResolution: "",
     finalDateResolution: "",
-    tags: "",
+    tags: [] as string[],  // Alterando para um array vazio
   });
 
   function handleInputChange(
@@ -35,26 +45,18 @@ function KEDBSearch({ onSearch }: Props) {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    const formData = new FormData();
-    Object.entries(filters).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    const formData = {
+      titleText: filters.titleText,
+      rootCauseText: filters.rootCauseText,
+      solution: filters.solution,
+      status: filters.status,
+      initialDate: filters.initialDate,
+      finalDate: filters.finalDate,
+      initialDateResolution: filters.initialDateResolution,
+      finalDateResolution: filters.finalDateResolution,
+      tags: words,  // Usando o array words diretamente
+    };
     onSearch(formData);
-  }
-
-  function handleClearFilters(): void {
-    setFilters({
-      titleText: "",
-      rootCauseText: "",
-      solution: "",
-      status: "",
-      initialDate: "",
-      finalDate: "",
-      initialDateResolution: "",
-      finalDateResolution: "",
-      tags: "",
-    });
-    setWords([]);
   }
 
   const [words, setWords] = useState<string[]>([]);
@@ -74,6 +76,21 @@ function KEDBSearch({ onSearch }: Props) {
   const handleRemoveWord = (wordToRemove: string) => {
     setWords(words.filter((word) => word !== wordToRemove));
   };
+
+    function handleClearFilters(): void {
+    setFilters({
+      titleText: "",
+      rootCauseText: "",
+      solution: "",
+      status: "",
+      initialDate: "",
+      finalDate: "",
+      initialDateResolution: "",
+      finalDateResolution: "",
+      tags: [],
+    });
+    setWords([]);
+  }
 
   return (
     <Accordion defaultActiveKey="0">
