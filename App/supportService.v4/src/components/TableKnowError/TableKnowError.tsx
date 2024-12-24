@@ -1,9 +1,11 @@
-import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./TableKnowError.css";
 import * as functions from "../../utils/functions";
+import "./TableKnowError.css";
+import { format } from "date-fns";
+import { parseISO } from "date-fns"; // Caso a data esteja como string no formato ISO
 
 type TableKnowErrorProps = {
   knowerros: KnowError[];
@@ -65,8 +67,14 @@ const TableKnowError = ({ knowerros }: TableKnowErrorProps) => {
                   {knowerrosItem.status}
                 </span>
               </td>
-              <td>{knowerrosItem.createDate}</td>
-              <td>{knowerrosItem.resolutionDate}</td>
+              <td>
+                {format(parseISO(knowerrosItem.createDate), "dd/MM/yyyy")}
+              </td>
+              <td>
+                {knowerrosItem.resolutionDate
+                  ? format(parseISO(knowerrosItem.resolutionDate), "dd/MM/yyyy")
+                  : "N/A"}
+              </td>
               <td>{knowerrosItem.userID}</td>
               <td>{knowerrosItem.userEmail}</td>
               <td>

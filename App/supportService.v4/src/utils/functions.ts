@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { differenceInDays, differenceInHours, differenceInMinutes, parseISO } from "date-fns";
+import { UserDTO } from "../models/RequesterDTO";
+
 
 export const getStatusUserBadgeStyle = (status: string): React.CSSProperties => {
   switch (status.toLowerCase()) {
@@ -237,3 +239,42 @@ export const validatePassword = (password: string): boolean => {
   return regex.test(password);
 };
 
+export const removeTags = (value: string) => {
+  const plainText = value.replace(/<\/?[^>]+(>|$)/g, "");
+  return plainText;
+};
+
+
+export function toUserDTO(formData: any): UserDTO {
+  const data: any = {};
+
+  // Transformando os campos para o formato esperado no UserDTO
+  data.firstName = formData.firstName;
+  data.lastName = formData.lastName;
+  data.email = formData.email;
+  data.contactNumber = formData.contactNumber;
+
+  // Transformando o departamento e área solucionadora para objetos (caso sejam passados como IDs)
+  if (formData.department) {
+    data.department = { id: parseInt(formData.department, 10) };
+  }
+  if (formData.solvingArea) {
+    data.solvingArea = { id: parseInt(formData.solvingArea, 10) };
+  }
+
+  // Transformando permissões (roles) em um array de objetos, caso existam
+  if (formData.roles && Array.isArray(formData.roles)) {
+    data.roles = formData.roles.map((roleId: string) => ({ id: parseInt(roleId, 10) }));
+  } else {
+    data.roles = [];
+  }
+
+  // Se a imagem de perfil foi adicionada, você pode incluir ela como base64 ou em um formato adequado
+  if (formData.imgProfile && formData.imgProfile instanceof File) {
+    // Aqui você pode tratar a imagem conforme necessário (ex: convertendo para base64)
+    // Por enquanto, deixo como um exemplo de como você pode incluir a imagem
+    data.imgProfile = formData.imgProfile;
+  }
+
+  return data;
+}

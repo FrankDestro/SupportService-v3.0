@@ -176,6 +176,7 @@ function SearchTicker({ onSearch }: Props) {
             background="#11344d"
             hoverColor="#335577"
             type="submit"
+            borderRadius="5px"
           />
           <div onClick={handleClearFilters}>
             <Button
@@ -183,6 +184,7 @@ function SearchTicker({ onSearch }: Props) {
               icon={faEraser}
               background="#11344d"
               hoverColor="#335577"
+              borderRadius="5px"
             />
           </div>
         </div>

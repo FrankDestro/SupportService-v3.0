@@ -1,28 +1,38 @@
+import { faCheckCircle, faFile } from "@fortawesome/free-solid-svg-icons";
 import { faDatabase } from "@fortawesome/free-solid-svg-icons/faDatabase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
+import * as AttachmentService from "../../Service/attachment-service";
 import * as CategoryTicketService from "../../Service/category-service";
 import * as SlaService from "../../Service/sla-service";
 import * as TicketService from "../../Service/ticket-service";
 import * as TypeRequestService from "../../Service/type-request";
-import * as AttachmentService from "../../Service/attachment-service";
+import { AttachmentsDTO } from "../../models/AttachmentsDTO";
 import { CategoryTicketDTO } from "../../models/CategoryTicketDTO";
 import { SLADTO } from "../../models/slaDTO";
 import { TypeRequestDTO } from "../../models/typeRequestDTO";
 import { cleanDescription, toValuesTicket } from "../../utils/functions";
 import Button from "../Button/Button";
+import DialogInfo from "../DialogInfo/DialogInfo";
 import "./TicketFormCreate.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
-import { AttachmentsDTO } from "../../models/AttachmentsDTO";
 
 function TicketFormCreate() {
   const [typeRequests, setTypeRequests] = useState<TypeRequestDTO[]>([]);
   const [categoryTicket, setCategoryTicket] = useState<CategoryTicketDTO[]>([]);
   const [slaList, setSlaList] = useState<SLADTO[]>([]);
 
-  // Novo estado para anexos
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação com Sucesso!",
+  });
+
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
+    window.location.reload();
+  }
+
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
 
   useEffect(() => {
@@ -39,7 +49,6 @@ function TicketFormCreate() {
     });
   }, []);
 
-  // Função para lidar com anexos de arquivos
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
@@ -47,12 +56,10 @@ function TicketFormCreate() {
     }
   };
 
-  // Função para remover um anexo
   const handleRemoveFile = (index: number) => {
     setAttachedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
-  // Função para exibir os arquivos anexados
   const renderAttachedFiles = () => {
     return attachedFiles.map((file, index) => (
       <div key={index} className="file-preview">
@@ -69,9 +76,6 @@ function TicketFormCreate() {
     ));
   };
 
-  console.log(attachedFiles);
-
-  // Estado do formulário com dados iniciais
   const [formData, setFormData] = useState({
     description: "",
     typeRequest: "",
@@ -103,7 +107,10 @@ function TicketFormCreate() {
     TicketService.createTicket(requestBody)
       .then((response) => {
         console.log(response.data.id);
-
+        setDialogInfoData({
+          visible: true,
+          message: "Ticket aberto com sucesso!",
+        });
         if (attachedFiles.length !== 0) {
           attachedFiles.forEach((file) => {
             const attachmentData = {
@@ -143,7 +150,6 @@ function TicketFormCreate() {
                 />
               </div>
 
-              {/* Categoria de Ticket */}
               <div className="ticket-form-item">
                 <label htmlFor="categoryTicket">Categoria</label>
                 <select
@@ -243,15 +249,31 @@ function TicketFormCreate() {
                 {renderAttachedFiles()}
               </div>
             </div>
-            <Button
-              text="Criar Ticket"
-              icon={faDatabase}
-              background="#11344d"
-              type="submit"
-              width="200px"
-              borderRadius="5px"
-            />
+
+            <div
+              style={{ width: "100%", display: "flex", justifyContent: "end" }}
+            >
+              <Button
+                text="Criar Ticket"
+                icon={faDatabase}
+                background="#11344d"
+                type="submit"
+                width="200px"
+                borderRadius="5px"
+                hoverColor="#11344dc7"
+              />
+            </div>
           </div>
+          {dialogInfoData.visible && (
+            <DialogInfo
+              IconColor="#3a7e24"
+              ButtonColor="#3a7e24"
+              ButtonHoverColor="#70a94a"
+              Icon={faCheckCircle}
+              message={dialogInfoData.message}
+              onDialogClose={handleDialogInfoClose}
+            />
+          )}
         </div>
       </form>
     </div>

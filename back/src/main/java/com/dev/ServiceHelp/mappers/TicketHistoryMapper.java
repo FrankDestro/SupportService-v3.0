@@ -35,9 +35,11 @@ public interface TicketHistoryMapper {
         TicketHistory ticketHistory = new TicketHistory();
         ticketHistory.setTicket(ticket);
         ticketHistory.setDescription(ticketHistoryDTO.getDescription());
+        ticketHistory.setAnnotationPublic(ticketHistoryDTO.isAnnotationPublic());
+        ticketHistory.setNoteType(ticketHistoryDTO.getNoteType());
+        ticketHistory.setVisibleToRequester(ticketHistoryDTO.isVisibleToRequester());
         ticketHistory.setUser(user);
         ticketHistory.setSystemGenerated(false);
-        ticketHistory.setNoteType(ticketHistoryDTO.getNoteType());
         ticketHistory.setRegistrationDate(Instant.now());
         return ticketHistory;
     }

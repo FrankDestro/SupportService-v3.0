@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import "./DialogUserCreateModal2.css";
+import { useEffect } from "react";
 import UserFormCreate from "../UserFormCreate/UserFormCreate";
-import Button from "../Button/Button";
-import { faCancel, faDatabase } from "@fortawesome/free-solid-svg-icons";
+import "./DialogUserCreateModal2.css";
 
 type Props = {
   isVisible: boolean;
@@ -10,8 +8,6 @@ type Props = {
 };
 
 function DialogUserCreateModal2({ isVisible, onClose }: Props) {
-  const [formData, setFormData] = useState<FormData | null>(null);
-
   useEffect(() => {
     const modalElement = document.getElementById("exampleModal");
 
@@ -25,17 +21,6 @@ function DialogUserCreateModal2({ isVisible, onClose }: Props) {
       }
     }
   }, [isVisible]);
-
-  const handleFormSubmit = (data: FormData) => {
-    setFormData(data);
-    onClose();
-  };
-
-  useEffect(() => {
-    if (formData) {
-      console.log(formData); // Agora os dados serão impressos sempre que formData for atualizado
-    }
-  }, [formData]);
 
   return (
     <>
@@ -61,34 +46,7 @@ function DialogUserCreateModal2({ isVisible, onClose }: Props) {
               ></button>
             </div>
             <div className="modal-body">
-              <UserFormCreate onSubmit={handleFormSubmit} />
-            </div>
-            <div className="modal-footer">
-              <div data-bs-dismiss="modal" aria-label="Close" onClick={onClose}>
-                <Button
-                  text="Cancelar"
-                  icon={faCancel}
-                  background="#11344d"
-                  hoverColor="#335577"
-                  width="100%"
-                  borderRadius="5px"
-                  type="button"
-                />
-              </div>
-              <button
-                type="submit"
-                form="userForm"
-              >
-                <Button
-                  text="Salvar"
-                  icon={faDatabase}
-                  background="#11344d"
-                  hoverColor="#335577"
-                  width="100%"
-                  borderRadius="5px"
-                  type="submit"
-                />
-              </button>
+              <UserFormCreate />
             </div>
           </div>
         </div>

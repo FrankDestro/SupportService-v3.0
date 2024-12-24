@@ -1,16 +1,12 @@
-import {
-  faEraser,
-  faFilter,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEraser, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { Accordion } from "react-bootstrap";
 import Button from "../Button/Button";
 import "./KEDBSearch.css";
-import { Accordion } from "react-bootstrap";
 
 type Props = {
   onSearch: (formData: {
+    id: string;
     titleText: string;
     rootCauseText: string;
     solution: string;
@@ -25,6 +21,7 @@ type Props = {
 
 function KEDBSearch({ onSearch }: Props) {
   const [filters, setFilters] = useState({
+    id: "",
     titleText: "",
     rootCauseText: "",
     solution: "",
@@ -33,7 +30,7 @@ function KEDBSearch({ onSearch }: Props) {
     finalDate: "",
     initialDateResolution: "",
     finalDateResolution: "",
-    tags: [] as string[],  // Alterando para um array vazio
+    tags: [] as string[], // Alterando para um array vazio
   });
 
   function handleInputChange(
@@ -46,6 +43,7 @@ function KEDBSearch({ onSearch }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     const formData = {
+      id: filters.id,
       titleText: filters.titleText,
       rootCauseText: filters.rootCauseText,
       solution: filters.solution,
@@ -54,7 +52,7 @@ function KEDBSearch({ onSearch }: Props) {
       finalDate: filters.finalDate,
       initialDateResolution: filters.initialDateResolution,
       finalDateResolution: filters.finalDateResolution,
-      tags: words,  // Usando o array words diretamente
+      tags: words, // Usando o array words diretamente
     };
     onSearch(formData);
   }
@@ -77,8 +75,9 @@ function KEDBSearch({ onSearch }: Props) {
     setWords(words.filter((word) => word !== wordToRemove));
   };
 
-    function handleClearFilters(): void {
+  function handleClearFilters(): void {
     setFilters({
+      id: "",
       titleText: "",
       rootCauseText: "",
       solution: "",
@@ -103,6 +102,17 @@ function KEDBSearch({ onSearch }: Props) {
                 <div className="kedb-input-container">
                   <input
                     type="text"
+                    placeholder=""
+                    name="id"
+                    value={filters.id}
+                    onChange={handleInputChange}
+                    className="floating-input"
+                  />
+                  <label className="floating-label">Id</label>
+                </div>
+                <div className="kedb-input-container">
+                  <input
+                    type="text"
                     placeholder=" "
                     name="titleText"
                     value={filters.titleText}
@@ -110,7 +120,6 @@ function KEDBSearch({ onSearch }: Props) {
                     className="floating-input"
                   />
                   <label className="floating-label">Titulo de Erro</label>
-                  <FontAwesomeIcon icon={faSearch} className="kedb-icon" />
                 </div>
                 <div className="kedb-input-container">
                   <input
@@ -122,7 +131,6 @@ function KEDBSearch({ onSearch }: Props) {
                     className="floating-input"
                   />
                   <label className="floating-label">Causa Raiz</label>
-                  <FontAwesomeIcon icon={faSearch} className="kedb-icon" />
                 </div>
                 <div className="kedb-input-container">
                   <input
@@ -134,7 +142,6 @@ function KEDBSearch({ onSearch }: Props) {
                     className="floating-input"
                   />
                   <label className="floating-label">Solução</label>
-                  <FontAwesomeIcon icon={faSearch} className="kedb-icon" />
                 </div>
 
                 <div className="kedb-select-container">

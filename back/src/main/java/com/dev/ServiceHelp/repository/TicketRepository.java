@@ -178,26 +178,4 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
         t.id;
     """)
     activityPanelAverageFirstResponseTimeProjection activityPanelAverageFirstResponseTime();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

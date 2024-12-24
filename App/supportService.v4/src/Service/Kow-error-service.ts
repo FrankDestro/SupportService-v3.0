@@ -3,6 +3,7 @@ import { requestBackendConfig } from "../utils/apiService";
 
 export function allKownErrorRequest(
   page: number,
+  id : string,
   titleText: string,
   rootCauseText: string,
   solution: string,
@@ -20,6 +21,7 @@ export function allKownErrorRequest(
     params: {
       page,
       titleText,
+      id,
       rootCauseText,
       solution,
       status,

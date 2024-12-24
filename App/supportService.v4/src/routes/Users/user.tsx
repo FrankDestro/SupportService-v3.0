@@ -87,7 +87,7 @@ function User() {
         <SearchUser onSearch={handleSearch} />
       </div>
 
-      {isLoading ? ( // Exibe o spinner durante o carregamento
+      {isLoading ? (
         <div className="spinner-container">
           <div className="spinner-border" role="status"></div>
           <span>Carregando....</span>

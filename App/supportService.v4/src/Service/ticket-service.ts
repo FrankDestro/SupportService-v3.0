@@ -40,7 +40,7 @@ export function ticketById(id: number) {
 export function createTicket(obj: TicketDTO) {
   const config: AxiosRequestConfig = {
     method: "POST",
-    url: "/ticket",
+    url: "/ticket/create",
     withCredentials: true,
     data: obj,
   };

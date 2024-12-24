@@ -1,12 +1,15 @@
+import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import KEDBSearch from "../../components/KEDBSearch/KEDBSearch";
+import NoData from "../../components/NoData/NoData";
+import Pagination from "../../components/Pagination/Pagination";
 import TableKnowError from "../../components/TableKnowError/TableKnowError";
-import { errors } from "../../mocks/KnowErrosData"; // Importando os dados
 import { knowErrorSimpleDTO } from "../../models/knowErrorDTO";
 import * as knowErrorService from "../../Service/Kow-error-service";
 
 type QueryParams = {
   page: number;
+  id: string;
   titleText: string;
   rootCauseText: string;
   solution: string;
@@ -19,10 +22,12 @@ type QueryParams = {
 };
 
 function KnowErrorDbPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [knowErros, setKnowErros] = useState<knowErrorSimpleDTO[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: 0,
+    id: "",
     titleText: "",
     rootCauseText: "",
     solution: "",
@@ -34,8 +39,8 @@ function KnowErrorDbPage() {
     tags: [],
   });
 
-  // Função que recebe os dados do formulário e atualiza o estado
   function handleSearch(formData: {
+    id: string;
     titleText: string;
     rootCauseText: string;
     solution: string;
@@ -46,43 +51,71 @@ function KnowErrorDbPage() {
     finalDateResolution: string;
     tags: string[];
   }) {
-    // Atualizando os parâmetros de consulta com os dados do formulário
     setQueryParams((prev) => ({
       ...prev,
-      ...formData, // Adicionando os valores do formulário
-      page: prev.page, // Mantendo a página atual
+      ...formData,
+      page: prev.page,
     }));
   }
 
   useEffect(() => {
-    knowErrorService.allKownErrorRequest(
-      queryParams.page,
-      queryParams.titleText,
-      queryParams.rootCauseText,
-      queryParams.solution,
-      queryParams.status,
-      queryParams.initialDate,
-      queryParams.finalDate,
-      queryParams.initialDateResolution,
-      queryParams.finalDateResolution,
-      queryParams.tags
-    ).then((response) => {
-      const { totalPages, content } = response.data;
-      setTotalPages(totalPages);
-      setKnowErros(content);
-    })
+    knowErrorService
+      .allKownErrorRequest(
+        queryParams.page,
+        queryParams.id,
+        queryParams.titleText,
+        queryParams.rootCauseText,
+        queryParams.solution,
+        queryParams.status,
+        queryParams.initialDate,
+        queryParams.finalDate,
+        queryParams.initialDateResolution,
+        queryParams.finalDateResolution,
+        queryParams.tags
+      )
+      .then((response) => {
+        const { totalPages, content } = response.data;
+        setTotalPages(totalPages);
+        setKnowErros(content);
+      })
+      .finally(() => setIsLoading(false));
   }, [queryParams]);
 
+  console.log(knowErros);
 
-  console.log(knowErros)
+  const handlePageChange = (newPage: number) => {
+    setQueryParams({ ...queryParams, page: newPage });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <>
+    <div>
       <div className="container-base">
         <KEDBSearch onSearch={handleSearch} />
       </div>
-      <TableKnowError knowerros={errors} />
-    </>
+      {isLoading ? (
+        <div className="spinner-container">
+          <div className="spinner-border" role="status"></div>
+          <span>Carregando....</span>
+        </div>
+      ) : knowErros.length === 0 ? (
+        <NoData icon={faDatabase} message="Não há dados disponíveis" />
+      ) : (
+        <>
+          <TableKnowError knowerros={knowErros} />
+          <div className="container-pagination">
+            <Pagination
+              currentPage={queryParams.page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

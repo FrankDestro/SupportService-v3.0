@@ -19,6 +19,7 @@ function SlaSettings() {
 
   function handleDialogInfoClose() {
     setDialogInfoData({ ...dialogInfoData, visible: false })
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -105,9 +106,10 @@ function SlaSettings() {
                 text="Salvar Alterações"
                 icon={faSave}
                 background="#11344d"
-                hoverColor="#335577"
+                hoverColor="#11344dc7"
                 borderRadius="5px"
                 type="submit"
+                
               />
             </form>
           </div>

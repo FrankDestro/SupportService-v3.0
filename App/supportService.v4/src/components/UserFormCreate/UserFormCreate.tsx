@@ -1,22 +1,35 @@
+import {
+  faCancel,
+  faCheckCircle,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import * as departmentService from "../../Service/department-service";
 import * as rolesService from "../../Service/role-service";
 import * as solvingAreaService from "../../Service/solving-area";
+import * as userService from "../../Service/user-service";
 import { DepartmentDTO } from "../../models/DepartmentDTO";
 import { RoleDTO } from "../../models/RoleDTO";
 import { SolvingAreaDTO } from "../../models/solvingAreaDTO";
+import { toUserDTO } from "../../utils/functions";
+import Button from "../Button/Button";
 import "./UserFormCreate.css";
+import DialogInfo from "../DialogInfo/DialogInfo";
 
-type Props = {
-  onSubmit: (formData: FormData) => void;
-};
-
-function UserFormCreate({ onSubmit }: Props) {
-  
-  // requisição
+function UserFormCreate() {
   const [solvingAreas, setSolvingAreas] = useState<SolvingAreaDTO[]>([]);
   const [departments, setDepartments] = useState<DepartmentDTO[]>([]);
   const [roles, setRoles] = useState<RoleDTO[]>([]);
+
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Usuário Cadastrado com Sucesso!",
+  });
+
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
+    window.location.reload();
+  }
 
   useEffect(() => {
     departmentService.getAllDepartment().then((response) => {
@@ -36,20 +49,36 @@ function UserFormCreate({ onSubmit }: Props) {
     });
   }, []);
 
-  //Inputs
-  const [image, setImage] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [email, setEmail] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [areaSolucionadora, setAreaSolucionadora] = useState("");
-  const [departmento, setDepartmento] = useState("");
-  const [permissao, setPermissao] = useState<string[]>([]);
+  const [image, setImage] = useState<File | null>(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    contactNumber: "",
+    department: "",
+    solvingArea: "",
+    imgProfile: "",
+    roles: [] as string[],
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(URL.createObjectURL(file)); // Define a URL da imagem
+      setImage(file);
+      setFormData((prevData) => ({
+        ...prevData,
+        imgProfile: URL.createObjectURL(file), // Atualiza a URL da imagem
+      }));
     }
   };
 
@@ -58,23 +87,41 @@ function UserFormCreate({ onSubmit }: Props) {
       e.target.selectedOptions,
       (option) => option.value
     );
-    setPermissao(selectedValues);
+    setFormData((prevData) => ({
+      ...prevData,
+      roles: selectedValues, // Atualiza as roles selecionadas
+    }));
   };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("não esta mandando e esta certo")
-  }
+    const requestBody = toUserDTO(formData);
+
+    userService
+      .createUser(requestBody)
+      .then(() => {
+        setDialogInfoData({
+          visible: true,
+          message: "Usuário cadastrado com sucesso!",
+        });
+      })
+      .catch((e) => {
+        console.log(e + " erro");
+      });
+  };
 
   return (
-    <div className="container-user-form-create">
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <div className="container-user-form-create">
         <div className="form-container">
-          {/* container do profile */}
           <div className="profile-photo-container">
             <div className="profile-image-circle">
               {image ? (
-                <img src={image} alt="Profile" className="profile-image" />
+                <img
+                  src={formData.imgProfile}
+                  alt="Profile"
+                  className="profile-image"
+                />
               ) : (
                 <span className="profile-image-placeholder">Add Image</span>
               )}
@@ -89,9 +136,6 @@ function UserFormCreate({ onSubmit }: Props) {
               className="profile-image-input"
             />
           </div>
-          {/* container do profile */}
-
-          {/* container do formulário */}
           <div className="form-fields">
             <div className="form-row">
               <div className="form-item">
@@ -100,8 +144,9 @@ function UserFormCreate({ onSubmit }: Props) {
                   type="text"
                   id="firstName"
                   className="floating-input"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  name="firstName"
                 />
               </div>
 
@@ -111,8 +156,9 @@ function UserFormCreate({ onSubmit }: Props) {
                   type="text"
                   id="lastName"
                   className="floating-input"
-                  value={surname}
-                  onChange={(e) => setSurname(e.target.value)}
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  name="lastName"
                 />
               </div>
             </div>
@@ -125,8 +171,9 @@ function UserFormCreate({ onSubmit }: Props) {
                   id="email"
                   placeholder="example@gmail.com"
                   className="floating-input"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={handleChange}
+                  name="email"
                 />
               </div>
 
@@ -137,8 +184,9 @@ function UserFormCreate({ onSubmit }: Props) {
                   id="contactNumber"
                   placeholder="dd + numero"
                   className="floating-input"
-                  value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
+                  value={formData.contactNumber}
+                  onChange={handleChange}
+                  name="contactNumber"
                 />
               </div>
             </div>
@@ -146,8 +194,9 @@ function UserFormCreate({ onSubmit }: Props) {
             <div className="form-item">
               <label htmlFor="department">Departamento</label>
               <select
-                value={departmento}
-                onChange={(e) => setDepartmento(e.target.value)}
+                value={formData.department}
+                onChange={handleChange}
+                name="department"
               >
                 <option value="">Selecione</option>
                 {departments.map((department) => (
@@ -161,8 +210,9 @@ function UserFormCreate({ onSubmit }: Props) {
             <div className="form-item">
               <label htmlFor="solvingArea">Área Solucionadora</label>
               <select
-                value={areaSolucionadora}
-                onChange={(e) => setAreaSolucionadora(e.target.value)}
+                value={formData.solvingArea}
+                onChange={handleChange}
+                name="solvingArea"
               >
                 <option value="">Selecione</option>
                 {solvingAreas.map((area) => (
@@ -172,10 +222,14 @@ function UserFormCreate({ onSubmit }: Props) {
                 ))}
               </select>
             </div>
-             <button type="submit">tes</button>
+
             <div className="form-item">
               <label>Permissões</label>
-              <select multiple value={permissao} onChange={handleSelectChange}>
+              <select
+                multiple
+                value={formData.roles}
+                onChange={handleSelectChange}
+              >
                 <option value="" disabled>
                   Selecione
                 </option>
@@ -188,8 +242,36 @@ function UserFormCreate({ onSubmit }: Props) {
             </div>
           </div>
         </div>
-      </form>
-    </div>
+
+        <div className="container-button-userFormCreate">
+          <Button
+            text="Salvar"
+            icon={faSave}
+            background="#11344d"
+            hoverColor="#335577"
+            type="submit"
+            borderRadius="5px"
+          />
+          <Button
+            text="Cancelar"
+            icon={faCancel}
+            background="#11344d"
+            hoverColor="#335577"
+            borderRadius="5px"
+          />
+        </div>
+        {dialogInfoData.visible && (
+          <DialogInfo
+            IconColor="#3a7e24"
+            ButtonColor="#3a7e24"
+            ButtonHoverColor="#70a94a"
+            Icon={faCheckCircle}
+            message={dialogInfoData.message}
+            onDialogClose={handleDialogInfoClose}
+          />
+        )}
+      </div>
+    </form>
   );
 }
 

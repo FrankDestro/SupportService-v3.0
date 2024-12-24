@@ -1,6 +1,6 @@
 import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import { TicketDTO, TicketSimpleDTO } from "../../models/ticketDTO";
 import TicketDetailsPage from "../../routes/TicketDetailsPage/TicketDetailsPage";
@@ -20,9 +20,6 @@ type Tab = {
 
 function TicketTabsContainer({ tickets, onActiveTabChange }: TicketsProps) {
   const [activeKey, setActiveKey] = useState<string | undefined>("1");
-
-  console.log(activeKey);
-
   const [openTabs, setOpenTabs] = useState<
     Array<{ key: string; ticket: TicketSimpleDTO | TicketDTO | null }>
   >([{ key: "1", ticket: null }]);
@@ -57,6 +54,29 @@ function TicketTabsContainer({ tickets, onActiveTabChange }: TicketsProps) {
     }
   };
 
+  useEffect(() => {
+    // Se o activeKey for "newTicket", devemos garantir que ela seja aberta
+    if (activeKey === "newTicket") {
+      // Adiciona a aba "newTicket" se não estiver já na lista de abas
+      if (!openTabs.some((tab) => tab.key === "newTicket")) {
+        setOpenTabs([...openTabs, { key: "newTicket", ticket: null }]);
+      }
+      return; // Retorna aqui para garantir que o código abaixo não interfira
+    }
+  
+    // Se todas as abas foram fechadas, a aba ativa deve ser a "1"
+    if (openTabs.length === 0) {
+      setActiveKey("1");
+      return;
+    }
+  
+    // Se a aba ativa foi fechada, definimos a última aba ou a principal.
+    if (activeKey && !openTabs.some((tab) => tab.key === activeKey)) {
+      const newActiveKey = openTabs.length > 0 ? openTabs[openTabs.length - 1].key : "1";
+      setActiveKey(newActiveKey);
+    }
+  }, [openTabs, activeKey]);
+  
   return (
     <div className="tickets-container">
       <Tabs

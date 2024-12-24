@@ -160,7 +160,7 @@ function ProfileSettings() {
                   text="Salvar Alterações"
                   icon={faSave}
                   background="#11344d"
-                  hoverColor="#11344d"
+                  hoverColor="#11344dc7"
                   borderRadius="5px"
                   type="submit"
                   width="200px"
@@ -170,7 +170,7 @@ function ProfileSettings() {
                     text="Alterar Senha"
                     icon={faSave}
                     background="#a73e24"
-                    hoverColor="#a73e24"
+                    hoverColor="#a73e24dc"
                     borderRadius="5px"
                     type="button"
                     width="200px"
