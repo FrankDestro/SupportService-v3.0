@@ -13,6 +13,6 @@ USER supportService-user:supportService-group
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
 ENV PATH=$JAVA_HOME/bin:$PATH
 
-ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=128m", "-jar", "supportService.jar"]
+# ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=128m", "-jar", "supportService.jar"]
 
 EXPOSE 8081
