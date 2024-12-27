@@ -39,3 +39,6 @@ build/
 back/docker/data/prometheus/
 back/docker/data/prometheus/queries.active
 
+### .env
+**/.env
+

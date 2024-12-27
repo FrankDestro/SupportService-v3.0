@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine
+FROM amazoncorretto:21-alpine
 
 LABEL name="Support Service"
 LABEL description="API - Support Service Management Tickets"
@@ -8,7 +8,10 @@ RUN addgroup -S supportService-group && adduser -S supportService-user -G suppor
 
 USER supportService-user:supportService-group
 
-ADD ./target/supportService-SNAPSHOT.jar supportService.jar
+# ADD ./target/ServiceHelp-0.0.1-SNAPSHOT.jar supportService.jar
+
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto
+ENV PATH=$JAVA_HOME/bin:$PATH
 
 ENTRYPOINT ["java", "-Xms128m", "-Xmx256m", "-XX:MetaspaceSize=64m", "-XX:MaxMetaspaceSize=128m", "-jar", "supportService.jar"]
 
