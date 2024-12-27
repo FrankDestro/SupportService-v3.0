@@ -170,6 +170,7 @@ function SearchTicker({ onSearch }: Props) {
               className="date-input-ticker"
             />
           </div>
+
           <Button
             text="Filtrar"
             icon={faFilter}
@@ -189,6 +190,47 @@ function SearchTicker({ onSearch }: Props) {
           </div>
         </div>
       </div>
+
+
+      <div className="container-checkbox-search-ticket">
+        <div className="container-form-checkbox">
+          <div className="form-group-checkbox">
+            <input
+              type="checkbox"
+              name="annotationPublic"
+              id="annotationPublic" // ID atualizado para corresponder
+              // checked={formData.annotationPublic}
+              // onChange={handleChange}
+            />
+            <label htmlFor="annotationPublic">Tickets Associados a min</label>
+          </div>
+
+          <div className="form-group-checkbox">
+            <input
+              type="checkbox"
+              id="visibleToRequester" // ID atualizado para corresponder
+              // checked={formData.visibleToRequester}
+              // onChange={handleChange}
+            />
+            <label htmlFor="visibleToRequester">
+             Meu tickets abertos
+            </label>
+          </div>
+          <div className="form-group-checkbox">
+            <input
+              type="checkbox"
+              id="visibleToRequester" // ID atualizado para corresponder
+              // checked={formData.visibleToRequester}
+              // onChange={handleChange}
+            />
+            <label htmlFor="visibleToRequester">
+             Tickets da minha área
+            </label>
+          </div>
+        </div>
+      </div>
+
+
     </form>
   );
 }

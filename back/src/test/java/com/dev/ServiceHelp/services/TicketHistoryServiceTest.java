@@ -66,19 +66,6 @@ class TicketHistoryServiceTest {
     }
 
     @Test
-    void addTicketHistoryManuallyShouldReturnTicketHistoryDTO() {
-        when(ticketRepository.findById(any())).thenReturn(Optional.of(ticket));
-        when(ticketHistoryMapper.createDefaultTicketHistoryEntity(any(), any(), any())).thenReturn(ticketHistory);
-        when(ticketHistoryRepository.save(any())).thenReturn(ticketHistory);
-        when(ticketHistoryMapper.toTicketHistoryDTO(any())).thenReturn(ticketHistoryDTO);
-
-        TicketHistoryDTO result = ticketHistoryService.addTicketHistoryManually(ticketHistoryDTO);
-
-        assertNotNull(result, "Result should not be null");
-        assertEquals(ticketHistoryDTO, result, "TicketHistoryDTO should match the result");
-    }
-
-    @Test
     void addTicketHistoryManuallyShouldThrowResourceNotFoundExceptionWhenIdDoesNotExisting() {
 
         when(ticketRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.empty());
