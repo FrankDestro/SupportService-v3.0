@@ -51,7 +51,9 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
               <th>Tempo restante</th>
               <th>Criticidade</th>
               <th>Status</th>
+              <th>Natureza</th>
               <th>Solicitante</th>
+              <th>Depart. Solicitante</th>
               <th>Em atendimento por</th>
               <th>Finalizado por</th>
               <th>Opções</th>
@@ -93,7 +95,9 @@ function TableTicket({ tickets, onFilter }: TableTicketProps) {
                     {ticket.statusTicket}
                   </span>
                 </td>
+                <td>{ticket.categoryTicket.name}</td>
                 <td>{`${ticket.requester.firstName} ${ticket.requester.lastName}`}</td>
+                <td>{ticket.requester.department.description}</td>  
                 <td>
                   {ticket.technician ? (
                     `${ticket.technician.firstName} ${ticket.technician.lastName}`

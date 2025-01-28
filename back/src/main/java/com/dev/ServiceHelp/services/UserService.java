@@ -132,8 +132,6 @@ public class UserService implements UserDetailsService {
         user.setSolvingArea(solvingArea);
         user.setPassword(passwordEncoder.encode("123"));
         user.setStatusUser(StatusUser.ACTIVE);
-        user.setCreatedAt(Instant.now());
-        user.setCreatedByUserName(authenticated().getId().toString());
         user.setFailedLoginAttempts(0);
         for (RoleDTO roleDto : dto.getRoles()) {
             Role role = roleRepository.getReferenceById(roleDto.id());

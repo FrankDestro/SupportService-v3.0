@@ -1,12 +1,12 @@
 package com.dev.ServiceHelp.dto;
 
-import java.time.Instant;
-import java.util.Set;
-
 import com.dev.ServiceHelp.enums.StatusUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,9 +21,11 @@ public class UserDTO {
     private DepartmentDTO department;
     private SolvingAreaDTO solvingArea;
     private String imgProfile;
-    private Instant createdAt;
     private Integer failedLoginAttempts;
     private Set<RoleDTO> roles;
     private Boolean blocked;
-    private String createdByUserName;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String createdBy;
+    private String updatedBy;
 }

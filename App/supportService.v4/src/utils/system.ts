@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.18.139:8081";
+export const BASE_URL = "http://localhost:8081";
 
 export const CLIENT_ID = "SupportServiceApp";
 export const CLIENT_SECRET = "SupportServiceAppPassword";
